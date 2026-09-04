@@ -27,14 +27,12 @@ body{font-family:var(--sans);background:var(--court);color:var(--chalk);
   font-size:16px;line-height:1.5;padding-bottom:130px;-webkit-font-smoothing:antialiased}
 .wrap{max-width:640px;margin:0 auto;padding:0 16px}
 
-/* riel de sesiones */
-.rail{position:sticky;top:0;z-index:40;background:var(--court);
-  border-bottom:1px solid var(--line)}
-.rail-scroll{max-width:640px;margin:0 auto;display:flex;gap:6px;
-  overflow-x:auto;padding:9px 12px;scrollbar-width:none}
+.rail{position:sticky;top:0;z-index:40;background:var(--court);border-bottom:1px solid var(--line)}
+.rail-scroll{max-width:640px;margin:0 auto;display:flex;gap:6px;overflow-x:auto;
+  padding:9px 12px;scrollbar-width:none}
 .rail-scroll::-webkit-scrollbar{display:none}
-.sesion{flex:0 0 auto;background:none;border:1px solid var(--line);
-  padding:6px 11px 7px;cursor:pointer;text-align:left;transition:.15s;min-width:88px}
+.sesion{flex:0 0 auto;background:none;border:1px solid var(--line);padding:6px 11px 7px;
+  cursor:pointer;text-align:left;transition:.15s;min-width:88px}
 .sesion b{display:block;font-family:var(--cond);font-size:17px;font-weight:600;
   color:var(--chalk);line-height:1.1}
 .sesion i{display:block;font-style:normal;font-size:11.5px;color:var(--net);margin-top:1px}
@@ -43,38 +41,41 @@ body{font-family:var(--sans);background:var(--court);color:var(--chalk);
 .sesion.hecha{border-left:3px solid var(--done)}
 .sesion:focus-visible{outline:2px solid var(--ball);outline-offset:2px}
 
-/* encabezado */
-.head{padding:24px 0 18px}
+.head{padding:24px 0 16px}
 .eyebrow{font-size:13px;color:var(--net);margin-bottom:5px}
 .head h1{font-family:var(--cond);font-size:clamp(42px,13vw,66px);font-weight:700;
   line-height:.88;letter-spacing:-.015em}
 .focus{font-size:16px;color:var(--net);margin-top:8px;max-width:36ch}
-.meters{display:flex;gap:20px;margin-top:18px;flex-wrap:wrap}
-.meter{flex:1;min-width:125px}
-.meter .n{font-family:var(--cond);font-size:28px;font-weight:600;line-height:1;
+.meters{display:flex;gap:18px;margin-top:18px;flex-wrap:wrap}
+.meter{flex:1;min-width:118px}
+.meter .n{font-family:var(--cond);font-size:27px;font-weight:600;line-height:1;
   font-variant-numeric:tabular-nums}
-.meter .n small{font-size:16px;color:var(--net);font-weight:500}
-.meter .lab{font-size:12.5px;color:var(--net);margin-top:3px}
+.meter .n small{font-size:15px;color:var(--net);font-weight:500}
+.meter .lab{font-size:12px;color:var(--net);margin-top:3px}
 .bar{height:3px;background:var(--court-3);margin-top:8px;overflow:hidden}
 .bar i{display:block;height:100%;background:var(--ball);width:0;transition:width .3s}
 .bar.hot i{background:var(--alert)}
 
-/* avisos */
+/* selectores */
+.ctrl{margin-top:18px;display:flex;gap:16px;flex-wrap:wrap}
+.ctrl-g{flex:1;min-width:180px}
+.ctrl-lab{font-size:12px;color:var(--net);margin-bottom:6px}
+.ctrl-row{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-family:var(--cond);font-size:15.5px;font-weight:600;background:transparent;
+  color:var(--net);border:1px solid var(--line);padding:5px 12px;cursor:pointer;transition:.15s}
+.chip[aria-pressed="true"]{background:var(--ball);color:var(--court);border-color:var(--ball)}
+.chip:focus-visible{outline:2px solid var(--ball);outline-offset:2px}
+.ctrl-note{font-size:12.5px;color:var(--net);margin-top:7px;line-height:1.4}
+
 .aviso{margin-top:16px;padding:12px 14px;background:var(--court-2);
   border-left:3px solid var(--ball);font-size:14px;line-height:1.5}
 .aviso.riesgo{border-left-color:var(--alert)}
 .aviso b{font-weight:600}
-.aviso button{background:none;border:0;color:var(--ball);font:inherit;
-  font-weight:600;cursor:pointer;text-decoration:underline;padding:0;margin-left:4px}
+.aviso button{background:none;border:0;color:var(--ball);font:inherit;font-weight:600;
+  cursor:pointer;text-decoration:underline;padding:0;margin-left:4px}
 
-/* fase */
-.phase{margin-top:16px;padding:13px 14px;background:var(--court-2);
-  border-left:3px solid var(--ball)}
+.phase{margin-top:16px;padding:13px 14px;background:var(--court-2);border-left:3px solid var(--ball)}
 .phase-row{display:flex;gap:7px;margin-bottom:9px;flex-wrap:wrap}
-.chip{font-family:var(--cond);font-size:15.5px;font-weight:600;background:transparent;
-  color:var(--net);border:1px solid var(--line);padding:4px 11px;cursor:pointer;transition:.15s}
-.chip[aria-pressed="true"]{background:var(--ball);color:var(--court);border-color:var(--ball)}
-.chip:focus-visible{outline:2px solid var(--ball);outline-offset:2px}
 .phase p{font-size:13.5px;color:var(--net);line-height:1.45}
 
 details.panel{margin-top:13px;background:var(--court-2);border:1px solid var(--line)}
@@ -86,20 +87,24 @@ details.panel summary::after{content:"+";color:var(--ball);font-size:22px;line-h
 details.panel[open] summary::after{content:"–"}
 .panel-body{padding:0 14px 14px;font-size:14.5px;color:var(--net);line-height:1.55}
 .panel-body li{margin:7px 0 0 17px}
+.panel-body h4{font-family:var(--cond);font-size:17px;color:var(--chalk);
+  font-weight:600;margin:14px 0 2px}
 
 .block{margin-top:28px}
-.block-head{display:flex;align-items:baseline;gap:10px;padding-bottom:7px;
-  border-bottom:1px solid var(--line)}
+.block-head{display:flex;align-items:baseline;gap:10px;padding-bottom:7px;border-bottom:1px solid var(--line)}
 .block-head h2{font-family:var(--cond);font-size:21px;font-weight:600}
 .block-head span{font-size:12.5px;color:var(--net);margin-left:auto}
 .block.plyo .block-head h2{color:var(--ball)}
 
 .ex{border-bottom:1px solid var(--line);padding:16px 0}
 .ex.complete .ex-name{color:var(--done)}
-.ex-top{display:flex;gap:11px}
+.ex-top{display:flex;gap:11px;align-items:flex-start}
 .ex-num{font-family:var(--cond);font-size:16px;font-weight:600;color:var(--net);
   padding-top:2px;min-width:15px;font-variant-numeric:tabular-nums}
 .ex-name{font-family:var(--cond);font-size:23px;font-weight:600;line-height:1.12;flex:1}
+.tag{font-family:var(--cond);font-size:12.5px;font-weight:600;letter-spacing:.03em;
+  border:1px solid var(--line);color:var(--net);padding:2px 7px;margin-top:3px;flex:0 0 auto}
+.tag.clave{border-color:var(--ball);color:var(--ball)}
 .spec{display:flex;margin:10px 0 0 26px;border:1px solid var(--line)}
 .spec div{flex:1;padding:7px 9px;border-right:1px solid var(--line);min-width:0}
 .spec div:last-child{border-right:0}
@@ -116,7 +121,6 @@ details.panel[open] summary::after{content:"–"}
 .note{margin:11px 0 0 26px;font-size:13.8px;color:var(--net);line-height:1.5;
   border-left:2px solid var(--line);padding-left:11px;max-width:60ch}
 
-/* descanso */
 .rest{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--court-2);
   border-top:2px solid var(--ball);transform:translateY(105%);transition:transform .22s ease;
   padding-bottom:env(safe-area-inset-bottom)}
@@ -131,33 +135,28 @@ details.panel[open] summary::after{content:"–"}
 .rest-bar{height:3px;background:var(--court-3)}
 .rest-bar i{display:block;height:100%;background:var(--ball);width:100%}
 
-/* pie */
 .foot{margin:30px 0 16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .btn{font-family:var(--cond);font-size:17px;font-weight:600;background:transparent;
   color:var(--net);border:1px solid var(--line);padding:11px 17px;cursor:pointer}
 .btn:hover{color:var(--chalk);border-color:var(--net)}
 .btn.main{background:var(--ball);color:var(--court);border-color:var(--ball)}
-.btn.main:hover{color:var(--court);opacity:.9}
 .btn:disabled{opacity:.35;cursor:not-allowed}
 .btn:focus-visible{outline:2px solid var(--ball);outline-offset:2px}
 .foot-note{font-size:12.5px;color:var(--net);flex-basis:100%}
 
-/* registro */
-.reg{margin-top:8px}
 .reg h2{font-family:var(--cond);font-size:26px;font-weight:600;margin-bottom:4px}
-.reg-sub{font-size:14px;color:var(--net);margin-bottom:20px;max-width:44ch}
+.reg-sub{font-size:14px;color:var(--net);margin-bottom:20px;max-width:46ch}
 .stats{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:24px}
 .stat{flex:1;min-width:110px;border-top:1px solid var(--line);padding-top:9px}
 .stat .n{font-family:var(--cond);font-size:30px;font-weight:600;line-height:1;
   font-variant-numeric:tabular-nums}
 .stat .lab{font-size:12.5px;color:var(--net);margin-top:3px}
-.entry{display:flex;gap:12px;align-items:baseline;padding:12px 0;
-  border-bottom:1px solid var(--line)}
+.entry{display:flex;gap:12px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--line)}
 .entry .f{font-family:var(--cond);font-size:16px;color:var(--net);min-width:74px;
   font-variant-numeric:tabular-nums}
 .entry .g{font-family:var(--cond);font-size:20px;font-weight:600;flex:1;line-height:1.15}
-.entry .g small{display:block;font-family:var(--sans);font-size:12.5px;
-  font-weight:400;color:var(--net);margin-top:1px}
+.entry .g small{display:block;font-family:var(--sans);font-size:12.5px;font-weight:400;
+  color:var(--net);margin-top:1px}
 .entry .v{font-size:13.5px;color:var(--net);text-align:right;
   font-variant-numeric:tabular-nums;min-width:96px}
 .vacio{padding:26px 0;font-size:15px;color:var(--net);line-height:1.6;max-width:44ch}
@@ -180,15 +179,20 @@ details.panel[open] summary::after{content:"–"}
 <script>
 /* ============================================================
    PROGRAMA
-   s series · r reps · t tempo · d descanso (s) · c carga
-   k contactos por serie · n nota técnica
+   s series · sr series en reducida · sm series en mínima
+   niv 1 clave · 2 reducida · 3 completa
+   loc "Ambos" | "Casa" | "Espacio"
+   k contactos por serie · kb contactos de baja amplitud por serie
    ============================================================ */
 
 const CAL = [
+  "2 a 3 min de cuerda a ritmo cómodo. Sustituye al trote: eleva temperatura y despierta el tobillo a la vez, y sirve en todas las sesiones, no solo en las de pierna.",
   "5 min de movilidad: tobillo contra pared, cadera en 90/90, rotación torácica, círculos de hombro.",
   "20 pogos suaves para despertar el reflejo de estiramiento.",
+  "En sesiones de pierna: 3×15 s de skipping alto en el sitio con las muñequeras de 2 kg en los tobillos, antes de los saltos progresivos.",
   "En sesiones de salto: 3 saltos progresivos al 60 %, 80 % y 90 % antes de la primera serie real.",
-  "En sesiones de tirón y empuje: 1 serie de aproximación con la mitad de las repeticiones, sin chaleco."
+  "En sesiones de tirón y empuje: 1 serie de aproximación con la mitad de las repeticiones, sin chaleco.",
+  "El calentamiento no se recorta nunca, ni en la versión mínima."
 ];
 
 const REGLAS = [
@@ -198,131 +202,229 @@ const REGLAS = [
   "2 a 3 minutos de descanso en saltos y series pesadas. El descanso corto aquí estorba.",
   "Molestia en el tendón rotuliano o de Aquiles significa bajar contactos, no aguantar.",
   "Todo lo unilateral empieza por la izquierda y la derecha iguala sus repeticiones. Regla activa hasta que la asimetría baje del 10 %.",
-  "Entre las dos sesiones de pierna deja al menos 48 horas. Es la única separación que el programa exige."
+  "Dominadas y fondos estrictos: sin balanceo, sin rebote. Si no llegas al rango, quita peso del chaleco.",
+  "Entre las dos sesiones de pierna deja al menos 48 horas."
 ];
 
-const PLYO = {
-  fuerza:{
-    1:[{x:"Pogos (rebotes de tobillo)",s:3,r:"10",t:"X",d:90,c:"Sin carga",k:10,n:"Rodillas casi rectas. El objetivo no es altura sino mínimo tiempo de contacto."},
-       {x:"Salto a escalón alto",s:3,r:"3",t:"X",d:120,c:"Sin carga",k:3,n:"Sube de un salto y baja caminando. Nunca bajes saltando."}],
-    2:[{x:"Salto vertical con aproximación",s:4,r:"3",t:"X",d:150,c:"Sin carga",k:3,n:"Aproximación de 3 pasos. Busca altura máxima: si baja, corta la serie."},
-       {x:"Salto contramovimiento",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,n:"Sin pasos previos. Un solo descenso rápido y salta."},
-       {x:"Pogos (rebotes de tobillo)",s:3,r:"10",t:"X",d:90,c:"Sin carga",k:10,n:"Mínimo tiempo de contacto. Fílmate en cámara lenta para verificarlo."}],
-    3:[{x:"Salto vertical con aproximación",s:5,r:"3",t:"X",d:150,c:"Sin carga",k:3,n:"Aproximación de 3 pasos. Marca la pared para ver el progreso dentro de la sesión."},
-       {x:"Salto contramovimiento",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,n:"Es tu potencia pura, sin la ayuda de la carrera."}]
-  },
-  reactivo:{
-    1:[{x:"Pogos (rebotes de tobillo)",s:4,r:"10",t:"X",d:90,c:"Sin carga",k:10,n:"Cuatro series y nada más. El tendón se adapta más lento que el músculo."}],
-    2:[{x:"Pogos (rebotes de tobillo)",s:5,r:"10",t:"X",d:90,c:"Sin carga",k:10,n:"Mínimo tiempo de contacto en cada rebote."},
-       {x:"Salto a escalón alto",s:3,r:"3",t:"X",d:120,c:"Sin carga",k:3,n:"Sube de un salto y baja caminando."}],
-    3:[{x:"Pogos (rebotes de tobillo)",s:5,r:"10",t:"X",d:90,c:"Sin carga",k:10,n:"El objetivo no es altura sino que el pie salga del suelo lo antes posible."},
-       {x:"Salto a escalón alto por velocidad",s:5,r:"3",t:"X",d:120,c:"Sin carga",k:3,n:"Sube de un salto y baja caminando: bajar saltando suma impacto sin sumar estímulo."},
-       {x:"Drop jump desde 30-40 cm",s:4,r:"3",t:"X",d:150,c:"Sin carga",k:3,n:"Déjate caer, no saltes hacia abajo, y rebota de inmediato. Si tardas en salir, baja la altura."}]
-  }
+const JUEGO = {
+  antes:[
+    "Justo antes de jugar no se entrena: ni fuerza ni pliometría. Llegas fatigado, saltas más bajo y subes el riesgo en el momento de mayor exigencia.",
+    "Entrenar en la mañana y jugar en la noche sí es viable. Tirón y empuje sin restricción; piernas fuerza en versión mínima y sin llegar al fallo, dejando 2 o 3 repeticiones en reserva.",
+    "Piernas reactivo el mismo día que juegas, no. Si juegas voleibol, el juego ES tu sesión reactiva.",
+    "Si el partido importa, la mañana es solo movilidad. La sesión se corre; el partido no."
+  ],
+  calentar:[
+    "Elevar, 3 min: cuerda a ritmo cómodo o trote suave.",
+    "Movilizar, 3 min: tobillo contra pared, cadera 90/90, rotación torácica, círculos de hombro.",
+    "Activar, 4 min: desplazamiento lateral con banda 2×20 s · rumano a una pierna sin peso 2×8 lento · rotación externa 2×12.",
+    "Potenciar, 4 min: pogos suaves 2×10 · saltos al 60 %, 70 % y 85 %, tres de cada · dos o tres aproximaciones de remate, o cuatro cambios de dirección en tenis.",
+    "Subes intensidad, no volumen. Terminas activado, no cansado."
+  ],
+  despues:[
+    "Nunca antes de jugar: estiramiento estático sostenido, series al fallo, drop jumps, sprints máximos o trabajo con chaleco.",
+    "Después de jugar sí cabe el bloque preventivo de hombro y, si quedan fuerzas, la fuerza de pierna.",
+    "Si el día fue exigente, el siguiente es descanso o tren superior. No pierna.",
+    "Si juegas dos veces por semana, quita piernas reactivo del microciclo y quédate con piernas fuerza."
+  ]
 };
 
 const SESIONES = [
-  {id:"piernas-f",grupo:"Piernas",var:"Fuerza",pierna:true,
-   foco:"Fuerza máxima de pierna y salto máximo",
-   bloques:[
-     {t:"Potencia",plyo:true,ej:"PLYO_FUERZA"},
-     {t:"Fuerza",ej:[
-       {x:"Sentadilla búlgara con chaleco",s:4,r:"6-8 por pierna",t:"3-0-X",d:150,c:"16 kg",n:"Empieza por la izquierda e iguala las reps de la derecha a lo que haga la izquierda. No subas carga mientras la asimetría siga por encima del 10 %."},
-       {x:"Búlgara, serie extra pierna izquierda",s:1,r:"6-8",t:"3-0-X",d:120,c:"16 kg",n:"Serie temporal por la asimetría del 20 %. Sale del programa cuando la diferencia baje del 10 % en el test."},
-       {x:"Pistol squat",s:4,r:"2-3 por pierna",t:"3-1-0",d:150,c:"Peso corporal",n:"Empieza por la izquierda. Ya haces 2 completas, así que entra directo sin fase asistida. Cuando llegues a 5 limpias por lado, pásalo a pistol con chaleco."},
-       {x:"Peso muerto rumano a una pierna",s:3,r:"8-10 por lado",t:"3-0-1",d:120,c:"16 kg",n:"Lo que más te va a aportar al salto de todo lo añadido. Bisagra desde la cadera con espalda recta, pierna libre extendida atrás como contrapeso. Baja hasta sentir el estiramiento del isquio, no más."},
-       {x:"Isométrico de isquiotibiales",s:4,r:"5 sostenidas de 5 s",t:"Isométrico",d:120,c:"Peso corporal",n:"Etapa 1 de la escalera del nórdico. Inclínate solo 15-20° y sostén sin temblor. Avanzas a la banda cuando aguantes 8 s."}
-     ]},
-     {t:"Accesorio",ej:[
-       {x:"Flexión de talones unilateral",s:4,r:"8-10 por pierna",t:"2-1-2",d:90,c:"16 kg",n:"Desde un escalón, con el talón cayendo por debajo del borde. Empieza por la izquierda: también ahí hay 11 % de asimetría."}
-     ]}
+ {id:"piernas-f",grupo:"Piernas",var:"Fuerza",pierna:true,
+  foco:"Fuerza máxima de pierna y salto máximo",
+  bloques:[
+   {t:"Potencia",plyo:true,ej:"PLYO_FUERZA"},
+   {t:"Fuerza",ej:[
+    {x:"Sentadilla búlgara con chaleco",s:4,r:"6-8 por pierna",t:"3-0-X",d:150,c:"16 kg",niv:1,loc:"Ambos",
+     n:"Empieza por la izquierda e iguala las reps de la derecha a lo que haga la izquierda. No subas carga mientras la asimetría siga por encima del 10 %."},
+    {x:"Búlgara, serie extra pierna izquierda",s:1,r:"6-8",t:"3-0-X",d:120,c:"16 kg",niv:1,loc:"Ambos",
+     n:"Serie temporal por la asimetría del 20 %. Sale del programa cuando la diferencia baje del 10 % en el test."},
+    {x:"Pistol squat",s:4,sr:3,r:"2-3 por pierna",t:"3-1-0",d:150,c:"Peso corporal",niv:2,loc:"Ambos",
+     n:"Empieza por la izquierda. Ya haces 2 completas, así que entra directo sin fase asistida. Cuando llegues a 5 limpias por lado, sostén una mancuerna de 5 kg al frente como contrapeso: te deja bajar más profundo y es el escalón previo al chaleco."},
+    {x:"Peso muerto rumano a una pierna",s:3,sr:2,r:"8-10 por lado",t:"3-0-1",d:120,c:"Mancuernas 5 kg",niv:2,loc:"Ambos",
+     n:"Lo que más aporta al salto de todo lo añadido. Con mancuernas carga mejor la bisagra que con chaleco: el peso cuelga de las manos y alarga la palanca sobre la cadera. Empieza por la izquierda."},
+    {x:"Isométrico de isquiotibiales",s:4,r:"5 sostenidas de 5 s",t:"Isométrico",d:120,c:"Peso corporal",niv:3,loc:"Ambos",
+     n:"Etapa 1 de la escalera del nórdico. Inclínate solo 15-20° y sostén sin temblor. Avanzas a la banda cuando aguantes 8 s."}
    ]},
-
-  {id:"tiron-a",grupo:"Tirón",var:"Prono",foco:"Tirón pesado, control escapular y core",
-   bloques:[
-     {t:"Fuerza",ej:[
-       {x:"Dominada prona con chaleco",s:5,r:"3-5",t:"2-0-X",d:150,c:"16 kg",n:"Este es el cambio grande: de 10-12 reps a 3-5. Sube explosivo, baja controlado. Si haces más de 6, ya no es rango de fuerza."},
-       {x:"Dominada en anillas, agarre supino",s:3,r:"6-8",t:"2-0-1",d:120,c:"Peso corporal",n:"Las anillas permiten que la muñeca rote sola. Termina con los codos pegados al cuerpo."}
-     ]},
-     {t:"Accesorio",ej:[
-       {x:"Australiana con pies elevados",s:3,r:"8-10",t:"2-1-1",d:90,c:"16 kg",n:"Tu único vector horizontal y estaba infravalorado. Pies a la altura de la barra y pausa de 1 s con el pecho tocando."},
-       {x:"Y-T-W en anillas",s:3,r:"12 de cada letra",t:"Lento",d:60,c:"Sin carga",n:"El objetivo es control, no carga. Escápulas abajo y atrás en todo el recorrido."}
-     ]},
-     {t:"Preventivo",ej:[
-       {x:"Rotación externa con banda a 90°",s:3,r:"15 por lado",t:"2-1-2",d:45,c:"Banda ligera",n:"El ejercicio preventivo con mejor evidencia para deportes de brazo por encima de la cabeza. Codo a 90°, sin que el hombro se adelante."},
-       {x:"Apertura posterior con banda",s:3,r:"15",t:"2-0-2",d:45,c:"Banda ligera",n:"Tu complementario actual, conservado. Apertura hacia atrás, no de pecho: esa sí suma."},
-       {x:"Antirrotación tipo Pallof",s:3,r:"30 s por lado",t:"—",d:45,c:"Banda media",n:"Banda anclada al costado. Extiende los brazos al frente y resiste la rotación. Ambos deportes son rotacionales y esto no estaba entrenado."}
-     ]}
-   ]},
-
-  {id:"empuje-a",grupo:"Empuje",var:"Paralelas",foco:"Empuje pesado y core rotacional",
-   bloques:[
-     {t:"Fuerza",ej:[
-       {x:"Fondos en paralelas con chaleco",s:5,r:"5-6",t:"3-0-X",d:150,c:"16 kg",n:"Donde más margen de progreso tienes. Baja hasta hombro a la altura del codo, sin más."},
-       {x:"Flexión pike con pies elevados",s:4,r:"6-8",t:"3-0-1",d:120,c:"Peso corporal",n:"Reemplaza tu flexión regular. Es el patrón del bloqueo y del saque, y el camino hacia la parada de manos."}
-     ]},
-     {t:"Accesorio",ej:[
-       {x:"Flexión declinada con chaleco",s:3,r:"8-10",t:"3-1-0",d:90,c:"16 kg",n:"Conservada de tu rutina, con rango más bajo. Pausa de 1 s abajo, sin dejar caer la cadera."},
-       {x:"Flexión explosiva",s:3,r:"5",t:"X",d:120,c:"Sin carga",n:"Fresco dentro del bloque, nunca al final. Busca máxima velocidad de despegue, no altura."}
-     ]},
-     {t:"Preventivo",ej:[
-       {x:"Gesto de ataque: desaceleración",s:3,r:"10 por lado",t:"1-0-4",d:60,c:"Banda media",n:"Ancla la banda al frente y resiste la vuelta del brazo. El remate lesiona en la frenada, no en el golpe."},
-       {x:"Leñador con banda",s:3,r:"12 por lado",t:"2-0-X",d:60,c:"Banda media",n:"Rota desde la cadera, no desde la columna lumbar. Es el patrón del remate y del golpe de derecha."}
-     ]}
-   ]},
-
-  {id:"piernas-r",grupo:"Piernas",var:"Reactivo",pierna:true,
-   foco:"Reactividad, velocidad y cambio de dirección",
-   bloques:[
-     {t:"Reactividad",plyo:true,ej:"PLYO_REACTIVO"},
-     {t:"Velocidad",ej:[
-       {x:"Sprint 15-20 m",s:6,r:"1 recorrido",t:"X",d:150,c:"Sin carga",n:"Necesita espacio: patio del colegio, andén largo o calle sin tráfico. Salida de pie, arranque agresivo."},
-       {x:"Cambio de dirección 5-10-5",s:4,r:"1 recorrido",t:"X",d:150,c:"Sin carga",n:"Tres marcas separadas 5 m. Corre 5 a un lado, 10 al otro, 5 de vuelta. Es la explosividad que te pide el tenis."}
-     ]},
-     {t:"Accesorio",ej:[
-       {x:"Flexión de talones con rodilla flexionada",s:4,r:"12-15",t:"2-1-2",d:60,c:"16 kg",n:"Rodilla a 90°: así se aísla el sóleo, motor principal en contactos rápidos y desplazamientos laterales."},
-       {x:"Movilidad de tobillo contra pared",s:2,r:"30 s por lado",t:"—",d:30,c:"Sin carga",n:"Poca dorsiflexión limita la profundidad del contramovimiento y te roba centímetros directamente."}
-     ]}
-   ]},
-
-  {id:"tiron-b",grupo:"Tirón",var:"Supino",foco:"Tirón con variación de agarre",
-   bloques:[
-     {t:"Fuerza",ej:[
-       {x:"Dominada supina con chaleco",s:5,r:"4-6",t:"2-0-X",d:150,c:"16 kg",n:"Mismo esquema del tirón prono cambiando el agarre. Alterna entre semanas si prefieres."},
-       {x:"Dominada en anillas, agarre neutro",s:3,r:"6-8",t:"2-0-1",d:120,c:"Peso corporal",n:"El agarre neutro es el más amable con el codo. Buen sitio para acumular volumen sin desgaste."}
-     ]},
-     {t:"Accesorio",ej:[
-       {x:"Australiana en anillas con chaleco",s:4,r:"8-10",t:"2-1-1",d:90,c:"16 kg",n:"En anillas exige más estabilidad que en barra. Cuerpo en línea recta de tobillo a cabeza."},
-       {x:"Face pull en anillas",s:3,r:"15",t:"2-1-2",d:60,c:"Banda ligera",n:"Tira hacia la frente separando las manos al final. Contrapeso directo a tu volumen de empuje."}
-     ]},
-     {t:"Preventivo",ej:[
-       {x:"Rotación externa con banda a 90°",s:3,r:"15 por lado",t:"2-1-2",d:45,c:"Banda ligera",n:"Repetido a propósito: la salud del manguito necesita frecuencia, no intensidad."},
-       {x:"Colgarse de la barra",s:3,r:"30 s",t:"—",d:60,c:"Peso corporal",n:"15 s colgado pasivo y 15 s activo hundiendo las escápulas. Cierra bien la sesión de tirón."}
-     ]}
-   ]},
-
-  {id:"empuje-b",grupo:"Empuje",var:"Anillas",foco:"Empuje con variación de superficie",
-   bloques:[
-     {t:"Fuerza",ej:[
-       {x:"Fondos en anillas",s:4,r:"5-8",t:"3-0-1",d:150,c:"Peso corporal",n:"Sin chaleco al principio: la inestabilidad de las anillas ya es la sobrecarga. Añade chaleco cuando llegues a 8 limpias."},
-       {x:"Flexión pike con pies elevados",s:4,r:"6-8",t:"3-0-1",d:120,c:"Peso corporal",n:"Cuanto más elevados los pies, más vertical el empuje. La progresión final es la parada de manos contra pared."}
-     ]},
-     {t:"Accesorio",ej:[
-       {x:"Flexión declinada con chaleco",s:3,r:"10-12",t:"3-1-0",d:90,c:"16 kg",n:"Aquí sí puedes acumular repeticiones: es la sesión de volumen del patrón de empuje."},
-       {x:"Flexión pliométrica con palmada",s:3,r:"5",t:"X",d:120,c:"Sin carga",n:"Solo si la flexión explosiva te sale limpia. Aterriza con codos blandos."}
-     ]},
-     {t:"Preventivo",ej:[
-       {x:"Gesto de ataque: desaceleración",s:3,r:"10 por lado",t:"1-0-4",d:60,c:"Banda media",n:"Cuatro segundos de frenada controlada en cada repetición."},
-       {x:"Hollow hold",s:3,r:"40 s",t:"—",d:60,c:"Peso corporal",n:"Lumbar pegada al suelo en todo momento. Si se despega, sube las piernas hasta que puedas mantenerla."}
-     ]}
+   {t:"Accesorio",ej:[
+    {x:"Flexión de talones unilateral",s:4,r:"8-10 por pierna",t:"2-1-2",d:90,c:"16 kg",niv:3,loc:"Ambos",
+     n:"Desde un escalón, con el talón cayendo por debajo del borde. Empieza por la izquierda: también ahí hay 11 % de asimetría."}
    ]}
+  ]},
+
+ {id:"tiron-a",grupo:"Tirón",var:"Prono",foco:"Tirón pesado, control escapular y core",
+  bloques:[
+   {t:"Fuerza",ej:[
+    {x:"Dominada prona con chaleco",s:5,r:"3-5",t:"2-0-X",d:150,c:"16 kg",niv:1,loc:"Ambos",
+     n:"Estricta: cuelgue completo, sin balanceo ni patada, barbilla claramente sobre la barra. Si no llegas a 3, quita peso del chaleco, no te ayudes con impulso."},
+    {x:"Dominada en anillas, agarre supino",s:3,r:"6-8",t:"2-0-1",d:120,c:"Peso corporal",niv:2,loc:"Ambos",
+     n:"Las anillas permiten que la muñeca rote sola. Termina con los codos pegados al cuerpo."}
+   ]},
+   {t:"Accesorio",ej:[
+    {x:"Australiana con pies elevados",s:3,r:"8-10",t:"2-1-1",d:90,c:"16 kg",niv:2,loc:"Ambos",
+     n:"Tu único vector horizontal y estaba infravalorado. Pies a la altura de la barra y pausa de 1 s con el pecho tocando."},
+    {x:"Y-T-W en anillas (circuito)",s:3,r:"8-10 de cada letra",t:"Lento",d:60,c:"Sin carga",niv:3,loc:"Ambos",
+     n:"Una serie es Y, T y W seguidas sin soltar. Sin peso: el objetivo es control. Escápulas abajo y atrás."},
+    {x:"Elevación de rodillas colgado con muñequeras",s:3,r:"10-12",t:"2-0-1",d:60,c:"Muñequeras 2 kg",niv:3,loc:"Ambos",
+     n:"Colgado de la barra, rodillas al pecho sin balanceo, bajada controlada. Carga el flexor de cadera, que sube la rodilla en el sprint y en la aproximación de remate, y cubre el core antiextensión que salió de piernas fuerza. Sin impacto: no suma contactos."}
+   ]},
+   {t:"Preventivo",ej:[
+    {x:"Rotación externa con banda a 90°",s:3,r:"15 por lado",t:"2-1-2",d:45,c:"Banda ligera",niv:3,loc:"Ambos",
+     n:"Métela dentro de los descansos de las dominadas: no interfiere y te ahorra minutos al final. Codo a 90°, sin que el hombro se adelante."},
+    {x:"Apertura posterior con banda",s:3,r:"15",t:"2-0-2",d:45,c:"Banda ligera",niv:3,loc:"Ambos",
+     n:"Brazos casi extendidos al frente que se abren en arco horizontal. Se siente entre los omóplatos. Si el codo se dobla y la banda va al cuerpo, eso es una remada."},
+    {x:"Antirrotación tipo Pallof",s:3,r:"30 s por lado",t:"—",d:45,c:"Banda media",niv:3,loc:"Ambos",
+     n:"Banda anclada al costado. Extiende los brazos y sostén las manos en la línea media sin que el tronco rote. Si giras, acércate al anclaje."}
+   ]}
+  ]},
+
+ {id:"empuje-a",grupo:"Empuje",var:"Paralelas",foco:"Empuje pesado y core rotacional",
+  bloques:[
+   {t:"Fuerza",ej:[
+    {x:"Fondos en paralelas con chaleco",s:5,r:"5-6",t:"3-0-X",d:150,c:"16 kg",niv:1,loc:"Ambos",
+     n:"Estrictos: sin rebote abajo y sin balanceo de piernas. Baja hasta hombro a la altura del codo, sin más."},
+    {x:"Flexión pike con pies elevados",s:4,r:"6-8",t:"3-0-1",d:120,c:"Peso corporal",niv:2,loc:"Ambos",
+     n:"Reemplaza tu flexión regular. Es el patrón del bloqueo y del saque. Sobre las paralelas chicas ganas rango de hombro, que es justo lo que buscas: la cabeza baja por debajo de las manos."}
+   ]},
+   {t:"Accesorio",ej:[
+    {x:"Flexión declinada con chaleco",s:3,r:"8-10",t:"3-1-0",d:90,c:"16 kg",niv:2,loc:"Ambos",
+     n:"Pausa de 1 s abajo, sin dejar caer la cadera. Las paralelas chicas te dan más rango si las usas de apoyo."},
+    {x:"Flexión explosiva",s:3,r:"5",t:"X",d:120,c:"Sin carga",niv:3,loc:"Ambos",
+     n:"Fresco dentro del bloque, nunca al final. Busca máxima velocidad de despegue, no altura."}
+   ]},
+   {t:"Preventivo",ej:[
+    {x:"Gesto de ataque: desaceleración",s:3,r:"10 por lado",t:"1-0-4",d:60,c:"Banda media",niv:3,loc:"Ambos",
+     n:"Ancla la banda al frente y resiste la vuelta del brazo durante 4 segundos. El remate lesiona en la frenada, no en el golpe."},
+    {x:"Leñador con banda",s:3,r:"12 por lado",t:"2-0-X",d:60,c:"Banda media",niv:3,loc:"Ambos",
+     n:"Rota desde la cadera, no desde la lumbar. Es el patrón del remate y el complemento del Pallof."}
+   ]}
+  ]},
+
+ {id:"piernas-r",grupo:"Piernas",var:"Reactivo",pierna:true,
+  foco:"Reactividad, velocidad y cambio de dirección",
+  bloques:[
+   {t:"Reactividad",plyo:true,ej:"PLYO_REACTIVO"},
+   {t:"Velocidad",ej:[
+    {x:"Sprint 15-20 m",s:6,sr:4,r:"1 recorrido",t:"X",d:150,c:"Sin carga",niv:2,loc:"Espacio",
+     n:"Salida de pie, arranque agresivo. No tiene reemplazo real en casa: la velocidad máxima solo se entrena corriendo."},
+    {x:"Cambio de dirección 5-10-5",s:4,r:"1 recorrido",t:"X",d:150,c:"Sin carga",niv:3,loc:"Espacio",
+     n:"Tres marcas separadas 5 m. Corre 5 a un lado, 10 al otro, 5 de vuelta. Es la explosividad que te pide el tenis."},
+    {x:"Arrancadas resistidas con banda",s:6,sr:4,r:"4 pasos",t:"X",d:120,c:"Banda media",niv:2,loc:"Casa",
+     n:"Alternativa al sprint en 3 o 4 metros de pasillo. Banda anclada detrás y pasada por la cintura. Reproduce la aceleración, no la velocidad máxima."},
+    {x:"Saltos laterales a una pierna",s:4,r:"6 por lado",t:"X",d:120,c:"Sin carga",kb:12,niv:2,loc:"Casa",
+     n:"Alternativa al 5-10-5 en poco espacio. Aterriza y estabiliza un segundo antes del siguiente. Baja amplitud: no cargan el tendón como un drop jump."},
+    {x:"Cuerda de alta frecuencia",s:4,r:"30 s",t:"X",d:60,c:"Sin carga",kb:55,niv:2,loc:"Casa",
+     n:"El mejor equipo que tienes para reactividad en espacio reducido. Contacto mínimo, rodillas casi rectas. Cuando lo domines, pásalo a una pierna."},
+    {x:"Wall drive a una pierna",s:5,r:"8 por lado",t:"X",d:90,c:"Muñequeras 2 kg",niv:3,loc:"Casa",
+     n:"Manos en la pared, cuerpo inclinado, rodilla a máxima frecuencia. Las muñequeras cargan el flexor de cadera, que sube la rodilla en el sprint y en la aproximación de remate."}
+   ]},
+   {t:"Accesorio",ej:[
+    {x:"Flexión de talones con rodilla flexionada",s:4,r:"12-15",t:"2-1-2",d:60,c:"16 kg",niv:2,loc:"Ambos",
+     n:"Rodilla a 90°: así se aísla el sóleo, motor principal en contactos rápidos y desplazamientos laterales."},
+    {x:"Movilidad de tobillo contra pared",s:2,r:"30 s por lado",t:"—",d:30,c:"Sin carga",niv:3,loc:"Ambos",
+     n:"Poca dorsiflexión limita la profundidad del contramovimiento y te roba centímetros directamente."}
+   ]}
+  ]},
+
+ {id:"tiron-b",grupo:"Tirón",var:"Supino",foco:"Tirón con variación de agarre",
+  bloques:[
+   {t:"Fuerza",ej:[
+    {x:"Dominada supina con chaleco",s:5,r:"4-6",t:"2-0-X",d:150,c:"16 kg",niv:1,loc:"Ambos",
+     n:"Mismo esquema del tirón prono cambiando el agarre, y con la misma exigencia de técnica estricta."},
+    {x:"Dominada en anillas, agarre neutro",s:3,r:"6-8",t:"2-0-1",d:120,c:"Peso corporal",niv:2,loc:"Ambos",
+     n:"El agarre neutro es el más amable con el codo. Buen sitio para acumular volumen sin desgaste."}
+   ]},
+   {t:"Accesorio",ej:[
+    {x:"Australiana en anillas con chaleco",s:4,r:"8-10",t:"2-1-1",d:90,c:"16 kg",niv:2,loc:"Ambos",
+     n:"En anillas exige más estabilidad que en barra. Cuerpo en línea recta de tobillo a cabeza."},
+    {x:"Face pull en anillas",s:3,r:"15",t:"2-1-2",d:60,c:"Banda ligera",niv:3,loc:"Ambos",
+     n:"Tira hacia la frente separando las manos al final. Es distinto de la apertura posterior: aquí las manos suben hacia la cara."}
+   ]},
+   {t:"Preventivo",ej:[
+    {x:"Rotación externa con banda a 90°",s:3,r:"15 por lado",t:"2-1-2",d:45,c:"Banda ligera",niv:3,loc:"Ambos",
+     n:"Repetido a propósito: la salud del manguito necesita frecuencia, no intensidad. Métela en los descansos."},
+    {x:"Colgarse de la barra",s:3,r:"30 s",t:"—",d:60,c:"Peso corporal",niv:3,loc:"Ambos",
+     n:"15 s colgado pasivo y 15 s activo hundiendo las escápulas. Cierra bien la sesión de tirón."}
+   ]}
+  ]},
+
+ {id:"empuje-b",grupo:"Empuje",var:"Anillas",foco:"Empuje con variación de superficie",
+  bloques:[
+   {t:"Fuerza",ej:[
+    {x:"Fondos en anillas",s:4,r:"5-8",t:"3-0-1",d:150,c:"Peso corporal",niv:1,loc:"Ambos",
+     n:"Sin chaleco al principio: la inestabilidad de las anillas ya es la sobrecarga. Añade chaleco cuando llegues a 8 limpias."},
+    {x:"Flexión pike con pies elevados",s:4,r:"6-8",t:"3-0-1",d:120,c:"Peso corporal",niv:2,loc:"Ambos",
+     n:"Cuanto más elevados los pies, más vertical el empuje. Con las paralelas chicas el rango es mayor. La progresión final es la parada de manos contra pared."}
+   ]},
+   {t:"Accesorio",ej:[
+    {x:"Flexión declinada con chaleco",s:3,r:"10-12",t:"3-1-0",d:90,c:"16 kg",niv:2,loc:"Ambos",
+     n:"Aquí sí puedes acumular repeticiones: es la sesión de volumen del patrón de empuje."},
+    {x:"Flexión pliométrica con palmada",s:3,r:"5",t:"X",d:120,c:"Sin carga",niv:3,loc:"Ambos",
+     n:"Solo si la flexión explosiva te sale limpia. Aterriza con codos blandos."}
+   ]},
+   {t:"Preventivo",ej:[
+    {x:"Gesto de ataque: desaceleración",s:3,r:"10 por lado",t:"1-0-4",d:60,c:"Banda media",niv:3,loc:"Ambos",
+     n:"Cuatro segundos de frenada controlada en cada repetición."},
+    {x:"Hollow hold",s:3,r:"40 s",t:"—",d:60,c:"Peso corporal",niv:3,loc:"Ambos",
+     n:"Lumbar pegada al suelo en todo momento. Si se despega, sube las piernas hasta que puedas mantenerla."}
+   ]}
+  ]}
 ];
 
-const FASES = {
-  1:{lab:"Semanas 1 y 2",tope:40,txt:"Solo pogos y salto a escalón. Nada de drop jumps ni saltos con aproximación máxima. Señal de alarma: dolor en el tendón rotuliano o de Aquiles al día siguiente."},
-  2:{lab:"Semanas 3 y 4",tope:60,txt:"Entran el contramovimiento y el salto con aproximación. Sigue sin drop jumps: la caída desde altura es lo último que entra. Señal de alarma: rigidez de gemelo que no cede con el calentamiento."},
-  3:{lab:"Semana 5 en adelante",tope:80,txt:"Programa completo, con drop jumps desde 30-40 cm. No subas de 40 cm hasta llevar 4 semanas rebotando limpio. Señal de alarma: tiempo de contacto que se alarga sesión tras sesión."}
+const PLYO = {
+ fuerza:{
+  1:[{x:"Pogos (rebotes de tobillo)",s:3,r:"10",t:"X",d:90,c:"Sin carga",k:10,niv:1,loc:"Ambos",
+      n:"Rodillas casi rectas. El objetivo no es altura sino mínimo tiempo de contacto."},
+     {x:"Salto a escalón alto",s:3,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:1,loc:"Ambos",
+      n:"Sube de un salto y baja caminando. Nunca bajes saltando."}],
+  2:[{x:"Salto vertical con aproximación",s:4,sm:3,r:"3",t:"X",d:150,c:"Sin carga",k:3,niv:1,loc:"Espacio",
+      n:"Aproximación de 3 pasos. Busca altura máxima: si baja, corta la serie."},
+     {x:"Salto a escalón alto por velocidad",s:4,sm:3,r:"3",t:"X",d:150,c:"Sin carga",k:3,niv:1,loc:"Casa",
+      n:"Sustituye al salto con aproximación en casa: al subir al cajón la cadera sube pero la cabeza casi no, así que el techo bajo no estorba."},
+     {x:"Salto contramovimiento",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:2,loc:"Espacio",
+      n:"Sin pasos previos. Un solo descenso rápido y salta."},
+     {x:"Salto contramovimiento con manos en la cadera",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:2,loc:"Casa",
+      n:"Versión para techo bajo: sin balanceo de brazos la cabeza sube unos 20 cm sobre tu estatura. Pierdes el 10 % que aportan los brazos, conservas el trabajo de pierna."},
+     {x:"Pogos (rebotes de tobillo)",s:3,r:"10",t:"X",d:90,c:"Sin carga",k:10,niv:3,loc:"Ambos",
+      n:"Mínimo tiempo de contacto. Fílmate en cámara lenta para verificarlo."}],
+  3:[{x:"Salto vertical con aproximación",s:5,sr:4,sm:3,r:"3",t:"X",d:150,c:"Sin carga",k:3,niv:1,loc:"Espacio",
+      n:"Aproximación de 3 pasos. Marca la pared para ver el progreso dentro de la sesión. Necesita techo por encima de 2,6 m."},
+     {x:"Salto a escalón alto por velocidad",s:5,sr:4,sm:3,r:"3",t:"X",d:150,c:"Sin carga",k:3,niv:1,loc:"Casa",
+      n:"Sustituye al salto con aproximación en casa. Sube de un salto y baja caminando."},
+     {x:"Salto contramovimiento",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:2,loc:"Espacio",
+      n:"Es tu potencia pura, sin la ayuda de la carrera."},
+     {x:"Salto contramovimiento con manos en la cadera",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:2,loc:"Casa",
+      n:"Sin balanceo de brazos cabe en cualquier techo estándar."},
+     {x:"Empuje de cadera explosivo a una pierna",s:4,r:"5 por lado",t:"X",d:120,c:"16 kg",niv:3,loc:"Casa",
+      n:"Compensa en casa lo que se pierde sin el salto con aproximación. Hombros sobre el sofá, intención máxima en la subida."}]
+ },
+ reactivo:{
+  1:[{x:"Pogos (rebotes de tobillo)",s:4,r:"10",t:"X",d:90,c:"Sin carga",k:10,niv:1,loc:"Ambos",
+      n:"Cuatro series y nada más. El tendón se adapta más lento que el músculo."}],
+  2:[{x:"Pogos (rebotes de tobillo)",s:5,sr:4,sm:4,r:"10",t:"X",d:90,c:"Sin carga",k:10,niv:1,loc:"Espacio",
+      n:"Mínimo tiempo de contacto en cada rebote."},
+     {x:"Pogos (rebotes de tobillo)",s:4,r:"10",t:"X",d:90,c:"Sin carga",k:10,niv:1,loc:"Casa",
+      n:"Una serie menos que con espacio, porque en casa la cuerda añade volumen sobre el mismo tejido."},
+     {x:"Salto a escalón alto",s:3,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:2,loc:"Ambos",
+      n:"Sube de un salto y baja caminando."}],
+  3:[{x:"Pogos (rebotes de tobillo)",s:5,sr:4,sm:4,r:"10",t:"X",d:90,c:"Sin carga",k:10,niv:1,loc:"Espacio",
+      n:"El objetivo no es altura sino que el pie salga del suelo lo antes posible."},
+     {x:"Pogos (rebotes de tobillo)",s:4,r:"10",t:"X",d:90,c:"Sin carga",k:10,niv:1,loc:"Casa",
+      n:"Una serie menos que con espacio, porque en casa la cuerda añade volumen sobre el mismo tejido."},
+     {x:"Salto a escalón alto por velocidad",s:5,sr:3,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:2,loc:"Ambos",
+      n:"Sube de un salto y baja caminando: bajar de un cajón alto suma impacto sin sumar estímulo."},
+     {x:"Drop jump desde 30-40 cm",s:4,r:"3",t:"X",d:150,c:"Sin carga",k:3,niv:1,loc:"Ambos",
+      n:"Déjate caer, no saltes hacia abajo, y rebota de inmediato. Si tardas en salir, baja la altura. Cabe en casa con techo bajo."}]
+ }
 };
+
+const FASES = {
+ 1:{lab:"Semanas 1 y 2",tope:40,txt:"Solo pogos y salto a escalón. Nada de drop jumps ni saltos con aproximación máxima. Señal de alarma: dolor en el tendón rotuliano o de Aquiles al día siguiente."},
+ 2:{lab:"Semanas 3 y 4",tope:60,txt:"Entran el contramovimiento y el salto con aproximación. Sigue sin drop jumps: la caída desde altura es lo último que entra. Señal de alarma: rigidez de gemelo que no cede con el calentamiento."},
+ 3:{lab:"Semana 5 en adelante",tope:80,txt:"Programa completo, con drop jumps desde 30-40 cm. No subas de 40 cm hasta llevar 4 semanas rebotando limpio. Señal de alarma: tiempo de contacto que se alarga sesión tras sesión."}
+};
+const TOPE_BAJA = 300;
+const NIVLAB = {1:"Mínima",2:"Reducida",3:"Completa"};
+const NIVMIN = {1:"20 min",2:"35 min",3:"Completa"};
 
 /* ============================================================
    ALMACENAMIENTO
@@ -399,54 +501,56 @@ function importar(file){
 /* ============================================================
    ESTADO
    ============================================================ */
-let fase = 3;
-let ciclo = {n:1, hechas:{}};          // sesiones completadas del microciclo actual
-let activa = null;                      // {id, inicio, hechas:{exId:series}}
-let registro = [];                      // historial de sesiones terminadas
-let sel = SESIONES[0];                  // sesión mostrada
-let vista = "sesion";                   // "sesion" | "registro"
+let fase = 3, nivel = 3, lugar = "Casa";
+let ciclo = {n:1, hechas:{}};
+let activa = null;
+let registro = [];
+let sel = SESIONES[0];
+let vista = "sesion";
 
 const hoyISO = ()=>{ const d=new Date();
   return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); };
 const MES = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
-function fechaCorta(iso){ const [a,m,d]=iso.split("-").map(Number); return d+" "+MES[m-1]; }
-function diasDesde(iso){
-  const [a,m,d]=iso.split("-").map(Number);
-  return Math.round((new Date().setHours(0,0,0,0) - new Date(a,m-1,d).getTime())/86400000);
-}
+const fechaCorta = iso=>{ const [a,m,d]=iso.split("-").map(Number); return d+" "+MES[m-1]; };
+function diasDesde(iso){ const [a,m,d]=iso.split("-").map(Number);
+  return Math.round((new Date().setHours(0,0,0,0) - new Date(a,m-1,d).getTime())/86400000); }
 
+const visible = e => e.niv<=nivel && (e.loc==="Ambos" || e.loc===lugar);
+function seriesDe(e){
+  if(nivel===1 && e.sm) return e.sm;
+  if(nivel===2 && e.sr) return e.sr;
+  return e.s;
+}
 function bloquesDe(s){
   return s.bloques.map(b=>{
-    if(b.ej==="PLYO_FUERZA") return {...b, ej:PLYO.fuerza[fase]};
-    if(b.ej==="PLYO_REACTIVO") return {...b, ej:PLYO.reactivo[fase]};
-    return b;
-  });
+    let ej = b.ej;
+    if(ej==="PLYO_FUERZA") ej = PLYO.fuerza[fase];
+    if(ej==="PLYO_REACTIVO") ej = PLYO.reactivo[fase];
+    return {...b, ej: ej.filter(visible)};
+  }).filter(b=>b.ej.length);
 }
-const idEj = (s,bi,ei)=> s.id+"-"+bi+"-"+ei+"-"+fase;
+const idEj = (s,bi,ei)=> s.id+"-"+bi+"-"+ei+"-"+fase+"-"+nivel+"-"+lugar;
 
-function sugerida(){
-  return SESIONES.find(s=>!ciclo.hechas[s.id]) || SESIONES[0];
-}
-function hechasDe(s){ return (activa && activa.id===s.id) ? activa.hechas : {}; }
+const sugerida = ()=> SESIONES.find(s=>!ciclo.hechas[s.id]) || SESIONES[0];
+const hechasDe = s => (activa && activa.id===s.id) ? activa.hechas : {};
 
 function totales(s){
-  let ser=0, hec=0, cont=0, contHec=0;
+  let ser=0, hec=0, cont=0, contHec=0, baja=0;
   bloquesDe(s).forEach((b,bi)=>b.ej.forEach((e,ei)=>{
-    ser+=e.s;
-    const h = hechasDe(s)[idEj(s,bi,ei)] || 0;
-    hec+=h;
-    if(e.k){ cont+=e.s*e.k; contHec+=h*e.k; }
+    const n = seriesDe(e);
+    ser += n;
+    const h = Math.min(hechasDe(s)[idEj(s,bi,ei)] || 0, n);
+    hec += h;
+    if(e.k){ cont += n*e.k; contHec += h*e.k; }
+    if(e.kb){ baja += n*e.kb; }
   }));
-  return {ser,hec,cont,contHec};
+  return {ser,hec,cont,contHec,baja};
 }
-
 function ultimaPierna(){
   const p = registro.filter(r=>{ const s=SESIONES.find(x=>x.id===r.id); return s && s.pierna; });
   return p.length ? p[0].fecha : null;
 }
-function contactos7(){
-  return registro.filter(r=>diasDesde(r.fecha)<7).reduce((a,r)=>a+(r.contactos||0),0);
-}
+const contactos7 = ()=> registro.filter(r=>diasDesde(r.fecha)<7).reduce((a,r)=>a+(r.contactos||0),0);
 
 /* ============================================================
    RENDER
@@ -474,11 +578,12 @@ function pintaRail(){
   rail.appendChild(r);
 }
 
-function pinta(){ vista==="registro" ? pintaRegistro() : pintaSesion(); }
+const pinta = ()=> vista==="registro" ? pintaRegistro() : pintaSesion();
 
 function pintaSesion(){
   const s = sel, T = totales(s), sug = sugerida();
   const enCurso = activa && activa.id===s.id;
+  const tope = FASES[fase].tope;
 
   let html = `<header class="head">
     <p class="eyebrow">Microciclo ${ciclo.n}, ${Object.keys(ciclo.hechas).length} de 6 sesiones hechas</p>
@@ -490,17 +595,45 @@ function pintaSesion(){
         <div class="lab">Series completadas</div>
         <div class="bar"><i style="width:${T.ser?Math.round(T.hec/T.ser*100):0}%"></i></div>
       </div>`;
-  if(T.cont){
-    const tope = FASES[fase].tope;
-    html += `<div class="meter">
+  if(T.cont) html += `<div class="meter">
       <div class="n">${T.contHec}<small> / ${T.cont}</small></div>
-      <div class="lab">Contactos de salto, tope ${tope}</div>
+      <div class="lab">Contactos, tope ${tope}</div>
       <div class="bar${T.cont>tope?" hot":""}"><i style="width:${Math.min(100,Math.round(T.cont/tope*100))}%"></i></div>
     </div>`;
-  }
-  html += `</div></header>`;
+  if(T.baja) html += `<div class="meter">
+      <div class="n">${T.baja}<small> / ${TOPE_BAJA}</small></div>
+      <div class="lab">Baja amplitud</div>
+      <div class="bar${T.baja>TOPE_BAJA?" hot":""}"><i style="width:${Math.min(100,Math.round(T.baja/TOPE_BAJA*100))}%"></i></div>
+    </div>`;
+  html += `</div>`;
 
-  // avisos
+  // selectores de duración y lugar
+  html += `<div class="ctrl">
+    <div class="ctrl-g">
+      <div class="ctrl-lab">Cuánto tiempo tienes</div>
+      <div class="ctrl-row">${[1,2,3].map(n=>
+        `<button class="chip" data-niv="${n}" aria-pressed="${n===nivel}">${esc(NIVMIN[n])}</button>`).join("")}</div>
+    </div>`;
+  if(s.pierna) html += `<div class="ctrl-g">
+      <div class="ctrl-lab">Dónde entrenas</div>
+      <div class="ctrl-row">${["Casa","Espacio"].map(l=>
+        `<button class="chip" data-lug="${l}" aria-pressed="${l===lugar}">${l==="Casa"?"En casa":"Con espacio"}</button>`).join("")}</div>
+    </div>`;
+  html += `</div>`;
+
+  if(nivel<3){
+    html += `<p class="ctrl-note">${nivel===1
+      ? "Versión mínima: solo lo clave. El calentamiento no se recorta."
+      : "Versión reducida: clave más el segundo escalón."}${
+      (s.id.startsWith("tiron")||s.id.startsWith("empuje"))
+      ? " El bloque preventivo sale de la lista, pero puedes meterlo dentro de los descansos de las series pesadas: no interfiere y no cuesta minutos."
+      : ""}</p>`;
+  }
+  if(s.pierna && lugar==="Casa"){
+    html += `<p class="ctrl-note">Versión para poco espacio y techo bajo. Lo que no tiene reemplazo real en casa es la técnica de aproximación y la velocidad máxima: si consigues 20 minutos de patio una vez por semana, cúbrelos ahí y de paso mide el salto de remate.</p>`;
+  }
+  html += `</header>`;
+
   if(ciclo.hechas[s.id]){
     html += `<div class="aviso"><b>Ya hiciste esta sesión en el microciclo ${ciclo.n}</b>, el ${fechaCorta(ciclo.hechas[s.id])}.
       Puedes repetirla, pero la sugerida es <b>${esc(sug.grupo)} ${esc(sug.var)}</b>.
@@ -518,39 +651,44 @@ function pintaSesion(){
     }
   }
   const c7 = contactos7();
-  if(c7 > 104){
-    html += `<div class="aviso riesgo"><b>${c7} contactos de salto en los últimos 7 días.</b>
-      La semana completa del programa son 104. Si vienes acumulando sesiones seguidas, baja el volumen de saltos hoy.</div>`;
-  }
+  if(c7 > 104) html += `<div class="aviso riesgo"><b>${c7} contactos de salto en los últimos 7 días.</b>
+      El microciclo completo son 104. Si vienes acumulando sesiones seguidas, baja el volumen de saltos hoy. Y recuerda que jugar voleibol también suma.</div>`;
 
-  const f = FASES[fase];
   html += `<section class="phase">
     <div class="phase-row">${[1,2,3].map(n=>
       `<button class="chip" data-fase="${n}" aria-pressed="${n===fase}">${esc(FASES[n].lab)}</button>`).join("")}</div>
-    <p>${esc(f.txt)}</p></section>`;
+    <p>${esc(FASES[fase].txt)}</p></section>`;
 
   html += `<details class="panel"><summary>Calentamiento</summary><div class="panel-body"><ul>
     ${CAL.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div></details>`;
   html += `<details class="panel"><summary>Reglas de la sesión</summary><div class="panel-body"><ul>
     ${REGLAS.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div></details>`;
+  html += `<details class="panel"><summary>Si hoy juegas</summary><div class="panel-body">
+    <h4>Entrenar y jugar el mismo día</h4><ul>${JUEGO.antes.map(t=>`<li>${esc(t)}</li>`).join("")}</ul>
+    <h4>Calentamiento antes de jugar, 12 a 15 min</h4><ul>${JUEGO.calentar.map(t=>`<li>${esc(t)}</li>`).join("")}</ul>
+    <h4>Lo que no va antes, y qué hacer después</h4><ul>${JUEGO.despues.map(t=>`<li>${esc(t)}</li>`).join("")}</ul>
+    </div></details>`;
 
   bloquesDe(s).forEach((b,bi)=>{
     html += `<section class="block${b.plyo?" plyo":""}">
-      <div class="block-head"><h2>${esc(b.t)}</h2><span>${b.ej.reduce((a,e)=>a+e.s,0)} series</span></div>`;
+      <div class="block-head"><h2>${esc(b.t)}</h2><span>${b.ej.reduce((a,e)=>a+seriesDe(e),0)} series</span></div>`;
     b.ej.forEach((e,ei)=>{
-      const id = idEj(s,bi,ei), h = hechasDe(s)[id] || 0;
+      const id = idEj(s,bi,ei), n = seriesDe(e), h = Math.min(hechasDe(s)[id]||0, n);
       const desc = e.d>=60 ? (e.d/60).toFixed(e.d%60?1:0).replace(".5","½")+" min" : e.d+" s";
-      html += `<article class="ex${h>=e.s?" complete":""}">
-        <div class="ex-top"><div class="ex-num">${ei+1}</div><h3 class="ex-name">${esc(e.x)}</h3></div>
+      const tag = e.niv===1 ? `<span class="tag clave">Clave</span>` :
+                  (e.loc!=="Ambos" ? `<span class="tag">${e.loc==="Casa"?"Casa":"Espacio"}</span>` : "");
+      html += `<article class="ex${h>=n?" complete":""}">
+        <div class="ex-top"><div class="ex-num">${ei+1}</div><h3 class="ex-name">${esc(e.x)}</h3>${tag}</div>
         <div class="spec">
-          <div><b>${e.s} × ${esc(e.r)}</b><small>Series y reps</small></div>
+          <div><b>${n} × ${esc(e.r)}</b><small>Series y reps</small></div>
           <div><b>${esc(e.c)}</b><small>Carga</small></div>
           <div><b>${esc(e.t)}</b><small>Tempo</small></div>
           <div><b>${desc}</b><small>Descanso</small></div>
         </div>
-        <div class="sets">${Array.from({length:e.s},(_,i)=>
+        <div class="sets">${Array.from({length:n},(_,i)=>
           `<button class="set" data-id="${id}" data-i="${i+1}" data-d="${e.d}" data-x="${esc(e.x)}" aria-pressed="${i<h}" aria-label="Serie ${i+1}">${i+1}</button>`).join("")}
           ${e.k?`<span class="hint">${e.k} contactos por serie</span>`:""}
+          ${e.kb?`<span class="hint">${e.kb} contactos de baja amplitud por serie</span>`:""}
         </div>
         <p class="note">${esc(e.n)}</p>
       </article>`;
@@ -568,48 +706,47 @@ function pintaSesion(){
 
   app.innerHTML = html;
   app.querySelectorAll("[data-ir]").forEach(b=>b.onclick=()=>{
-    sel = SESIONES.find(x=>x.id===b.dataset.ir); pintaRail(); pinta(); window.scrollTo({top:0});
-  });
-  app.querySelectorAll(".chip").forEach(c=>c.onclick=async()=>{
-    fase=+c.dataset.fase; await save("fase",fase); pinta();
-  });
+    sel = SESIONES.find(x=>x.id===b.dataset.ir); pintaRail(); pinta(); window.scrollTo({top:0}); });
+  app.querySelectorAll("[data-fase]").forEach(c=>c.onclick=async()=>{
+    fase=+c.dataset.fase; await save("fase",fase); pinta(); });
+  app.querySelectorAll("[data-niv]").forEach(c=>c.onclick=async()=>{
+    nivel=+c.dataset.niv; await save("nivel",nivel); pinta(); });
+  app.querySelectorAll("[data-lug]").forEach(c=>c.onclick=async()=>{
+    lugar=c.dataset.lug; await save("lugar",lugar); pinta(); });
   app.querySelectorAll(".set").forEach(b=>b.onclick=()=>toggle(b));
   document.getElementById("fin").onclick = terminar;
   document.getElementById("reset").onclick = async()=>{
     if(activa && activa.id===sel.id){ activa=null; await save("activa",null); }
-    pararDescanso(); pinta();
-  };
+    pararDescanso(); pinta(); };
 }
 
 function pintaRegistro(){
-  const total = registro.length;
   const ult28 = registro.filter(r=>diasDesde(r.fecha)<28);
   const grupos = {};
   ult28.forEach(r=>{ const s=SESIONES.find(x=>x.id===r.id); if(s) grupos[s.grupo]=(grupos[s.grupo]||0)+1; });
 
   let html = `<div class="reg"><h2>Registro</h2>
-    <p class="reg-sub">Cada sesión terminada queda guardada con su fecha, las series completadas y los contactos de salto.</p>
+    <p class="reg-sub">Cada sesión terminada queda guardada con su fecha, la versión que hiciste, las series completadas y los contactos de salto.</p>
     <div class="stats">
-      <div class="stat"><div class="n">${total}</div><div class="lab">Sesiones terminadas</div></div>
+      <div class="stat"><div class="n">${registro.length}</div><div class="lab">Sesiones terminadas</div></div>
       <div class="stat"><div class="n">${ult28.length}</div><div class="lab">En los últimos 28 días</div></div>
       <div class="stat"><div class="n">${contactos7()}</div><div class="lab">Contactos en 7 días</div></div>
       <div class="stat"><div class="n">${ciclo.n}</div><div class="lab">Microciclo actual</div></div>
     </div>`;
+  if(ult28.length) html += `<p class="reg-sub">Últimos 28 días por grupo: ` +
+    ["Piernas","Tirón","Empuje"].map(g=>`${g} ${grupos[g]||0}`).join(", ") + `.</p>`;
 
-  if(Object.keys(grupos).length){
-    html += `<p class="reg-sub">Últimos 28 días por grupo: ` +
-      ["Piernas","Tirón","Empuje"].map(g=>`${g} ${grupos[g]||0}`).join(", ") + `.</p>`;
-  }
-
-  if(!total){
+  if(!registro.length){
     html += `<p class="vacio">Todavía no hay sesiones guardadas. Termina una sesión con el botón
       «Terminar y guardar» y aparecerá aquí con la fecha.</p>`;
   } else {
     registro.forEach(r=>{
       const s = SESIONES.find(x=>x.id===r.id) || {grupo:r.id,var:""};
+      const detalle = [s.var, r.nivel?NIVLAB[r.nivel]:null, (s.pierna&&r.lugar)?(r.lugar==="Casa"?"en casa":"con espacio"):null]
+                        .filter(Boolean).join(", ");
       html += `<div class="entry">
         <div class="f">${fechaCorta(r.fecha)}</div>
-        <div class="g">${esc(s.grupo)}<small>${esc(s.var)}</small></div>
+        <div class="g">${esc(s.grupo)}<small>${esc(detalle)}</small></div>
         <div class="v">${r.series} de ${r.total} series${r.contactos?"<br>"+r.contactos+" contactos":""}</div>
       </div>`;
     });
@@ -635,8 +772,7 @@ function pintaRegistro(){
   if(b) b.onclick = async()=>{
     registro=[]; ciclo={n:1,hechas:{}};
     await save("registro",registro); await save("ciclo",ciclo);
-    pintaRail(); pinta();
-  };
+    pintaRail(); pinta(); };
 }
 
 async function toggle(btn){
@@ -652,7 +788,9 @@ async function toggle(btn){
 
 async function terminar(){
   const T = totales(sel);
-  registro.unshift({id:sel.id, fecha:hoyISO(), series:T.hec, total:T.ser, contactos:T.contHec, ciclo:ciclo.n});
+  registro.unshift({id:sel.id, fecha:hoyISO(), series:T.hec, total:T.ser,
+                    contactos:T.contHec, baja:T.baja, nivel:nivel,
+                    lugar:sel.pierna?lugar:null, ciclo:ciclo.n});
   ciclo.hechas[sel.id] = hoyISO();
   if(SESIONES.every(s=>ciclo.hechas[s.id])) ciclo = {n:ciclo.n+1, hechas:{}};
   activa = null;
@@ -710,6 +848,8 @@ if("serviceWorker" in navigator){
 
 (async ()=>{
   fase = await load("fase",3) || 3;
+  nivel = await load("nivel",3) || 3;
+  lugar = await load("lugar","Casa") || "Casa";
   ciclo = await load("ciclo",{n:1,hechas:{}}) || {n:1,hechas:{}};
   registro = await load("registro",[]) || [];
   activa = await load("activa",null);
