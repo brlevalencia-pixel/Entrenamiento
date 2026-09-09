@@ -475,12 +475,20 @@ const SAIYAN = [
   {n:"Super Saiyajin",       a:"#F2C230"},
   {n:"Super Saiyajin 2",     a:"#FFD84D"},
   {n:"Super Saiyajin 3",     a:"#FFE680"},
-  {n:"Super Saiyajin God",   a:"#FF6B8A"},
-  {n:"Super Saiyajin Blue",  a:"#4FC3E8"},
   {n:"Golden Ozaru",         a:"#E0A526"},
   {n:"Super Saiyajin 4",     a:"#C0392B"},
+  {n:"Super Saiyajin God",   a:"#FF6B8A"},
+  {n:"Super Saiyajin Blue",  a:"#4FC3E8"},
   {n:"Ultra Instinto",       a:"#D8DEE4"}
 ];
+
+/* Parámetros del seguimiento */
+const VENTANA = 28;          // días de la ventana rodante
+const META_SESIONES = 20;    // sesiones esperadas en esa ventana
+const BLOQUEO_DIAS = 7;      // cuánto dura el castigo Ozaru
+const PESO = {1:0.55, 2:0.80, 3:1.00};   // mínima, reducida, completa
+const PESOLAB = {1:"0,55", 2:"0,80", 3:"1,00"};
+
 const nivelKi = p => p>=1 ? 11 : Math.max(1, Math.min(10, Math.floor(p*10)+1));
 const NIVLAB = {1:"Mínima",2:"Reducida",3:"Completa"};
 const NIVMIN = {1:"20 min",2:"35 min",3:"Completa"};
@@ -629,24 +637,26 @@ const contactos7 = ()=> registro.filter(r=>diasDesde(r.fecha)<7).reduce((a,r)=>a
    Elegir la versión mínima y terminarla vale igual que la completa:
    se mide adherencia a lo que te comprometiste, no volumen bruto.
    ============================================================ */
-const delCiclo = ()=> registro.filter(r=>r.ciclo===ciclo.n);
+const enVentana = ()=> registro.filter(r=>diasDesde(r.fecha) < VENTANA);
 
+/* Una infracción pesa BLOQUEO_DIAS y luego se limpia sola. */
 function bloqueado(){
-  return delCiclo().some(r=>r.excedido || r.sinDescanso);
+  return registro.some(r=>diasDesde(r.fecha) < BLOQUEO_DIAS && (r.excedido || r.sinDescanso));
 }
 
+/* Puntos de una sesión: el peso de la versión elegida, multiplicado por
+   cuánto de esa versión terminaste. Una mínima completa vale 0,55;
+   una completa a medias, 0,50. */
+const puntosDe = r => (PESO[r.nivel||3] || 1) * (r.total ? Math.min(1, r.series/r.total) : 0);
+
 function calcKi(){
-  const rs = delCiclo();
-  const constancia = Math.min(1, rs.length/6);
-  const ejec = rs.length
-    ? rs.reduce((a,r)=>a + (r.total ? Math.min(1, r.series/r.total) : 0), 0)/rs.length
-    : 0;
-  /* Multiplicativo, no aditivo: así el Ki crece en proporción a lo que
-     llevas del microciclo. Completar las 6 sesiones da 60 % como piso;
-     el 40 % restante lo pone cuánto terminas dentro de cada una. */
-  const ki = constancia * (0.6 + 0.4*ejec);
+  const rs = enVentana();
+  const puntos = rs.reduce((a,r)=>a + puntosDe(r), 0);
+  /* Se redondea a 4 decimales: sin esto, 13,999999 puntos y 14 puntos
+     caen en niveles distintos por error de coma flotante. */
+  const ki = Math.min(1, Math.round(puntos/META_SESIONES*1e4)/1e4);
   const bloq = bloqueado();
-  return {ki, constancia, ejec, bloq, nivel: bloq ? 1 : nivelKi(ki)};
+  return {ki, puntos, sesiones: rs.length, bloq, nivel: bloq ? 1 : nivelKi(ki)};
 }
 
 /* ============================================================
@@ -722,9 +732,9 @@ function pintaSesion(){
     <div class="ki-orb"></div>
     <div class="ki-txt"><b>${esc(K.bloq?"Ozaru":TR.n)}</b>
       <small>${K.bloq
-        ? "Poder sin control: te pasaste de un límite en este microciclo. Se libera al empezar el siguiente."
+        ? "Poder sin control: te pasaste de un límite. Se libera solo, a los "+BLOQUEO_DIAS+" días de la infracción."
         : (K.nivel<11 ? "Siguiente: "+esc(SAIYAN[K.nivel].n)+" al "+(K.nivel*10)+" %"
-                      : "Nivel máximo: microciclo cerrado al 100 %")}</small></div>
+                      : "Nivel máximo alcanzado")}</small></div>
     <div class="ki-pct">${Math.round(K.ki*100)}%</div>
   </div>`;
 
@@ -868,11 +878,11 @@ function pintaRegistro(){
   html += `<div class="ki${K.bloq?" bloq":""}" style="--aura:${K.bloq?"#8B5A2B":TR.a}">
     <div class="ki-orb"></div>
     <div class="ki-txt"><b>${esc(K.bloq?"Ozaru":TR.n)}</b>
-      <small>Microciclo ${ciclo.n} · constancia ${Math.round(K.constancia*100)} % · ejecución ${Math.round(K.ejec*100)} %</small></div>
+      <small>Últimos ${VENTANA} días: ${K.sesiones} sesiones, ${K.puntos.toFixed(1)} de ${META_SESIONES} puntos</small></div>
     <div class="ki-pct">${Math.round(K.ki*100)}%</div>
   </div>
-  <p class="reg-sub" style="margin-top:10px">El Ki mide adherencia, no volumen: terminar una sesión mínima vale igual que terminar una completa. Cerrar las 6 sesiones del microciclo te pone en 60 %; el 40 % restante depende de cuánto terminas dentro de cada una.${
-    K.bloq ? " Ahora mismo estás bloqueado en Ozaru por pasarte de un límite en este microciclo." : ""}</p>`;
+  <p class="reg-sub" style="margin-top:10px">Ventana rodante de ${VENTANA} días, sin reinicios: el nivel refleja siempre las últimas cuatro semanas y baja si aflojas. Cada sesión aporta según la versión que elegiste, completa ${PESOLAB[3]}, reducida ${PESOLAB[2]} y mínima ${PESOLAB[1]}, multiplicado por cuánto terminaste. La meta son ${META_SESIONES} puntos.${
+    K.bloq ? " Ahora mismo estás bloqueado en Ozaru por pasarte de un límite en los últimos "+BLOQUEO_DIAS+" días." : ""}</p>`;
 
   // --- Escalera de transformaciones ---
   html += `<div class="esc">`;
@@ -883,7 +893,8 @@ function pintaRegistro(){
       <span class="nm" style="${(!K.bloq && i===K.nivel-1)?"color:"+t.a:""}">${esc(t.n)}</span>
       <span class="rg">${rango}</span></div>`;
   });
-  html += `</div>`;
+  html += `</div>
+  <p class="reg-sub" style="margin-top:12px">Una sesión completa terminada aporta ${PESOLAB[3]} puntos, una reducida ${PESOLAB[2]} y una mínima ${PESOLAB[1]}. Recortar por tiempo sigue siendo mejor que no entrenar, pero ya no vale lo mismo.</p>`;
 
   // --- Nivel de poder: el salto medido ---
   const P = poder();
@@ -997,10 +1008,10 @@ async function terminar(){
   subida = null;
   if(desp.bloq && !antes.bloq){
     subida = {n:"Ozaru", a:"#8B5A2B",
-      txt:"Te pasaste de un límite: contactos por encima del tope o menos de 48 horas entre sesiones de pierna. Poder sin control. El bloqueo se libera cuando empiece el siguiente microciclo."};
+      txt:"Te pasaste de un límite: contactos por encima del tope o menos de 48 horas entre sesiones de pierna. Poder sin control. El bloqueo se libera solo a los "+BLOQUEO_DIAS+" días."};
   } else if(!desp.bloq && desp.nivel > antes.nivel){
     const t = SAIYAN[desp.nivel-1];
-    subida = {n:t.n, a:t.a, txt:"Ki al "+Math.round(desp.ki*100)+" % del microciclo "+ciclo.n+"."};
+    subida = {n:t.n, a:t.a, txt:"Ki al "+Math.round(desp.ki*100)+" % en los últimos "+VENTANA+" días. Esta sesión aportó "+puntosDe(registro[0]).toFixed(2)+" puntos."};
   }
 
   if(SESIONES.every(s=>ciclo.hechas[s.id])){
