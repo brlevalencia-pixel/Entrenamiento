@@ -160,7 +160,49 @@ details.panel[open] summary::after{content:"–"}
 .entry .v{font-size:13.5px;color:var(--net);text-align:right;
   font-variant-numeric:tabular-nums;min-width:96px}
 .vacio{padding:26px 0;font-size:15px;color:var(--net);line-height:1.6;max-width:44ch}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* ---- Ki y transformaciones ---- */
+.ki{display:flex;align-items:center;gap:11px;margin-top:14px;padding:11px 13px;
+  background:var(--court-2);border-left:3px solid var(--aura,var(--ball))}
+.ki-orb{width:34px;height:34px;border-radius:50%;flex:0 0 auto;
+  background:var(--aura,var(--ball));box-shadow:0 0 14px var(--aura,var(--ball));
+  animation:pulso 2.6s ease-in-out infinite}
+@keyframes pulso{0%,100%{opacity:.85;transform:scale(1)}50%{opacity:1;transform:scale(1.07)}}
+.ki-txt{flex:1;min-width:0}
+.ki-txt b{display:block;font-family:var(--cond);font-size:20px;font-weight:600;
+  color:var(--aura,var(--ball));line-height:1.1}
+.ki-txt small{display:block;font-size:12.5px;color:var(--net);margin-top:2px}
+.ki-pct{font-family:var(--cond);font-size:26px;font-weight:700;
+  font-variant-numeric:tabular-nums;color:var(--aura,var(--ball))}
+.ki.bloq{border-left-color:var(--alert)}
+.ki.bloq .ki-orb{--aura:#8B5A2B}
+
+.subida{margin-top:14px;padding:13px 14px;background:var(--court-2);
+  border-left:3px solid var(--aura,var(--ball));font-size:14.5px;line-height:1.5}
+.subida b{color:var(--aura,var(--ball));font-family:var(--cond);font-size:19px;font-weight:600}
+
+.esc{margin-top:26px}
+.esc-row{display:flex;align-items:center;gap:10px;padding:7px 0;
+  border-bottom:1px solid var(--line);font-size:14px}
+.esc-row .pt{width:11px;height:11px;border-radius:50%;flex:0 0 auto}
+.esc-row .nm{flex:1;font-family:var(--cond);font-size:17px;font-weight:600}
+.esc-row .rg{font-size:12.5px;color:var(--net);font-variant-numeric:tabular-nums}
+.esc-row.act{background:var(--court-2)}
+.esc-row.act .nm{color:var(--chalk)}
+
+.poder{margin-top:26px;padding:15px;background:var(--court-2);border:1px solid var(--line)}
+.poder h3{font-family:var(--cond);font-size:22px;font-weight:600;margin-bottom:3px}
+.poder .cifra{font-family:var(--cond);font-size:44px;font-weight:700;line-height:1;
+  color:var(--ball);font-variant-numeric:tabular-nums;margin:10px 0 2px}
+.poder .sub{font-size:13px;color:var(--net);line-height:1.45}
+.form{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:flex-end}
+.form label{font-size:12px;color:var(--net);display:block;margin-bottom:4px}
+.form input{width:100px;background:var(--court);border:1px solid var(--line);
+  color:var(--chalk);font:inherit;font-size:16px;padding:9px 10px;
+  font-variant-numeric:tabular-nums}
+.form input:focus-visible{outline:2px solid var(--ball);outline-offset:-1px}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}
+  .ki-orb{animation:none}}
 </style>
 
 <nav class="rail"><div class="rail-scroll" id="rail" role="tablist" aria-label="Sesiones"></div></nav>
@@ -423,6 +465,23 @@ const FASES = {
  3:{lab:"Semana 5 en adelante",tope:80,txt:"Programa completo, con drop jumps desde 30-40 cm. No subas de 40 cm hasta llevar 4 semanas rebotando limpio. Señal de alarma: tiempo de contacto que se alarga sesión tras sesión."}
 };
 const TOPE_BAJA = 300;
+
+/* Once transformaciones. El corte es el mismo del tablero de hábitos:
+   cada décima sube un nivel, y el 100 % desbloquea Ultra Instinto. */
+const SAIYAN = [
+  {n:"Ozaru",                a:"#8B5A2B"},
+  {n:"Kaio-Ken",             a:"#E4483A"},
+  {n:"Falso Super Saiyajin", a:"#D9A441"},
+  {n:"Super Saiyajin",       a:"#F2C230"},
+  {n:"Super Saiyajin 2",     a:"#FFD84D"},
+  {n:"Super Saiyajin 3",     a:"#FFE680"},
+  {n:"Super Saiyajin God",   a:"#FF6B8A"},
+  {n:"Super Saiyajin Blue",  a:"#4FC3E8"},
+  {n:"Golden Ozaru",         a:"#E0A526"},
+  {n:"Super Saiyajin 4",     a:"#C0392B"},
+  {n:"Ultra Instinto",       a:"#D8DEE4"}
+];
+const nivelKi = p => p>=1 ? 11 : Math.max(1, Math.min(10, Math.floor(p*10)+1));
 const NIVLAB = {1:"Mínima",2:"Reducida",3:"Completa"};
 const NIVMIN = {1:"20 min",2:"35 min",3:"Completa"};
 
@@ -467,8 +526,10 @@ async function save(k,v){
 /* Copia de seguridad: el almacenamiento del navegador se puede borrar
    al limpiar datos, así que conviene exportar el registro de vez en cuando. */
 function exportar(){
-  const datos = {version:1, exportado:new Date().toISOString(),
-                 fase:mem.fase, ciclo:mem.ciclo, registro:mem.registro, activa:mem.activa};
+  const datos = {version:2, exportado:new Date().toISOString(),
+                 fase:mem.fase, nivel:mem.nivel, lugar:mem.lugar, ciclo:mem.ciclo,
+                 registro:mem.registro, historial:mem.historial,
+                 saltos:mem.saltos, activa:mem.activa};
   const url = URL.createObjectURL(new Blob([JSON.stringify(datos,null,2)],{type:"application/json"}));
   const a = document.createElement("a");
   a.href = url;
@@ -484,11 +545,17 @@ function importar(file){
       const d = JSON.parse(fr.result);
       if(!d || !Array.isArray(d.registro)) throw new Error("formato");
       fase = d.fase || 3;
+      nivel = d.nivel || 3;
+      lugar = d.lugar || "Casa";
       ciclo = d.ciclo || {n:1,hechas:{}};
       registro = d.registro;
+      historial = d.historial || [];
+      saltos = d.saltos || [];
       activa = d.activa || null;
-      await save("fase",fase); await save("ciclo",ciclo);
-      await save("registro",registro); await save("activa",activa);
+      await save("fase",fase); await save("nivel",nivel); await save("lugar",lugar);
+      await save("ciclo",ciclo); await save("registro",registro);
+      await save("historial",historial); await save("saltos",saltos);
+      await save("activa",activa);
       sel = activa ? (SESIONES.find(s=>s.id===activa.id) || sugerida()) : sugerida();
       pintaRail(); pinta();
     }catch(e){
@@ -505,6 +572,9 @@ let fase = 3, nivel = 3, lugar = "Casa";
 let ciclo = {n:1, hechas:{}};
 let activa = null;
 let registro = [];
+let historial = [];
+let saltos = [];
+let subida = null;
 let sel = SESIONES[0];
 let vista = "sesion";
 
@@ -553,6 +623,46 @@ function ultimaPierna(){
 const contactos7 = ()=> registro.filter(r=>diasDesde(r.fecha)<7).reduce((a,r)=>a+(r.contactos||0),0);
 
 /* ============================================================
+   KI DEL MICROCICLO
+   Constancia 60 % (sesiones terminadas sobre 6)
+   Ejecución  40 % (series hechas sobre las de la versión elegida)
+   Elegir la versión mínima y terminarla vale igual que la completa:
+   se mide adherencia a lo que te comprometiste, no volumen bruto.
+   ============================================================ */
+const delCiclo = ()=> registro.filter(r=>r.ciclo===ciclo.n);
+
+function bloqueado(){
+  return delCiclo().some(r=>r.excedido || r.sinDescanso);
+}
+
+function calcKi(){
+  const rs = delCiclo();
+  const constancia = Math.min(1, rs.length/6);
+  const ejec = rs.length
+    ? rs.reduce((a,r)=>a + (r.total ? Math.min(1, r.series/r.total) : 0), 0)/rs.length
+    : 0;
+  /* Multiplicativo, no aditivo: así el Ki crece en proporción a lo que
+     llevas del microciclo. Completar las 6 sesiones da 60 % como piso;
+     el 40 % restante lo pone cuánto terminas dentro de cada una. */
+  const ki = constancia * (0.6 + 0.4*ejec);
+  const bloq = bloqueado();
+  return {ki, constancia, ejec, bloq, nivel: bloq ? 1 : nivelKi(ki)};
+}
+
+/* ============================================================
+   NIVEL DE PODER — el salto medido en los tests
+   ============================================================ */
+function poder(){
+  if(!saltos.length) return null;
+  const base = saltos[saltos.length-1].salto;
+  const act  = saltos[0].salto;
+  const meta = base + 12;
+  return {base, act, meta, cifra: Math.round(act*100),
+          pct: Math.max(0, Math.min(1, (act-base)/(meta-base||1))),
+          n: saltos.length};
+}
+
+/* ============================================================
    RENDER
    ============================================================ */
 const app = document.getElementById("app");
@@ -585,6 +695,7 @@ function pintaSesion(){
   const enCurso = activa && activa.id===s.id;
   const tope = FASES[fase].tope;
 
+  const K = calcKi(), TR = SAIYAN[K.nivel-1];
   let html = `<header class="head">
     <p class="eyebrow">Microciclo ${ciclo.n}, ${Object.keys(ciclo.hechas).length} de 6 sesiones hechas</p>
     <h1>${esc(s.grupo)}</h1>
@@ -606,6 +717,21 @@ function pintaSesion(){
       <div class="bar${T.baja>TOPE_BAJA?" hot":""}"><i style="width:${Math.min(100,Math.round(T.baja/TOPE_BAJA*100))}%"></i></div>
     </div>`;
   html += `</div>`;
+
+  html += `<div class="ki${K.bloq?" bloq":""}" style="--aura:${K.bloq?"#8B5A2B":TR.a}">
+    <div class="ki-orb"></div>
+    <div class="ki-txt"><b>${esc(K.bloq?"Ozaru":TR.n)}</b>
+      <small>${K.bloq
+        ? "Poder sin control: te pasaste de un límite en este microciclo. Se libera al empezar el siguiente."
+        : (K.nivel<11 ? "Siguiente: "+esc(SAIYAN[K.nivel].n)+" al "+(K.nivel*10)+" %"
+                      : "Nivel máximo: microciclo cerrado al 100 %")}</small></div>
+    <div class="ki-pct">${Math.round(K.ki*100)}%</div>
+  </div>`;
+
+  if(subida){
+    html += `<div class="subida" style="--aura:${subida.a}">
+      <b>${esc(subida.n)}</b><br>${esc(subida.txt)}</div>`;
+  }
 
   // selectores de duración y lugar
   html += `<div class="ctrl">
@@ -705,6 +831,7 @@ function pintaSesion(){
   </div>`;
 
   app.innerHTML = html;
+  subida = null;
   app.querySelectorAll("[data-ir]").forEach(b=>b.onclick=()=>{
     sel = SESIONES.find(x=>x.id===b.dataset.ir); pintaRail(); pinta(); window.scrollTo({top:0}); });
   app.querySelectorAll("[data-fase]").forEach(c=>c.onclick=async()=>{
@@ -735,6 +862,63 @@ function pintaRegistro(){
     </div>`;
   if(ult28.length) html += `<p class="reg-sub">Últimos 28 días por grupo: ` +
     ["Piernas","Tirón","Empuje"].map(g=>`${g} ${grupos[g]||0}`).join(", ") + `.</p>`;
+
+  // --- Ki del microciclo ---
+  const K = calcKi(), TR = SAIYAN[K.nivel-1];
+  html += `<div class="ki${K.bloq?" bloq":""}" style="--aura:${K.bloq?"#8B5A2B":TR.a}">
+    <div class="ki-orb"></div>
+    <div class="ki-txt"><b>${esc(K.bloq?"Ozaru":TR.n)}</b>
+      <small>Microciclo ${ciclo.n} · constancia ${Math.round(K.constancia*100)} % · ejecución ${Math.round(K.ejec*100)} %</small></div>
+    <div class="ki-pct">${Math.round(K.ki*100)}%</div>
+  </div>
+  <p class="reg-sub" style="margin-top:10px">El Ki mide adherencia, no volumen: terminar una sesión mínima vale igual que terminar una completa. Cerrar las 6 sesiones del microciclo te pone en 60 %; el 40 % restante depende de cuánto terminas dentro de cada una.${
+    K.bloq ? " Ahora mismo estás bloqueado en Ozaru por pasarte de un límite en este microciclo." : ""}</p>`;
+
+  // --- Escalera de transformaciones ---
+  html += `<div class="esc">`;
+  SAIYAN.forEach((t,i)=>{
+    const rango = i===10 ? "100 %" : (i*10)+" a "+((i+1)*10)+" %";
+    html += `<div class="esc-row${(!K.bloq && i===K.nivel-1)?" act":""}">
+      <span class="pt" style="background:${t.a}"></span>
+      <span class="nm" style="${(!K.bloq && i===K.nivel-1)?"color:"+t.a:""}">${esc(t.n)}</span>
+      <span class="rg">${rango}</span></div>`;
+  });
+  html += `</div>`;
+
+  // --- Nivel de poder: el salto medido ---
+  const P = poder();
+  html += `<div class="poder">
+    <h3>Nivel de poder</h3>
+    <p class="sub">Tu salto de remate medido en los tests. Es el único número que dice si el programa está funcionando.</p>`;
+  if(P){
+    html += `<div class="cifra">${P.cifra.toLocaleString("es-CO")}</div>
+      <p class="sub">Salto actual ${P.act.toFixed(1)} cm · línea base ${P.base.toFixed(1)} cm · meta ${P.meta.toFixed(1)} cm</p>
+      <div class="bar" style="margin-top:10px"><i style="width:${Math.round(P.pct*100)}%"></i></div>
+      <p class="sub" style="margin-top:8px">${
+        P.act>=P.meta ? "Meta alcanzada. El scouter no da para más." :
+        (P.n<2 ? "Registra una segunda medición dentro de 8 semanas para ver el avance."
+               : "Faltan "+(P.meta-P.act).toFixed(1)+" cm para la meta.")}</p>`;
+  } else {
+    html += `<p class="sub" style="margin-top:12px">Todavía no hay mediciones. Necesitas una pared y carrera de aproximación: marca con tiza el alcance de pie y el alcance en remate, y anota los dos aquí.</p>`;
+  }
+  html += `<div class="form">
+      <div><label for="pie">Alcance de pie (cm)</label><input id="pie" type="number" inputmode="decimal" step="0.5"></div>
+      <div><label for="rem">Marca de remate (cm)</label><input id="rem" type="number" inputmode="decimal" step="0.5"></div>
+      <button class="btn" id="addSalto">Guardar medición</button>
+    </div></div>`;
+
+  // --- Historial de microciclos ---
+  if(historial.length){
+    html += `<div class="esc" style="margin-top:28px"><p class="reg-sub">Cómo cerró cada microciclo</p>`;
+    historial.forEach(h=>{
+      const t = SAIYAN[h.nivel-1];
+      html += `<div class="esc-row">
+        <span class="pt" style="background:${h.bloq?"#8B5A2B":t.a}"></span>
+        <span class="nm">Microciclo ${h.ciclo}</span>
+        <span class="rg">${esc(h.bloq?"Ozaru":t.n)} · ${Math.round(h.ki*100)} %</span></div>`;
+    });
+    html += `</div>`;
+  }
 
   if(!registro.length){
     html += `<p class="vacio">Todavía no hay sesiones guardadas. Termina una sesión con el botón
@@ -768,10 +952,22 @@ function pintaRegistro(){
     im.onclick = ()=>ar.click();
     ar.onchange = ()=>{ if(ar.files[0]) importar(ar.files[0]); };
   }
+  const add = document.getElementById("addSalto");
+  if(add) add.onclick = async()=>{
+    const pie = parseFloat(document.getElementById("pie").value);
+    const rem = parseFloat(document.getElementById("rem").value);
+    if(!isFinite(pie) || !isFinite(rem) || rem<=pie){
+      alert("Revisa los números: la marca de remate tiene que ser mayor que el alcance de pie, y ambos en centímetros desde el piso.");
+      return;
+    }
+    saltos.unshift({fecha:hoyISO(), pie, remate:rem, salto:+(rem-pie).toFixed(1)});
+    await save("saltos", saltos);
+    pinta();
+  };
   const b = document.getElementById("borrar");
   if(b) b.onclick = async()=>{
-    registro=[]; ciclo={n:1,hechas:{}};
-    await save("registro",registro); await save("ciclo",ciclo);
+    registro=[]; ciclo={n:1,hechas:{}}; historial=[];
+    await save("registro",registro); await save("ciclo",ciclo); await save("historial",historial);
     pintaRail(); pinta(); };
 }
 
@@ -788,11 +984,31 @@ async function toggle(btn){
 
 async function terminar(){
   const T = totales(sel);
+  const antes = calcKi();
+  const up = ultimaPierna();
   registro.unshift({id:sel.id, fecha:hoyISO(), series:T.hec, total:T.ser,
                     contactos:T.contHec, baja:T.baja, nivel:nivel,
-                    lugar:sel.pierna?lugar:null, ciclo:ciclo.n});
+                    lugar:sel.pierna?lugar:null, ciclo:ciclo.n,
+                    excedido: T.contHec > FASES[fase].tope || T.baja > TOPE_BAJA,
+                    sinDescanso: !!(sel.pierna && up && diasDesde(up) < 2)});
   ciclo.hechas[sel.id] = hoyISO();
-  if(SESIONES.every(s=>ciclo.hechas[s.id])) ciclo = {n:ciclo.n+1, hechas:{}};
+
+  const desp = calcKi();
+  subida = null;
+  if(desp.bloq && !antes.bloq){
+    subida = {n:"Ozaru", a:"#8B5A2B",
+      txt:"Te pasaste de un límite: contactos por encima del tope o menos de 48 horas entre sesiones de pierna. Poder sin control. El bloqueo se libera cuando empiece el siguiente microciclo."};
+  } else if(!desp.bloq && desp.nivel > antes.nivel){
+    const t = SAIYAN[desp.nivel-1];
+    subida = {n:t.n, a:t.a, txt:"Ki al "+Math.round(desp.ki*100)+" % del microciclo "+ciclo.n+"."};
+  }
+
+  if(SESIONES.every(s=>ciclo.hechas[s.id])){
+    historial.unshift({ciclo:ciclo.n, fecha:hoyISO(), ki:desp.ki,
+                       nivel:desp.nivel, bloq:desp.bloq});
+    ciclo = {n:ciclo.n+1, hechas:{}};
+    await save("historial", historial);
+  }
   activa = null;
   await save("registro",registro); await save("ciclo",ciclo); await save("activa",null);
   pararDescanso();
@@ -852,6 +1068,8 @@ if("serviceWorker" in navigator){
   lugar = await load("lugar","Casa") || "Casa";
   ciclo = await load("ciclo",{n:1,hechas:{}}) || {n:1,hechas:{}};
   registro = await load("registro",[]) || [];
+  historial = await load("historial",[]) || [];
+  saltos = await load("saltos",[]) || [];
   activa = await load("activa",null);
   sel = activa ? (SESIONES.find(s=>s.id===activa.id) || sugerida()) : sugerida();
   pintaRail(); pinta();
