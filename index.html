@@ -18,12 +18,15 @@
   --court:#10293F; --court-2:#17384F; --court-3:#1E465F;
   --line:#2A5674; --chalk:#F4F6F5; --net:#8AA6B8;
   --ball:#F2C230; --done:#4FB286; --alert:#E4703A;
+  /* El acento sigue la transformación actual. Se recalcula en cada render. */
+  --acento:#F2C230; --acento-txt:#10293F;
   --sans:"Barlow",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   --cond:"Barlow Condensed","Barlow",-apple-system,"Segoe UI",sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{background:var(--court)}
 body{font-family:var(--sans);background:var(--court);color:var(--chalk);
+  transition:color .4s ease;
   font-size:16px;line-height:1.5;padding-bottom:130px;-webkit-font-smoothing:antialiased}
 .wrap{max-width:640px;margin:0 auto;padding:0 16px}
 
@@ -36,10 +39,10 @@ body{font-family:var(--sans);background:var(--court);color:var(--chalk);
 .sesion b{display:block;font-family:var(--cond);font-size:17px;font-weight:600;
   color:var(--chalk);line-height:1.1}
 .sesion i{display:block;font-style:normal;font-size:11.5px;color:var(--net);margin-top:1px}
-.sesion[aria-selected="true"]{border-color:var(--ball)}
-.sesion[aria-selected="true"] b{color:var(--ball)}
+.sesion[aria-selected="true"]{border-color:var(--acento)}
+.sesion[aria-selected="true"] b{color:var(--acento)}
 .sesion.hecha{border-left:3px solid var(--done)}
-.sesion:focus-visible{outline:2px solid var(--ball);outline-offset:2px}
+.sesion:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
 
 .head{padding:24px 0 16px}
 .eyebrow{font-size:13px;color:var(--net);margin-bottom:5px}
@@ -53,7 +56,7 @@ body{font-family:var(--sans);background:var(--court);color:var(--chalk);
 .meter .n small{font-size:15px;color:var(--net);font-weight:500}
 .meter .lab{font-size:12px;color:var(--net);margin-top:3px}
 .bar{height:3px;background:var(--court-3);margin-top:8px;overflow:hidden}
-.bar i{display:block;height:100%;background:var(--ball);width:0;transition:width .3s}
+.bar i{display:block;height:100%;background:var(--acento);width:0;transition:width .3s}
 .bar.hot i{background:var(--alert)}
 
 /* selectores */
@@ -63,18 +66,18 @@ body{font-family:var(--sans);background:var(--court);color:var(--chalk);
 .ctrl-row{display:flex;gap:6px;flex-wrap:wrap}
 .chip{font-family:var(--cond);font-size:15.5px;font-weight:600;background:transparent;
   color:var(--net);border:1px solid var(--line);padding:5px 12px;cursor:pointer;transition:.15s}
-.chip[aria-pressed="true"]{background:var(--ball);color:var(--court);border-color:var(--ball)}
-.chip:focus-visible{outline:2px solid var(--ball);outline-offset:2px}
+.chip[aria-pressed="true"]{background:var(--acento);color:var(--acento-txt);border-color:var(--acento)}
+.chip:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
 .ctrl-note{font-size:12.5px;color:var(--net);margin-top:7px;line-height:1.4}
 
 .aviso{margin-top:16px;padding:12px 14px;background:var(--court-2);
-  border-left:3px solid var(--ball);font-size:14px;line-height:1.5}
+  border-left:3px solid var(--acento);font-size:14px;line-height:1.5}
 .aviso.riesgo{border-left-color:var(--alert)}
 .aviso b{font-weight:600}
-.aviso button{background:none;border:0;color:var(--ball);font:inherit;font-weight:600;
+.aviso button{background:none;border:0;color:var(--acento);font:inherit;font-weight:600;
   cursor:pointer;text-decoration:underline;padding:0;margin-left:4px}
 
-.phase{margin-top:16px;padding:13px 14px;background:var(--court-2);border-left:3px solid var(--ball)}
+.phase{margin-top:16px;padding:13px 14px;background:var(--court-2);border-left:3px solid var(--acento)}
 .phase-row{display:flex;gap:7px;margin-bottom:9px;flex-wrap:wrap}
 .phase p{font-size:13.5px;color:var(--net);line-height:1.45}
 
@@ -83,7 +86,7 @@ details.panel summary{cursor:pointer;list-style:none;padding:12px 14px;
   font-family:var(--cond);font-size:18.5px;font-weight:600;
   display:flex;justify-content:space-between;align-items:center}
 details.panel summary::-webkit-details-marker{display:none}
-details.panel summary::after{content:"+";color:var(--ball);font-size:22px;line-height:1}
+details.panel summary::after{content:"+";color:var(--acento);font-size:22px;line-height:1}
 details.panel[open] summary::after{content:"–"}
 .panel-body{padding:0 14px 14px;font-size:14.5px;color:var(--net);line-height:1.55}
 .panel-body li{margin:7px 0 0 17px}
@@ -94,7 +97,7 @@ details.panel[open] summary::after{content:"–"}
 .block-head{display:flex;align-items:baseline;gap:10px;padding-bottom:7px;border-bottom:1px solid var(--line)}
 .block-head h2{font-family:var(--cond);font-size:21px;font-weight:600}
 .block-head span{font-size:12.5px;color:var(--net);margin-left:auto}
-.block.plyo .block-head h2{color:var(--ball)}
+.block.plyo .block-head h2{color:var(--acento)}
 
 .ex{border-bottom:1px solid var(--line);padding:16px 0}
 .ex.complete .ex-name{color:var(--done)}
@@ -104,7 +107,7 @@ details.panel[open] summary::after{content:"–"}
 .ex-name{font-family:var(--cond);font-size:23px;font-weight:600;line-height:1.12;flex:1}
 .tag{font-family:var(--cond);font-size:12.5px;font-weight:600;letter-spacing:.03em;
   border:1px solid var(--line);color:var(--net);padding:2px 7px;margin-top:3px;flex:0 0 auto}
-.tag.clave{border-color:var(--ball);color:var(--ball)}
+.tag.clave{border-color:var(--acento);color:var(--acento)}
 .spec{display:flex;margin:10px 0 0 26px;border:1px solid var(--line)}
 .spec div{flex:1;padding:7px 9px;border-right:1px solid var(--line);min-width:0}
 .spec div:last-child{border-right:0}
@@ -116,13 +119,13 @@ details.panel[open] summary::after{content:"–"}
   color:var(--net);font-family:var(--cond);font-size:18px;font-weight:600;cursor:pointer;
   transition:.12s;font-variant-numeric:tabular-nums}
 .set[aria-pressed="true"]{background:var(--done);border-color:var(--done);color:var(--court)}
-.set:focus-visible{outline:2px solid var(--ball);outline-offset:2px}
+.set:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
 .sets .hint{font-size:12.5px;color:var(--net)}
 .note{margin:11px 0 0 26px;font-size:13.8px;color:var(--net);line-height:1.5;
   border-left:2px solid var(--line);padding-left:11px;max-width:60ch}
 
 .rest{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--court-2);
-  border-top:2px solid var(--ball);transform:translateY(105%);transition:transform .22s ease;
+  border-top:2px solid var(--acento);transform:translateY(105%);transition:transform .22s ease;
   padding-bottom:env(safe-area-inset-bottom)}
 .rest.up{transform:none}
 .rest-in{max-width:640px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:13px}
@@ -133,15 +136,15 @@ details.panel[open] summary::after{content:"–"}
   color:var(--chalk);border:1px solid var(--line);padding:8px 13px;cursor:pointer}
 .rest.over .rest-time{color:var(--done)}
 .rest-bar{height:3px;background:var(--court-3)}
-.rest-bar i{display:block;height:100%;background:var(--ball);width:100%}
+.rest-bar i{display:block;height:100%;background:var(--acento);width:100%}
 
 .foot{margin:30px 0 16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .btn{font-family:var(--cond);font-size:17px;font-weight:600;background:transparent;
   color:var(--net);border:1px solid var(--line);padding:11px 17px;cursor:pointer}
 .btn:hover{color:var(--chalk);border-color:var(--net)}
-.btn.main{background:var(--ball);color:var(--court);border-color:var(--ball)}
+.btn.main{background:var(--acento);color:var(--acento-txt);border-color:var(--acento)}
 .btn:disabled{opacity:.35;cursor:not-allowed}
-.btn:focus-visible{outline:2px solid var(--ball);outline-offset:2px}
+.btn:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
 .foot-note{font-size:12.5px;color:var(--net);flex-basis:100%}
 
 .reg h2{font-family:var(--cond);font-size:26px;font-weight:600;margin-bottom:4px}
@@ -162,23 +165,23 @@ details.panel[open] summary::after{content:"–"}
 .vacio{padding:26px 0;font-size:15px;color:var(--net);line-height:1.6;max-width:44ch}
 /* ---- Ki y transformaciones ---- */
 .ki{display:flex;align-items:center;gap:11px;margin-top:14px;padding:11px 13px;
-  background:var(--court-2);border-left:3px solid var(--aura,var(--ball))}
+  background:var(--court-2);border-left:3px solid var(--aura,var(--acento))}
 .ki-orb{width:34px;height:34px;border-radius:50%;flex:0 0 auto;
-  background:var(--aura,var(--ball));box-shadow:0 0 14px var(--aura,var(--ball));
+  background:var(--aura,var(--acento));box-shadow:0 0 14px var(--aura,var(--acento));
   animation:pulso 2.6s ease-in-out infinite}
 @keyframes pulso{0%,100%{opacity:.85;transform:scale(1)}50%{opacity:1;transform:scale(1.07)}}
 .ki-txt{flex:1;min-width:0}
 .ki-txt b{display:block;font-family:var(--cond);font-size:20px;font-weight:600;
-  color:var(--aura,var(--ball));line-height:1.1}
+  color:var(--aura,var(--acento));line-height:1.1}
 .ki-txt small{display:block;font-size:12.5px;color:var(--net);margin-top:2px}
 .ki-pct{font-family:var(--cond);font-size:26px;font-weight:700;
-  font-variant-numeric:tabular-nums;color:var(--aura,var(--ball))}
+  font-variant-numeric:tabular-nums;color:var(--aura,var(--acento))}
 .ki.bloq{border-left-color:var(--alert)}
-.ki.bloq .ki-orb{--aura:#8B5A2B}
+.ki.bloq .ki-orb{--aura:#C08A4E}
 
 .subida{margin-top:14px;padding:13px 14px;background:var(--court-2);
-  border-left:3px solid var(--aura,var(--ball));font-size:14.5px;line-height:1.5}
-.subida b{color:var(--aura,var(--ball));font-family:var(--cond);font-size:19px;font-weight:600}
+  border-left:3px solid var(--aura,var(--acento));font-size:14.5px;line-height:1.5}
+.subida b{color:var(--aura,var(--acento));font-family:var(--cond);font-size:19px;font-weight:600}
 
 .esc{margin-top:26px}
 .esc-row{display:flex;align-items:center;gap:10px;padding:7px 0;
@@ -192,14 +195,14 @@ details.panel[open] summary::after{content:"–"}
 .poder{margin-top:26px;padding:15px;background:var(--court-2);border:1px solid var(--line)}
 .poder h3{font-family:var(--cond);font-size:22px;font-weight:600;margin-bottom:3px}
 .poder .cifra{font-family:var(--cond);font-size:44px;font-weight:700;line-height:1;
-  color:var(--ball);font-variant-numeric:tabular-nums;margin:10px 0 2px}
+  color:var(--acento);font-variant-numeric:tabular-nums;margin:10px 0 2px}
 .poder .sub{font-size:13px;color:var(--net);line-height:1.45}
 .form{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:flex-end}
 .form label{font-size:12px;color:var(--net);display:block;margin-bottom:4px}
 .form input{width:100px;background:var(--court);border:1px solid var(--line);
   color:var(--chalk);font:inherit;font-size:16px;padding:9px 10px;
   font-variant-numeric:tabular-nums}
-.form input:focus-visible{outline:2px solid var(--ball);outline-offset:-1px}
+.form input:focus-visible{outline:2px solid var(--acento);outline-offset:-1px}
 
 @media (prefers-reduced-motion:reduce){*{transition:none!important}
   .ki-orb{animation:none}}
@@ -243,7 +246,8 @@ const REGLAS = [
   "Si la altura del salto baja o el pie tarda más en despegar, la serie se terminó.",
   "2 a 3 minutos de descanso en saltos y series pesadas. El descanso corto aquí estorba.",
   "Molestia en el tendón rotuliano o de Aquiles significa bajar contactos, no aguantar.",
-  "Todo lo unilateral empieza por la izquierda y la derecha iguala sus repeticiones. Regla activa hasta que la asimetría baje del 10 %.",
+  "Todo lo unilateral empieza por la izquierda y la derecha iguala sus repeticiones. Regla provisional hasta hacer el test de salto a una pierna, que es la medida válida del 10 %.",
+  "En accesorios, la última serie al fallo técnico. Los ejercicios principales siguen en 3-6 repeticiones sin llegar al fallo.",
   "Dominadas y fondos estrictos: sin balanceo, sin rebote. Si no llegas al rango, quita peso del chaleco.",
   "Entre las dos sesiones de pierna deja al menos 48 horas."
 ];
@@ -279,9 +283,13 @@ const SESIONES = [
     {x:"Sentadilla búlgara con chaleco",s:4,r:"6-8 por pierna",t:"3-0-X",d:150,c:"16 kg",niv:1,loc:"Ambos",
      n:"Empieza por la izquierda e iguala las reps de la derecha a lo que haga la izquierda. No subas carga mientras la asimetría siga por encima del 10 %."},
     {x:"Búlgara, serie extra pierna izquierda",s:1,r:"6-8",t:"3-0-X",d:120,c:"16 kg",niv:1,loc:"Ambos",
-     n:"Serie temporal por la asimetría del 20 %. Sale del programa cuando la diferencia baje del 10 % en el test."},
-    {x:"Pistol squat",s:4,sr:3,r:"2-3 por pierna",t:"3-1-0",d:150,c:"Peso corporal",niv:2,loc:"Ambos",
-     n:"Empieza por la izquierda. Ya haces 2 completas, así que entra directo sin fase asistida. Cuando llegues a 5 limpias por lado, sostén una mancuerna de 5 kg al frente como contrapeso: te deja bajar más profundo y es el escalón previo al chaleco."},
+     n:"En suspenso hasta medir el salto a una pierna. El umbral del 10 % está validado sobre pruebas de salto, no sobre repeticiones al fallo: tu 20 % salió de contar reps de búlgara, que es mucho más ruidoso. Si el test marca menos de 10 %, esta serie sale."},
+    {x:"Sentadilla con carga acumulada",s:4,r:"6-8",t:"3-1-0",d:150,c:"46-51 kg",niv:2,loc:"Ambos",
+     n:"El patrón bilateral que faltaba, y el despegue de remate es bilateral. Chaleco 16 kg más mochila cargada con libros o garrafas de agua 20-25 kg más mancuernas 10 kg: un 60 % de sobrecarga, no un 20 %. Mochila ceñida y alta. Si falla el agarre antes que la pierna, suelta las mancuernas y sube la mochila."},
+    {x:"Pistol squat",s:4,r:"2-3 por pierna",t:"3-1-0",d:150,c:"Peso corporal",niv:3,loc:"Ambos",
+     n:"Empieza por la izquierda. Ya haces 2 completas, así que entra directo sin fase asistida. Cuando llegues a 5 limpias por lado, sostén una mancuerna de 5 kg al frente como contrapeso: es el escalón previo al chaleco."},
+    {x:"Isométrico de sentadilla en superación",s:4,r:"5 s por ángulo, 2 ángulos",t:"Isométrico",d:120,c:"Sin carga",niv:3,loc:"Ambos",
+     n:"Empujas hacia arriba contra algo que no cede, con máxima intención desde el primer segundo. Dos ángulos: profundo y medio. Es lo más pesado que puedes hacer sin comprar nada y fatiga menos que lo dinámico. Asegúrate de que la estructura aguanta: un marco de puerta sí, un mueble no."},
     {x:"Peso muerto rumano a una pierna",s:3,sr:2,r:"8-10 por lado",t:"3-0-1",d:120,c:"Mancuernas 5 kg",niv:2,loc:"Ambos",
      n:"Lo que más aporta al salto de todo lo añadido. Con mancuernas carga mejor la bisagra que con chaleco: el peso cuelga de las manos y alarga la palanca sobre la cadera. Empieza por la izquierda."},
     {x:"Isométrico de isquiotibiales",s:4,r:"5 sostenidas de 5 s",t:"Isométrico",d:120,c:"Peso corporal",niv:3,loc:"Ambos",
@@ -289,7 +297,7 @@ const SESIONES = [
    ]},
    {t:"Accesorio",ej:[
     {x:"Flexión de talones unilateral",s:4,r:"8-10 por pierna",t:"2-1-2",d:90,c:"16 kg",niv:3,loc:"Ambos",
-     n:"Desde un escalón, con el talón cayendo por debajo del borde. Empieza por la izquierda: también ahí hay 11 % de asimetría."}
+     n:"Desde un escalón, con el talón cayendo por debajo del borde. Empieza por la izquierda: también ahí hay 11 % de asimetría. Última serie al fallo técnico."}
    ]}
   ]},
 
@@ -303,7 +311,7 @@ const SESIONES = [
    ]},
    {t:"Accesorio",ej:[
     {x:"Australiana con pies elevados",s:3,r:"8-10",t:"2-1-1",d:90,c:"16 kg",niv:2,loc:"Ambos",
-     n:"Tu único vector horizontal y estaba infravalorado. Pies a la altura de la barra y pausa de 1 s con el pecho tocando."},
+     n:"Tu único vector horizontal y estaba infravalorado. Pies a la altura de la barra y pausa de 1 s con el pecho tocando. Última serie al fallo técnico."},
     {x:"Y-T-W en anillas (circuito)",s:3,r:"8-10 de cada letra",t:"Lento",d:60,c:"Sin carga",niv:3,loc:"Ambos",
      n:"Una serie es Y, T y W seguidas sin soltar. Sin peso: el objetivo es control. Escápulas abajo y atrás."},
     {x:"Elevación de rodillas colgado con muñequeras",s:3,r:"10-12",t:"2-0-1",d:60,c:"Muñequeras 2 kg",niv:3,loc:"Ambos",
@@ -329,7 +337,7 @@ const SESIONES = [
    ]},
    {t:"Accesorio",ej:[
     {x:"Flexión declinada con chaleco",s:3,r:"8-10",t:"3-1-0",d:90,c:"16 kg",niv:2,loc:"Ambos",
-     n:"Pausa de 1 s abajo, sin dejar caer la cadera. Las paralelas chicas te dan más rango si las usas de apoyo."},
+     n:"Pausa de 1 s abajo, sin dejar caer la cadera. Las paralelas chicas te dan más rango si las usas de apoyo. Última serie al fallo técnico."},
     {x:"Flexión explosiva",s:3,r:"5",t:"X",d:120,c:"Sin carga",niv:3,loc:"Ambos",
      n:"Fresco dentro del bloque, nunca al final. Busca máxima velocidad de despegue, no altura."}
    ]},
@@ -361,7 +369,7 @@ const SESIONES = [
    ]},
    {t:"Accesorio",ej:[
     {x:"Flexión de talones con rodilla flexionada",s:4,r:"12-15",t:"2-1-2",d:60,c:"16 kg",niv:2,loc:"Ambos",
-     n:"Rodilla a 90°: así se aísla el sóleo, motor principal en contactos rápidos y desplazamientos laterales."},
+     n:"Rodilla a 90°: así se aísla el sóleo, motor principal en contactos rápidos y desplazamientos laterales. Última serie al fallo técnico."},
     {x:"Movilidad de tobillo contra pared",s:2,r:"30 s por lado",t:"—",d:30,c:"Sin carga",niv:3,loc:"Ambos",
      n:"Poca dorsiflexión limita la profundidad del contramovimiento y te roba centímetros directamente."}
    ]}
@@ -377,7 +385,7 @@ const SESIONES = [
    ]},
    {t:"Accesorio",ej:[
     {x:"Australiana en anillas con chaleco",s:4,r:"8-10",t:"2-1-1",d:90,c:"16 kg",niv:2,loc:"Ambos",
-     n:"En anillas exige más estabilidad que en barra. Cuerpo en línea recta de tobillo a cabeza."},
+     n:"En anillas exige más estabilidad que en barra. Cuerpo en línea recta de tobillo a cabeza. Última serie al fallo técnico."},
     {x:"Face pull en anillas",s:3,r:"15",t:"2-1-2",d:60,c:"Banda ligera",niv:3,loc:"Ambos",
      n:"Tira hacia la frente separando las manos al final. Es distinto de la apertura posterior: aquí las manos suben hacia la cara."}
    ]},
@@ -399,7 +407,7 @@ const SESIONES = [
    ]},
    {t:"Accesorio",ej:[
     {x:"Flexión declinada con chaleco",s:3,r:"10-12",t:"3-1-0",d:90,c:"16 kg",niv:2,loc:"Ambos",
-     n:"Aquí sí puedes acumular repeticiones: es la sesión de volumen del patrón de empuje."},
+     n:"Aquí sí puedes acumular repeticiones: es la sesión de volumen del patrón de empuje. Última serie al fallo técnico."},
     {x:"Flexión pliométrica con palmada",s:3,r:"5",t:"X",d:120,c:"Sin carga",niv:3,loc:"Ambos",
      n:"Solo si la flexión explosiva te sale limpia. Aterriza con codos blandos."}
    ]},
@@ -427,7 +435,9 @@ const PLYO = {
      {x:"Salto contramovimiento con manos en la cadera",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:2,loc:"Casa",
       n:"Versión para techo bajo: sin balanceo de brazos la cabeza sube unos 20 cm sobre tu estatura. Pierdes el 10 % que aportan los brazos, conservas el trabajo de pierna."},
      {x:"Pogos (rebotes de tobillo)",s:3,r:"10",t:"X",d:90,c:"Sin carga",k:10,niv:3,loc:"Ambos",
-      n:"Mínimo tiempo de contacto. Fílmate en cámara lenta para verificarlo."}],
+      n:"Mínimo tiempo de contacto. Fílmate en cámara lenta para verificarlo."},
+     {x:"Empuje de cadera explosivo a una pierna",s:4,r:"5 por lado",t:"X",d:120,c:"16 kg",niv:3,loc:"Ambos",
+      n:"Extensión de cadera con intención máxima, hombros sobre un banco o sofá firme. Suma el volumen de isquio y glúteo que al programa le faltaba."}],
   3:[{x:"Salto vertical con aproximación",s:5,sr:4,sm:3,r:"3",t:"X",d:150,c:"Sin carga",k:3,niv:1,loc:"Espacio",
       n:"Aproximación de 3 pasos. Marca la pared para ver el progreso dentro de la sesión. Necesita techo por encima de 2,6 m."},
      {x:"Salto a escalón alto por velocidad",s:5,sr:4,sm:3,r:"3",t:"X",d:150,c:"Sin carga",k:3,niv:1,loc:"Casa",
@@ -436,8 +446,8 @@ const PLYO = {
       n:"Es tu potencia pura, sin la ayuda de la carrera."},
      {x:"Salto contramovimiento con manos en la cadera",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:2,loc:"Casa",
       n:"Sin balanceo de brazos cabe en cualquier techo estándar."},
-     {x:"Empuje de cadera explosivo a una pierna",s:4,r:"5 por lado",t:"X",d:120,c:"16 kg",niv:3,loc:"Casa",
-      n:"Compensa en casa lo que se pierde sin el salto con aproximación. Hombros sobre el sofá, intención máxima en la subida."}]
+     {x:"Empuje de cadera explosivo a una pierna",s:4,r:"5 por lado",t:"X",d:120,c:"16 kg",niv:3,loc:"Ambos",
+      n:"Extensión de cadera con intención máxima, hombros sobre un banco o sofá firme. En casa compensa lo que se pierde sin el salto con aproximación; con espacio suma el volumen de isquio y glúteo que al programa le faltaba."}]
  },
  reactivo:{
   1:[{x:"Pogos (rebotes de tobillo)",s:4,r:"10",t:"X",d:90,c:"Sin carga",k:10,niv:1,loc:"Ambos",
@@ -460,8 +470,8 @@ const PLYO = {
 };
 
 const FASES = {
- 1:{lab:"Semanas 1 y 2",tope:40,txt:"Solo pogos y salto a escalón. Nada de drop jumps ni saltos con aproximación máxima. Señal de alarma: dolor en el tendón rotuliano o de Aquiles al día siguiente."},
- 2:{lab:"Semanas 3 y 4",tope:60,txt:"Entran el contramovimiento y el salto con aproximación. Sigue sin drop jumps: la caída desde altura es lo último que entra. Señal de alarma: rigidez de gemelo que no cede con el calentamiento."},
+ 1:{lab:"Semanas 1 y 2",tope:40,txt:"Escalón OMITIDO en tu caso: jugar voleibol y tenis ya cargó el tendón, así que no partes de cero. Vuelve aquí solo si aparece molestia en rodilla o Aquiles. Solo pogos y salto a escalón."},
+ 2:{lab:"Semanas 3 y 4",tope:60,txt:"TU PUNTO DE PARTIDA. Pogos, salto a escalón, contramovimiento y salto con aproximación. Sigue sin drop jumps: la caída desde altura es lo último que entra. Señal de alarma: rigidez de gemelo que no cede con el calentamiento."},
  3:{lab:"Semana 5 en adelante",tope:80,txt:"Programa completo, con drop jumps desde 30-40 cm. No subas de 40 cm hasta llevar 4 semanas rebotando limpio. Señal de alarma: tiempo de contacto que se alarga sesión tras sesión."}
 };
 const TOPE_BAJA = 300;
@@ -469,15 +479,15 @@ const TOPE_BAJA = 300;
 /* Once transformaciones. El corte es el mismo del tablero de hábitos:
    cada décima sube un nivel, y el 100 % desbloquea Ultra Instinto. */
 const SAIYAN = [
-  {n:"Ozaru",                a:"#8B5A2B"},
-  {n:"Kaio-Ken",             a:"#E4483A"},
-  {n:"Falso Super Saiyajin", a:"#D9A441"},
+  {n:"Ozaru",                a:"#C08A4E"},
+  {n:"Kaio-Ken",             a:"#FF6A45"},
+  {n:"Falso Super Saiyajin", a:"#BFA05A"},
   {n:"Super Saiyajin",       a:"#F2C230"},
   {n:"Super Saiyajin 2",     a:"#FFD84D"},
   {n:"Super Saiyajin 3",     a:"#FFE680"},
   {n:"Golden Ozaru",         a:"#E0A526"},
-  {n:"Super Saiyajin 4",     a:"#C0392B"},
-  {n:"Super Saiyajin God",   a:"#FF6B8A"},
+  {n:"Super Saiyajin 4",     a:"#EF6152"},
+  {n:"Super Saiyajin God",   a:"#FF8FB0"},
   {n:"Super Saiyajin Blue",  a:"#4FC3E8"},
   {n:"Ultra Instinto",       a:"#D8DEE4"}
 ];
@@ -576,7 +586,7 @@ function importar(file){
 /* ============================================================
    ESTADO
    ============================================================ */
-let fase = 3, nivel = 3, lugar = "Casa";
+let fase = 2, nivel = 3, lugar = "Casa";
 let ciclo = {n:1, hechas:{}};
 let activa = null;
 let registro = [];
@@ -680,6 +690,7 @@ const rail = document.getElementById("rail");
 const esc = s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
 function pintaRail(){
+  aplicaAcento();
   rail.innerHTML = "";
   SESIONES.forEach(s=>{
     const b = document.createElement("button");
@@ -698,7 +709,37 @@ function pintaRail(){
   rail.appendChild(r);
 }
 
-const pinta = ()=> vista==="registro" ? pintaRegistro() : pintaSesion();
+/* Luminancia relativa, para decidir si el texto sobre el acento
+   debe ir oscuro o claro y que siempre se lea. */
+function luminancia(hex){
+  const c = hex.replace("#","");
+  const v = [0,2,4].map(i=>{
+    const x = parseInt(c.substr(i,2),16)/255;
+    return x <= 0.03928 ? x/12.92 : Math.pow((x+0.055)/1.055, 2.4);
+  });
+  return 0.2126*v[0] + 0.7152*v[1] + 0.0722*v[2];
+}
+
+/* El color de la interfaz sigue el nivel alcanzado. No es premio ni
+   castigo: es una señal de dónde estás parado en las últimas semanas. */
+function aplicaAcento(){
+  const K = calcKi();
+  const color = K.bloq ? SAIYAN[0].a : SAIYAN[K.nivel-1].a;
+  const raiz = document.documentElement.style;
+  const contraste = (a,b)=>{
+    const L1 = Math.max(luminancia(a), luminancia(b));
+    const L2 = Math.min(luminancia(a), luminancia(b));
+    return (L1+0.05)/(L2+0.05);
+  };
+  raiz.setProperty("--acento", color);
+  raiz.setProperty("--acento-txt",
+    contraste(color,"#10293F") >= contraste(color,"#F4F6F5") ? "#10293F" : "#F4F6F5");
+}
+
+const pinta = ()=>{
+  aplicaAcento();
+  vista==="registro" ? pintaRegistro() : pintaSesion();
+};
 
 function pintaSesion(){
   const s = sel, T = totales(s), sug = sugerida();
@@ -728,7 +769,7 @@ function pintaSesion(){
     </div>`;
   html += `</div>`;
 
-  html += `<div class="ki${K.bloq?" bloq":""}" style="--aura:${K.bloq?"#8B5A2B":TR.a}">
+  html += `<div class="ki${K.bloq?" bloq":""}" style="--aura:${K.bloq?SAIYAN[0].a:TR.a}">
     <div class="ki-orb"></div>
     <div class="ki-txt"><b>${esc(K.bloq?"Ozaru":TR.n)}</b>
       <small>${K.bloq
@@ -875,7 +916,7 @@ function pintaRegistro(){
 
   // --- Ki del microciclo ---
   const K = calcKi(), TR = SAIYAN[K.nivel-1];
-  html += `<div class="ki${K.bloq?" bloq":""}" style="--aura:${K.bloq?"#8B5A2B":TR.a}">
+  html += `<div class="ki${K.bloq?" bloq":""}" style="--aura:${K.bloq?SAIYAN[0].a:TR.a}">
     <div class="ki-orb"></div>
     <div class="ki-txt"><b>${esc(K.bloq?"Ozaru":TR.n)}</b>
       <small>Últimos ${VENTANA} días: ${K.sesiones} sesiones, ${K.puntos.toFixed(1)} de ${META_SESIONES} puntos</small></div>
@@ -894,13 +935,14 @@ function pintaRegistro(){
       <span class="rg">${rango}</span></div>`;
   });
   html += `</div>
-  <p class="reg-sub" style="margin-top:12px">Una sesión completa terminada aporta ${PESOLAB[3]} puntos, una reducida ${PESOLAB[2]} y una mínima ${PESOLAB[1]}. Recortar por tiempo sigue siendo mejor que no entrenar, pero ya no vale lo mismo.</p>`;
+  <p class="reg-sub" style="margin-top:12px">Una sesión completa terminada aporta ${PESOLAB[3]} puntos, una reducida ${PESOLAB[2]} y una mínima ${PESOLAB[1]}. Recortar por tiempo sigue siendo mejor que no entrenar, pero ya no vale lo mismo.</p>
+  <p class="reg-sub">Los colores de la aplicación toman el aura del nivel en el que estés. No es premio ni castigo: es una forma de ver de un vistazo cómo viene el mes sin tener que abrir esta pantalla.</p>`;
 
   // --- Nivel de poder: el salto medido ---
   const P = poder();
   html += `<div class="poder">
     <h3>Nivel de poder</h3>
-    <p class="sub">Tu salto de remate medido en los tests. Es el único número que dice si el programa está funcionando.</p>`;
+    <p class="sub">Tu salto de remate medido en los tests. Es el único número que dice si el programa está funcionando. Se recomiendan de 7 a 12 semanas de trabajo pliométrico para un cambio efectivo, así que la medición a las 8 semanas está en el borde inferior: si el avance es pequeño, vuelve a medir a las 16.</p>`;
   if(P){
     html += `<div class="cifra">${P.cifra.toLocaleString("es-CO")}</div>
       <p class="sub">Salto actual ${P.act.toFixed(1)} cm · línea base ${P.base.toFixed(1)} cm · meta ${P.meta.toFixed(1)} cm</p>
@@ -924,7 +966,7 @@ function pintaRegistro(){
     historial.forEach(h=>{
       const t = SAIYAN[h.nivel-1];
       html += `<div class="esc-row">
-        <span class="pt" style="background:${h.bloq?"#8B5A2B":t.a}"></span>
+        <span class="pt" style="background:${h.bloq?SAIYAN[0].a:t.a}"></span>
         <span class="nm">Microciclo ${h.ciclo}</span>
         <span class="rg">${esc(h.bloq?"Ozaru":t.n)} · ${Math.round(h.ki*100)} %</span></div>`;
     });
@@ -1007,7 +1049,7 @@ async function terminar(){
   const desp = calcKi();
   subida = null;
   if(desp.bloq && !antes.bloq){
-    subida = {n:"Ozaru", a:"#8B5A2B",
+    subida = {n:"Ozaru", a:SAIYAN[0].a,
       txt:"Te pasaste de un límite: contactos por encima del tope o menos de 48 horas entre sesiones de pierna. Poder sin control. El bloqueo se libera solo a los "+BLOQUEO_DIAS+" días."};
   } else if(!desp.bloq && desp.nivel > antes.nivel){
     const t = SAIYAN[desp.nivel-1];
@@ -1074,7 +1116,7 @@ if("serviceWorker" in navigator){
 }
 
 (async ()=>{
-  fase = await load("fase",3) || 3;
+  fase = await load("fase",2) || 2;
   nivel = await load("nivel",3) || 3;
   lugar = await load("lugar","Casa") || "Casa";
   ciclo = await load("ciclo",{n:1,hechas:{}}) || {n:1,hechas:{}};
