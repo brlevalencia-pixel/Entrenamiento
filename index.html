@@ -274,28 +274,31 @@ const JUEGO = {
   ]
 };
 
-const SESIONES = [
- {id:"piernas-f",grupo:"Piernas",var:"Fuerza",pierna:true,
-  foco:"Fuerza máxima de pierna y salto máximo",
+const SESIONES = [ {id:"piernas-r",grupo:"Piernas",var:"Reactivo",pierna:true,
+  foco:"Reactividad, velocidad y cambio de dirección",
   bloques:[
-   {t:"Potencia",plyo:true,ej:"PLYO_FUERZA"},
-   {t:"Fuerza",ej:[
-    {x:"Sentadilla con carga completa",s:4,r:"8-10",t:"4-2-0",d:150,c:"30 kg",niv:2,loc:"Ambos",
-     n:"El patrón bilateral que faltaba: el despegue de remate es a dos pies. Chaleco 16, mancuernas 10 y muñequeras 4, que van en las muñecas y por tanto aportan completo: 38 % de sobrecarga. La dificultad la pone el tempo: bajada de 4 s y pausa real de 2 s abajo, sin rebote. Si superas 12 reps limpias, ya no queda margen con este equipo."},
-    {x:"Sentadilla búlgara con chaleco",s:4,r:"6-8 por pierna",t:"3-0-X",d:150,c:"16 kg",niv:1,loc:"Ambos",
-     n:"Empieza por la izquierda e iguala las reps de la derecha a lo que haga la izquierda. No subas carga mientras la asimetría siga por encima del 10 %."},
-    {x:"Búlgara, serie extra pierna izquierda",s:1,r:"6-8",t:"3-0-X",d:120,c:"16 kg",niv:1,loc:"Ambos",
-     n:"En suspenso hasta medir el salto a una pierna. El umbral del 10 % está validado sobre pruebas de salto, no sobre repeticiones al fallo: tu 20 % salió de contar reps de búlgara, que es mucho más ruidoso. Si el test marca menos de 10 %, esta serie sale."},
-    {x:"Pistol squat",s:4,r:"2-3 por pierna",t:"3-1-0",d:150,c:"Peso corporal",niv:3,loc:"Ambos",
-     n:"Con asistencia de banda en esta posición: las 2 completas del test salieron en fresco, no en cuarto lugar de la sesión. Empieza por la izquierda. El criterio para avanzar a mancuerna se mide en fresco, no dentro de la sesión."},
-    {x:"Peso muerto rumano a una pierna",s:3,sr:2,r:"8-10 por lado",t:"3-0-1",d:120,c:"Mancuernas 5 kg",niv:2,loc:"Ambos",
-     n:"Lo que más aporta al salto de todo lo añadido. Con mancuernas carga mejor la bisagra que con chaleco: el peso cuelga de las manos y alarga la palanca sobre la cadera. Empieza por la izquierda."},
-    {x:"Curl nórdico deslizante",s:4,r:"6-8",t:"3-0-1",d:120,c:"Peso corporal",niv:3,loc:"Ambos",
-     n:"Reemplaza al isométrico, que exigía un anclaje de tobillos que no tienes: el chaleco encima de las piernas no sujeta a 78 kg. Boca arriba, talones sobre un paño en piso liso, cadera elevada: deslizas los talones hacia adelante resistiendo y vuelves. Si la cadera cae, acortaste el recorrido."}
+   {t:"Reactividad",plyo:true,ej:"PLYO_REACTIVO"},
+   {t:"Velocidad",ej:[
+    {x:"Sprint 15-20 m",s:6,sr:4,r:"1 recorrido",t:"X",d:150,c:"Sin carga",niv:2,loc:"Espacio",
+     n:"Salida de pie, arranque agresivo. No tiene reemplazo real en casa: la velocidad máxima solo se entrena corriendo."},
+    {x:"Cambio de dirección 5-10-5",s:4,r:"1 recorrido",t:"X",d:150,c:"Sin carga",niv:3,loc:"Espacio",
+     n:"Tres marcas separadas 5 m. Corre 5 a un lado, 10 al otro, 5 de vuelta. Es la explosividad que te pide el tenis."},
+    {x:"Aproximación de remate sin salto máximo",s:6,sr:4,r:"2-3 pasos",t:"Técnico",d:120,c:"Sin carga",niv:2,loc:"Casa",
+     n:"Reemplaza a las arrancadas resistidas, que no caben en el espacio disponible. Ya no es trabajo de aceleración sino técnica de aproximación, que es justo lo que no tenía sustituto en casa. Dos o tres pasos y salto suave, al 50-60 %: si el salto es fuerte deja de ser técnico y empieza a sumar contactos."},
+    {x:"Saltos laterales a una pierna",s:4,r:"6 por lado",t:"X",d:120,c:"Sin carga",kb:12,niv:2,loc:"Casa",
+     n:"Alternativa al 5-10-5 en poco espacio. Aterriza y estabiliza un segundo antes del siguiente. Baja amplitud: no cargan el tendón como un drop jump."},
+    {x:"Cuerda de alta frecuencia",s:4,r:"30 s",t:"X",d:60,c:"Sin carga",kb:55,niv:2,loc:"Casa",
+     n:"El mejor equipo que tienes para reactividad en espacio reducido. Contacto mínimo, rodillas casi rectas. Cuando lo domines, pásalo a una pierna."},
+    {x:"Wall drive a una pierna",s:5,r:"8 por lado",t:"X",d:90,c:"Muñequeras 2 kg",niv:3,loc:"Casa",
+     n:"Manos en la pared a la altura del pecho, brazos extendidos, cuerpo en línea recta del talón a la cabeza, inclinado unos 45°. Pierna de apoyo con el talón despegado; la otra arriba con la rodilla a la altura de la cadera y la punta del pie hacia arriba. Bajas el pie hasta tocar el suelo bajo la cadera y vuelves a subir, rápido. La cadera no rota ni sube, la lumbar no se arquea. No es subir la rodilla: es golpear el suelo hacia atrás y dejar que rebote arriba."}
    ]},
    {t:"Accesorio",ej:[
-    {x:"Flexión de talones unilateral",s:4,r:"8-10 por pierna",t:"2-1-2",d:90,c:"16 kg",niv:3,loc:"Ambos",
-     n:"Desde un escalón, con el talón cayendo por debajo del borde. Empieza por la izquierda: también ahí hay 11 % de asimetría. Última serie al fallo técnico."}
+    {x:"Flexión de talones con rodilla flexionada",s:4,r:"12-15",t:"2-1-2",d:60,c:"16 kg",niv:2,loc:"Ambos",
+     n:"Rodilla a 90°: así se aísla el sóleo, motor principal en contactos rápidos y desplazamientos laterales. Última serie al fallo técnico."},
+    {x:"Isométrico de sentadilla contra la pared",s:4,r:"30 s",t:"Isométrico",d:90,c:"Peso corporal",niv:3,loc:"Ambos",
+     n:"Reemplaza al isométrico de superación, que en las escaleras obligaba a meter tronco y brazos. Espalda plana contra la pared, muslos paralelos al suelo, rodillas a 90°, pies lo bastante separados para que la espinilla quede vertical. Es todo cuádriceps y no hay forma de hacer trampa con los brazos. Sube el tiempo hasta 45 s y luego añade chaleco."},
+    {x:"Movilidad de tobillo contra pared",s:2,r:"30 s por lado",t:"—",d:30,c:"Sin carga",niv:3,loc:"Ambos",
+     n:"De pie frente a la pared, un pie adelante. Sin despegar el talón, lleva la rodilla adelante hasta tocar la pared con la rótula. Busca la distancia máxima a la que todavía tocas con el talón pegado: mide del dedo gordo a la pared, unos 10 cm es rango normal. Diez repeticiones lentas por lado y compara los dos lados."}
    ]}
   ]},
 
@@ -327,6 +330,10 @@ const SESIONES = [
 
  {id:"empuje-a",grupo:"Empuje",var:"Paralelas",foco:"Empuje pesado y core rotacional",
   bloques:[
+   {t:"Potencia",plyo:true,ej:[
+    {x:"Leñador con banda",s:4,r:"5-6 por lado",t:"X",d:120,c:"Banda media",niv:2,loc:"Ambos",
+     n:"Va al inicio de la sesión, fresco y con intención máxima: es el patrón del remate y del golpe de derecha, y estaba enterrado como accesorio al final. Rota desde la cadera, no desde la lumbar. La banda da menos resistencia justo donde aceleras, así que esto entrena intención y velocidad, no carga."}
+   ]},
    {t:"Fuerza",ej:[
     {x:"Fondos en paralelas con chaleco",s:5,r:"5-6",t:"3-0-X",d:150,c:"16 kg",niv:1,loc:"Ambos",
      n:"Estrictos: sin rebote abajo y sin balanceo de piernas. Baja hasta hombro a la altura del codo, sin más."},
@@ -341,37 +348,32 @@ const SESIONES = [
    ]},
    {t:"Preventivo",ej:[
     {x:"Gesto de ataque: desaceleración",s:3,r:"10 por lado",t:"1-0-4",d:60,c:"Banda media",niv:3,loc:"Ambos",
-     n:"Ancla la banda al frente y resiste la vuelta del brazo durante 4 segundos. El remate lesiona en la frenada, no en el golpe."},
-    {x:"Leñador con banda",s:3,r:"12 por lado",t:"2-0-X",d:60,c:"Banda media",niv:3,loc:"Ambos",
-     n:"Rota desde la cadera, no desde la lumbar. Es el patrón del remate y el complemento del Pallof."}
+     n:"Ancla la banda al frente y resiste la vuelta del brazo durante 4 segundos. El remate lesiona en la frenada, no en el golpe."}
    ]}
   ]},
 
- {id:"piernas-r",grupo:"Piernas",var:"Reactivo",pierna:true,
-  foco:"Reactividad, velocidad y cambio de dirección",
+
+ {id:"piernas-f",grupo:"Piernas",var:"Fuerza",pierna:true,
+  foco:"Fuerza máxima de pierna y salto máximo",
   bloques:[
-   {t:"Reactividad",plyo:true,ej:"PLYO_REACTIVO"},
-   {t:"Velocidad",ej:[
-    {x:"Sprint 15-20 m",s:6,sr:4,r:"1 recorrido",t:"X",d:150,c:"Sin carga",niv:2,loc:"Espacio",
-     n:"Salida de pie, arranque agresivo. No tiene reemplazo real en casa: la velocidad máxima solo se entrena corriendo."},
-    {x:"Cambio de dirección 5-10-5",s:4,r:"1 recorrido",t:"X",d:150,c:"Sin carga",niv:3,loc:"Espacio",
-     n:"Tres marcas separadas 5 m. Corre 5 a un lado, 10 al otro, 5 de vuelta. Es la explosividad que te pide el tenis."},
-    {x:"Aproximación de remate sin salto máximo",s:6,sr:4,r:"2-3 pasos",t:"Técnico",d:120,c:"Sin carga",niv:2,loc:"Casa",
-     n:"Reemplaza a las arrancadas resistidas, que no caben en el espacio disponible. Ya no es trabajo de aceleración sino técnica de aproximación, que es justo lo que no tenía sustituto en casa. Dos o tres pasos y salto suave, al 50-60 %: si el salto es fuerte deja de ser técnico y empieza a sumar contactos."},
-    {x:"Saltos laterales a una pierna",s:4,r:"6 por lado",t:"X",d:120,c:"Sin carga",kb:12,niv:2,loc:"Casa",
-     n:"Alternativa al 5-10-5 en poco espacio. Aterriza y estabiliza un segundo antes del siguiente. Baja amplitud: no cargan el tendón como un drop jump."},
-    {x:"Cuerda de alta frecuencia",s:4,r:"30 s",t:"X",d:60,c:"Sin carga",kb:55,niv:2,loc:"Casa",
-     n:"El mejor equipo que tienes para reactividad en espacio reducido. Contacto mínimo, rodillas casi rectas. Cuando lo domines, pásalo a una pierna."},
-    {x:"Wall drive a una pierna",s:5,r:"8 por lado",t:"X",d:90,c:"Muñequeras 2 kg",niv:3,loc:"Casa",
-     n:"Manos en la pared a la altura del pecho, brazos extendidos, cuerpo en línea recta del talón a la cabeza, inclinado unos 45°. Pierna de apoyo con el talón despegado; la otra arriba con la rodilla a la altura de la cadera y la punta del pie hacia arriba. Bajas el pie hasta tocar el suelo bajo la cadera y vuelves a subir, rápido. La cadera no rota ni sube, la lumbar no se arquea. No es subir la rodilla: es golpear el suelo hacia atrás y dejar que rebote arriba."}
+   {t:"Potencia",plyo:true,ej:"PLYO_FUERZA"},
+   {t:"Fuerza",ej:[
+    {x:"Sentadilla con carga completa",s:4,r:"8-10",t:"4-2-0",d:150,c:"30 kg",niv:2,loc:"Ambos",
+     n:"El patrón bilateral que faltaba: el despegue de remate es a dos pies. Chaleco 16, mancuernas 10 y muñequeras 4, que van en las muñecas y por tanto aportan completo: 38 % de sobrecarga. La dificultad la pone el tempo: bajada de 4 s y pausa real de 2 s abajo, sin rebote. Si superas 12 reps limpias, ya no queda margen con este equipo."},
+    {x:"Sentadilla búlgara con chaleco",s:4,r:"6-8 por pierna",t:"3-0-X",d:150,c:"16 kg",niv:1,loc:"Ambos",
+     n:"Empieza por la izquierda e iguala las reps de la derecha a lo que haga la izquierda. No subas carga mientras la asimetría siga por encima del 10 %."},
+    {x:"Pistol squat excéntrico",s:3,r:"5 por pierna (empieza en 3)",t:"4-0-asist.",d:150,c:"Peso corporal",niv:3,loc:"Ambos",
+     n:"Solo la bajada, 4-5 s, desde un escalón alto para que la pierna libre quede colgando. El concéntrico lo haces con las dos piernas o asistido en anillas. Resuelve el techo de carga sin comprar nada. Empieza en 3 repeticiones y suma una por semana: el excéntrico puro genera bastante más daño muscular. Progresión de carga: sin peso, luego chaleco, luego chaleco más mancuernas. La mancuerna al frente sola funciona de contrapeso y facilita el equilibrio, así que no es un escalón más difícil."},
+    {x:"Peso muerto rumano a una pierna",s:4,sr:3,r:"8-10 por lado",t:"3-0-1",d:120,c:"26 kg",niv:2,loc:"Ambos",
+     n:"Lo que más aporta al salto de todo lo añadido. Apoya la punta de los dedos en una pared: a una pierna con 26 kg el limitante es el equilibrio, no el isquio, y si te tambaleas las series se desperdician. Si aun así no se sostiene, quita el chaleco y deja solo las mancuernas: el peso que cuelga carga mejor la bisagra. Empieza por la izquierda."},
+    {x:"Empuje de cadera a una pierna",s:5,r:"8-10 por lado",t:"3-0-1",d:120,c:"16 kg",niv:3,loc:"Ambos",
+     n:"Pasa de potencia a volumen: con tempo controlado deja de cubrir la extensión explosiva —eso lo dan ahora la aproximación técnica y el contramovimiento— y se convierte en tu principal fuente de glúteo e isquio. Hombros sobre banco o sofá firme a la altura de los omóplatos, espinilla vertical arriba, barbilla al pecho y costillas abajo. Pausa de medio segundo arriba apretando el glúteo."},
+    {x:"Curl nórdico deslizante, o curl en anillas",s:4,r:"6-8",t:"3-0-1",d:120,c:"Peso corporal",niv:3,loc:"Ambos",
+     n:"Boca arriba, talones sobre un paño en piso liso, cadera elevada: deslizas los talones hacia adelante resistiendo y vuelves. No necesita anclaje de tobillos, que es lo que no tienes. Alternativa equivalente: curl de isquios en anillas, talones dentro de las anillas y cadera elevada, alternando con el deslizante en bloques de 6-8 semanas con las mismas 4 series. No suma volumen ni es superior: es variación. Si la cadera cae, acortaste el recorrido."}
    ]},
    {t:"Accesorio",ej:[
-    {x:"Flexión de talones con rodilla flexionada",s:4,r:"12-15",t:"2-1-2",d:60,c:"16 kg",niv:2,loc:"Ambos",
-     n:"Rodilla a 90°: así se aísla el sóleo, motor principal en contactos rápidos y desplazamientos laterales. Última serie al fallo técnico."},
-    {x:"Isométrico de sentadilla contra la pared",s:4,r:"30 s",t:"Isométrico",d:90,c:"Peso corporal",niv:3,loc:"Ambos",
-     n:"Reemplaza al isométrico de superación, que en las escaleras obligaba a meter tronco y brazos. Espalda plana contra la pared, muslos paralelos al suelo, rodillas a 90°, pies lo bastante separados para que la espinilla quede vertical. Es todo cuádriceps y no hay forma de hacer trampa con los brazos. Sube el tiempo hasta 45 s y luego añade chaleco."},
-    {x:"Movilidad de tobillo contra pared",s:2,r:"30 s por lado",t:"—",d:30,c:"Sin carga",niv:3,loc:"Ambos",
-     n:"De pie frente a la pared, un pie adelante. Sin despegar el talón, lleva la rodilla adelante hasta tocar la pared con la rótula. Busca la distancia máxima a la que todavía tocas con el talón pegado: mide del dedo gordo a la pared, unos 10 cm es rango normal. Diez repeticiones lentas por lado y compara los dos lados."}
+    {x:"Flexión de talones unilateral",s:4,r:"8-10 por pierna",t:"2-1-2",d:90,c:"16 kg",niv:3,loc:"Ambos",
+     n:"Desde un escalón, con el talón cayendo por debajo del borde. Empieza por la izquierda: también ahí hay 11 % de asimetría. Última serie al fallo técnico."}
    ]}
   ]},
 
@@ -435,9 +437,7 @@ const PLYO = {
      {x:"Salto contramovimiento con manos en la cadera",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:2,loc:"Casa",
       n:"Versión para techo bajo: sin balanceo de brazos la cabeza sube unos 20 cm sobre tu estatura. Pierdes el 10 % que aportan los brazos, conservas el trabajo de pierna."},
      {x:"Pogos (rebotes de tobillo)",s:3,r:"10",t:"X",d:90,c:"Sin carga",k:10,niv:3,loc:"Ambos",
-      n:"Mínimo tiempo de contacto. Fílmate en cámara lenta para verificarlo."},
-     {x:"Empuje de cadera explosivo a una pierna",s:4,r:"5 por lado",t:"X",d:120,c:"16 kg",niv:3,loc:"Ambos",
-      n:"Extensión de cadera con intención máxima, hombros sobre un banco o sofá firme. Suma el volumen de isquio y glúteo que al programa le faltaba."}],
+      n:"Mínimo tiempo de contacto. Fílmate en cámara lenta para verificarlo."}],
   3:[{x:"Salto vertical con aproximación",s:5,sr:4,sm:3,r:"3",t:"X",d:150,c:"Sin carga",k:3,niv:1,loc:"Espacio",
       n:"Aproximación de 3 pasos. Marca la pared para ver el progreso dentro de la sesión. Necesita techo por encima de 2,6 m."},
      {x:"Salto a escalón alto por velocidad",s:5,sr:4,sm:3,r:"3",t:"X",d:150,c:"Sin carga",k:3,niv:1,loc:"Casa",
@@ -445,9 +445,7 @@ const PLYO = {
      {x:"Salto contramovimiento",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:2,loc:"Espacio",
       n:"Es tu potencia pura, sin la ayuda de la carrera."},
      {x:"Salto contramovimiento con manos en la cadera",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:2,loc:"Casa",
-      n:"Sin balanceo de brazos cabe en cualquier techo estándar."},
-     {x:"Empuje de cadera explosivo a una pierna",s:4,r:"5 por lado",t:"X",d:120,c:"16 kg",niv:3,loc:"Ambos",
-      n:"Extensión de cadera con intención máxima, hombros sobre un banco o sofá firme. En casa compensa lo que se pierde sin el salto con aproximación; con espacio suma el volumen de isquio y glúteo que al programa le faltaba."}]
+      n:"Sin balanceo de brazos cabe en cualquier techo estándar."}]
  },
  reactivo:{
   1:[{x:"Pogos (rebotes de tobillo)",s:4,r:"10",t:"X",d:90,c:"Sin carga",k:10,niv:1,loc:"Ambos",
