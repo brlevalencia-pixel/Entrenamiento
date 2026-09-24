@@ -204,6 +204,13 @@ details.panel[open] summary::after{content:"–"}
   font-variant-numeric:tabular-nums}
 .form input:focus-visible{outline:2px solid var(--acento);outline-offset:-1px}
 
+.apunte{margin:10px 0 0 26px;display:flex;align-items:center;gap:9px}
+.apunte input{flex:1;max-width:320px;background:var(--court-2);border:1px solid var(--line);
+  color:var(--chalk);font:inherit;font-size:14.5px;padding:8px 10px}
+.apunte input::placeholder{color:var(--net);opacity:.7}
+.apunte input:focus-visible{outline:2px solid var(--acento);outline-offset:-1px}
+.entry .ap{margin-top:7px;font-size:13px;color:var(--net);line-height:1.5}
+.entry .ap b{color:var(--chalk);font-weight:500}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}
   .ki-orb{animation:none}}
 </style>
@@ -368,7 +375,7 @@ const SESIONES = [ {id:"piernas-r",grupo:"Piernas",var:"Reactivo",pierna:true,
      n:"Lo que más aporta al salto de todo lo añadido. Apoya la punta de los dedos en una pared: a una pierna con 26 kg el limitante es el equilibrio, no el isquio, y si te tambaleas las series se desperdician. Si aun así no se sostiene, quita el chaleco y deja solo las mancuernas: el peso que cuelga carga mejor la bisagra. Empieza por la izquierda."},
     {x:"Empuje de cadera a una pierna",s:5,r:"8-10 por lado",t:"3-0-1",d:120,c:"16 kg",niv:3,loc:"Ambos",
      n:"Pasa de potencia a volumen: con tempo controlado deja de cubrir la extensión explosiva —eso lo dan ahora la aproximación técnica y el contramovimiento— y se convierte en tu principal fuente de glúteo e isquio. Hombros sobre banco o sofá firme a la altura de los omóplatos, espinilla vertical arriba, barbilla al pecho y costillas abajo. Pausa de medio segundo arriba apretando el glúteo."},
-    {x:"Curl nórdico deslizante, o curl en anillas",s:4,r:"6-8",t:"3-0-1",d:120,c:"Peso corporal",niv:3,loc:"Ambos",
+    {x:"Curl nórdico deslizante, o curl en anillas",s:4,r:"6-8",t:"3-0-1",d:120,c:"Peso corporal",niv:2,loc:"Ambos",
      n:"Boca arriba, talones sobre un paño en piso liso, cadera elevada: deslizas los talones hacia adelante resistiendo y vuelves. No necesita anclaje de tobillos, que es lo que no tienes. Alternativa equivalente: curl de isquios en anillas, talones dentro de las anillas y cadera elevada, alternando con el deslizante en bloques de 6-8 semanas con las mismas 4 series. No suma volumen ni es superior: es variación. Si la cadera cae, acortaste el recorrido."}
    ]},
    {t:"Accesorio",ej:[
@@ -432,9 +439,9 @@ const PLYO = {
       n:"Aproximación de 3 pasos. Busca altura máxima: si baja, corta la serie."},
      {x:"Salto a escalón alto por velocidad",s:4,sm:3,r:"3",t:"X",d:150,c:"Sin carga",k:3,niv:1,loc:"Casa",
       n:"Sustituye al salto con aproximación en casa: al subir la cadera sube pero la cabeza casi no, así que el techo bajo no estorba. Altura 40-50 cm, unos tres peldaños, con aterrizaje casi de pie. Con 77 cm se sube sin impulso pero recogiendo mucho las rodillas, y eso mide flexibilidad de cadera. Baja caminando. Cuando se sienta fácil, hazlo a una pierna sobre la misma altura, no más alto."},
-     {x:"Salto contramovimiento",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:2,loc:"Espacio",
+     {x:"Salto contramovimiento",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:3,loc:"Espacio",
       n:"Sin pasos previos. Un solo descenso rápido y salta."},
-     {x:"Salto contramovimiento con manos en la cadera",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:2,loc:"Casa",
+     {x:"Salto contramovimiento con manos en la cadera",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:3,loc:"Casa",
       n:"Versión para techo bajo: sin balanceo de brazos la cabeza sube unos 20 cm sobre tu estatura. Pierdes el 10 % que aportan los brazos, conservas el trabajo de pierna."},
      {x:"Pogos (rebotes de tobillo)",s:3,r:"10",t:"X",d:90,c:"Sin carga",k:10,niv:3,loc:"Ambos",
       n:"Mínimo tiempo de contacto. Fílmate en cámara lenta para verificarlo."}],
@@ -442,9 +449,9 @@ const PLYO = {
       n:"Aproximación de 3 pasos. Marca la pared para ver el progreso dentro de la sesión. Necesita techo por encima de 2,6 m."},
      {x:"Salto a escalón alto por velocidad",s:5,sr:4,sm:3,r:"3",t:"X",d:150,c:"Sin carga",k:3,niv:1,loc:"Casa",
       n:"Sustituye al salto con aproximación en casa. Sube de un salto y baja caminando."},
-     {x:"Salto contramovimiento",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:2,loc:"Espacio",
+     {x:"Salto contramovimiento",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:3,loc:"Espacio",
       n:"Es tu potencia pura, sin la ayuda de la carrera."},
-     {x:"Salto contramovimiento con manos en la cadera",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:2,loc:"Casa",
+     {x:"Salto contramovimiento con manos en la cadera",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:3,loc:"Casa",
       n:"Sin balanceo de brazos cabe en cualquier techo estándar."}]
  },
  reactivo:{
@@ -741,6 +748,7 @@ const pinta = ()=>{
 
 function pintaSesion(){
   const s = sel, T = totales(s), sug = sugerida();
+  const ap = (activa && activa.id===s.id && activa.apuntes) ? activa.apuntes : {};
   const enCurso = activa && activa.id===s.id;
   const tope = FASES[fase].tope;
 
@@ -865,6 +873,8 @@ function pintaSesion(){
           ${e.k?`<span class="hint">${e.k} contactos por serie</span>`:""}
           ${e.kb?`<span class="hint">${e.kb} contactos de baja amplitud por serie</span>`:""}
         </div>
+        <div class="apunte"><input type="text" data-ap="${id}" value="${esc(ap[id]||"")}"
+          placeholder="Apunta reps y carga: 8/10 izq, 45 s, banda media" aria-label="Apunte de ${esc(e.x)}"></div>
         <p class="note">${esc(e.n)}</p>
       </article>`;
     });
@@ -889,6 +899,14 @@ function pintaSesion(){
     nivel=+c.dataset.niv; await save("nivel",nivel); pinta(); });
   app.querySelectorAll("[data-lug]").forEach(c=>c.onclick=async()=>{
     lugar=c.dataset.lug; await save("lugar",lugar); pinta(); });
+  app.querySelectorAll("[data-ap]").forEach(inp=>{
+    inp.oninput = ()=>{
+      if(!activa || activa.id!==sel.id) activa = {id:sel.id, inicio:hoyISO(), hechas:{}, apuntes:{}};
+      if(!activa.apuntes) activa.apuntes = {};
+      activa.apuntes[inp.dataset.ap] = inp.value;
+    };
+    inp.onchange = ()=>{ if(activa) save("activa", activa); };
+  });
   app.querySelectorAll(".set").forEach(b=>b.onclick=()=>toggle(b));
   document.getElementById("fin").onclick = terminar;
   document.getElementById("reset").onclick = async()=>{
@@ -984,6 +1002,10 @@ function pintaRegistro(){
         <div class="g">${esc(s.grupo)}<small>${esc(detalle)}</small></div>
         <div class="v">${r.series} de ${r.total} series${r.contactos?"<br>"+r.contactos+" contactos":""}</div>
       </div>`;
+      if(r.apuntes && r.apuntes.length){
+        html += `<div class="entry" style="padding-top:0;border:0"><div class="f"></div>
+          <div class="ap">${r.apuntes.map(a=>`<b>${esc(a.x)}</b> ${esc(a.t)}`).join("<br>")}</div></div>`;
+      }
     });
     html += `<div class="foot">
       <button class="btn" id="exportar">Descargar respaldo</button>
@@ -1024,7 +1046,7 @@ function pintaRegistro(){
 
 async function toggle(btn){
   const id = btn.dataset.id, i = +btn.dataset.i;
-  if(!activa || activa.id!==sel.id) activa = {id:sel.id, inicio:hoyISO(), hechas:{}};
+  if(!activa || activa.id!==sel.id) activa = {id:sel.id, inicio:hoyISO(), hechas:{}, apuntes:{}};
   const actual = activa.hechas[id] || 0;
   const nuevo = (i<=actual) ? i-1 : i;
   activa.hechas[id] = nuevo;
@@ -1033,12 +1055,23 @@ async function toggle(btn){
   if(nuevo>actual) iniciaDescanso(+btn.dataset.d, btn.dataset.x, i);
 }
 
+function apuntesDe(s){
+  const ap = (activa && activa.id===s.id && activa.apuntes) ? activa.apuntes : {};
+  const out = [];
+  bloquesDe(s).forEach((b,bi)=>b.ej.forEach((e,ei)=>{
+    const t = (ap[idEj(s,bi,ei)] || "").trim();
+    if(t) out.push({x:e.x, t});
+  }));
+  return out;
+}
+
 async function terminar(){
   const T = totales(sel);
+  const AP = apuntesDe(sel);
   const antes = calcKi();
   const up = ultimaPierna();
   registro.unshift({id:sel.id, fecha:hoyISO(), series:T.hec, total:T.ser,
-                    contactos:T.contHec, baja:T.baja, nivel:nivel,
+                    contactos:T.contHec, baja:T.baja, nivel:nivel, apuntes:AP,
                     lugar:sel.pierna?lugar:null, ciclo:ciclo.n,
                     excedido: T.contHec > FASES[fase].tope || T.baja > TOPE_BAJA,
                     sinDescanso: !!(sel.pierna && up && diasDesde(up) < 2)});
