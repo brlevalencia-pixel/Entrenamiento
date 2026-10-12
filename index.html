@@ -204,6 +204,11 @@ details.panel[open] summary::after{content:"–"}
   font-variant-numeric:tabular-nums}
 .form input:focus-visible{outline:2px solid var(--acento);outline-offset:-1px}
 
+.opt{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.est{margin-top:18px;padding:14px;background:var(--court-2);border-left:3px solid var(--acento)}
+.est .n{font-family:var(--cond);font-size:34px;font-weight:700;line-height:1;
+  font-variant-numeric:tabular-nums;color:var(--acento)}
+.est .lab{font-size:13px;color:var(--net);margin-top:4px;line-height:1.45}
 .apunte{margin:10px 0 0 26px;display:flex;align-items:center;gap:9px}
 .apunte input{flex:1;max-width:320px;background:var(--court-2);border:1px solid var(--line);
   color:var(--chalk);font:inherit;font-size:14.5px;padding:8px 10px}
@@ -506,6 +511,17 @@ const PESOLAB = {1:"0,55", 2:"0,80", 3:"1,00"};
 
 const nivelKi = p => p>=1 ? 11 : Math.max(1, Math.min(10, Math.floor(p*10)+1));
 const NIVLAB = {1:"Mínima",2:"Reducida",3:"Completa"};
+
+/* Jugar cuenta. Un partido aporta al Ki como una sesión completa y entra en el
+   conteo de contactos, pero nunca activa el bloqueo Ozaru: el programa existe
+   para que juegues, castigarte por jugar sería absurdo. */
+const DURS = ["Menos de 1 h", "1 a 2 h", "Más de 2 h"];
+const DEPORTES = {
+  "Voleibol":{k:[45,95,145], kb:[0,0,0], pierna:true,
+    txt:"Saltos de amplitud completa con aterrizaje: cuentan como contactos y consumen tu cupo de pliometría."},
+  "Tenis"   :{k:[0,0,0], kb:[150,300,450], pierna:false,
+    txt:"Pocos saltos y muchos cambios de dirección: va a la cuenta de baja amplitud, que castiga tobillo y sóleo."}
+};
 const NIVMIN = {1:"20 min",2:"35 min",3:"Completa"};
 
 /* ============================================================
@@ -600,6 +616,7 @@ let saltos = [];
 let subida = null;
 let sel = SESIONES[0];
 let vista = "sesion";
+let pDeporte = "Voleibol", pDur = 1;
 
 const hoyISO = ()=>{ const d=new Date();
   return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); };
@@ -640,7 +657,11 @@ function totales(s){
   return {ser,hec,cont,contHec,baja};
 }
 function ultimaPierna(){
-  const p = registro.filter(r=>{ const s=SESIONES.find(x=>x.id===r.id); return s && s.pierna; });
+  const p = registro.filter(r=>{
+    if(r.id==="partido") return DEPORTES[r.deporte] && DEPORTES[r.deporte].pierna;
+    const s = SESIONES.find(x=>x.id===r.id);
+    return s && s.pierna;
+  });
   return p.length ? p[0].fecha : null;
 }
 const contactos7 = ()=> registro.filter(r=>diasDesde(r.fecha)<7).reduce((a,r)=>a+(r.contactos||0),0);
@@ -656,7 +677,7 @@ const enVentana = ()=> registro.filter(r=>diasDesde(r.fecha) < VENTANA);
 
 /* Una infracción pesa BLOQUEO_DIAS y luego se limpia sola. */
 function bloqueado(){
-  return registro.some(r=>diasDesde(r.fecha) < BLOQUEO_DIAS && (r.excedido || r.sinDescanso));
+  return registro.some(r=>r.id!=="partido" && diasDesde(r.fecha) < BLOQUEO_DIAS && (r.excedido || r.sinDescanso));
 }
 
 /* Puntos de una sesión: el peso de la versión elegida, multiplicado por
@@ -706,6 +727,13 @@ function pintaRail(){
     b.onclick = ()=>{ sel=s; vista="sesion"; pintaRail(); pinta(); window.scrollTo({top:0}); };
     rail.appendChild(b);
   });
+  const pb = document.createElement("button");
+  pb.className = "sesion";
+  pb.setAttribute("aria-selected", vista==="partido" ? "true":"false");
+  pb.innerHTML = `<b>Partido</b><i>voleibol o tenis</i>`;
+  pb.onclick = ()=>{ vista="partido"; pintaRail(); pinta(); window.scrollTo({top:0}); };
+  rail.appendChild(pb);
+
   const r = document.createElement("button");
   r.className = "sesion";
   r.setAttribute("aria-selected", vista==="registro" ? "true":"false");
@@ -743,7 +771,9 @@ function aplicaAcento(){
 
 const pinta = ()=>{
   aplicaAcento();
-  vista==="registro" ? pintaRegistro() : pintaSesion();
+  if(vista==="registro") return pintaRegistro();
+  if(vista==="partido") return pintaPartido();
+  pintaSesion();
 };
 
 function pintaSesion(){
@@ -829,7 +859,7 @@ function pintaSesion(){
   if(s.pierna){
     const up = ultimaPierna();
     if(up && diasDesde(up)<2 && !enCurso){
-      html += `<div class="aviso riesgo"><b>Entrenaste pierna hace ${diasDesde(up)===0?"menos de un día":"un día"}.</b>
+      html += `<div class="aviso riesgo"><b>Entrenaste pierna o jugaste hace ${diasDesde(up)===0?"menos de un día":"un día"}.</b>
         El programa pide 48 horas entre las dos sesiones de pierna. Si puedes, mete hoy tirón o empuje y deja esta para mañana.</div>`;
     }
   }
@@ -914,10 +944,78 @@ function pintaSesion(){
     pararDescanso(); pinta(); };
 }
 
+function pintaPartido(){
+  const D = DEPORTES[pDeporte];
+  const k = D.k[pDur], kb = D.kb[pDur];
+  const K = calcKi();
+  const c7 = contactos7(), tope = FASES[fase].tope;
+
+  let html = `<header class="head">
+    <p class="eyebrow">Microciclo ${ciclo.n}</p>
+    <h1>Partido</h1>
+    <p class="focus">Jugar cuenta. Suma al Ki como una sesión completa y entra en el conteo de contactos, pero nunca activa el bloqueo: el programa existe para que juegues.</p>
+  </header>
+
+  <div class="ctrl-lab">Deporte</div>
+  <div class="opt">${Object.keys(DEPORTES).map(d=>
+    `<button class="chip" data-dep="${d}" aria-pressed="${d===pDeporte}">${d}</button>`).join("")}</div>
+
+  <div class="ctrl-lab">Duración</div>
+  <div class="opt">${DURS.map((d,i)=>
+    `<button class="chip" data-dur="${i}" aria-pressed="${i===pDur}">${esc(d)}</button>`).join("")}</div>
+
+  <div class="est">
+    <div class="n">${k||kb}</div>
+    <div class="lab">${k ? "contactos estimados de amplitud completa" : "contactos estimados de baja amplitud"}. ${esc(D.txt)}</div>
+  </div>`;
+
+  if(k && c7 + k > 104){
+    html += `<div class="aviso riesgo"><b>Con este partido llegarías a ${c7+k} contactos en 7 días.</b>
+      El microciclo completo son 104. No te bloquea nada, pero las próximas sesiones de pierna deberían ir en versión mínima o esperar.</div>`;
+  }
+  if(D.pierna){
+    html += `<div class="aviso">Al registrarlo, este partido cuenta como tu sesión de piernas reactivo del microciclo, tal como dice la regla del programa. Y durante 48 horas la aplicación te avisará si eliges una sesión de pierna.</div>`;
+  }
+
+  html += `<div class="foot">
+    <button class="btn main" id="regPartido">Registrar partido</button>
+    <p class="foot-note">Queda guardado con la fecha de hoy. Si jugaste otro día, regístralo igual: lo que importa es que entre en la cuenta.</p>
+  </div>`;
+
+  app.innerHTML = html;
+  app.querySelectorAll("[data-dep]").forEach(b=>b.onclick=()=>{ pDeporte=b.dataset.dep; pinta(); });
+  app.querySelectorAll("[data-dur]").forEach(b=>b.onclick=()=>{ pDur=+b.dataset.dur; pinta(); });
+  document.getElementById("regPartido").onclick = registraPartido;
+}
+
+async function registraPartido(){
+  const D = DEPORTES[pDeporte];
+  const antes = calcKi();
+  registro.unshift({id:"partido", fecha:hoyISO(), deporte:pDeporte, dur:DURS[pDur],
+                    series:1, total:1, contactos:D.k[pDur], baja:D.kb[pDur],
+                    nivel:3, ciclo:ciclo.n});
+  if(D.pierna && !ciclo.hechas["piernas-r"]) ciclo.hechas["piernas-r"] = hoyISO();
+  if(SESIONES.every(x=>ciclo.hechas[x.id])){
+    const d = calcKi();
+    historial.unshift({ciclo:ciclo.n, fecha:hoyISO(), ki:d.ki, nivel:d.nivel, bloq:d.bloq});
+    ciclo = {n:ciclo.n+1, hechas:{}};
+    await save("historial", historial);
+  }
+  const desp = calcKi();
+  subida = null;
+  if(!desp.bloq && desp.nivel > antes.nivel){
+    const t = SAIYAN[desp.nivel-1];
+    subida = {n:t.n, a:t.a, txt:"Ki al "+Math.round(desp.ki*100)+" % en los últimos "+VENTANA+" días. El partido aportó 1,00 punto."};
+  }
+  await save("registro", registro); await save("ciclo", ciclo);
+  vista = "registro";
+  pintaRail(); pinta(); window.scrollTo({top:0});
+}
+
 function pintaRegistro(){
   const ult28 = registro.filter(r=>diasDesde(r.fecha)<28);
   const grupos = {};
-  ult28.forEach(r=>{ const s=SESIONES.find(x=>x.id===r.id); if(s) grupos[s.grupo]=(grupos[s.grupo]||0)+1; });
+  ult28.forEach(r=>{ if(r.id==="partido"){ grupos["Partidos"]=(grupos["Partidos"]||0)+1; return; } const s=SESIONES.find(x=>x.id===r.id); if(s) grupos[s.grupo]=(grupos[s.grupo]||0)+1; });
 
   let html = `<div class="reg"><h2>Registro</h2>
     <p class="reg-sub">Cada sesión terminada queda guardada con su fecha, la versión que hiciste, las series completadas y los contactos de salto.</p>
@@ -928,7 +1026,7 @@ function pintaRegistro(){
       <div class="stat"><div class="n">${ciclo.n}</div><div class="lab">Microciclo actual</div></div>
     </div>`;
   if(ult28.length) html += `<p class="reg-sub">Últimos 28 días por grupo: ` +
-    ["Piernas","Tirón","Empuje"].map(g=>`${g} ${grupos[g]||0}`).join(", ") + `.</p>`;
+    ["Piernas","Tirón","Empuje","Partidos"].map(g=>`${g} ${grupos[g]||0}`).join(", ") + `.</p>`;
 
   // --- Ki del microciclo ---
   const K = calcKi(), TR = SAIYAN[K.nivel-1];
@@ -994,13 +1092,16 @@ function pintaRegistro(){
       «Terminar y guardar» y aparecerá aquí con la fecha.</p>`;
   } else {
     registro.forEach(r=>{
-      const s = SESIONES.find(x=>x.id===r.id) || {grupo:r.id,var:""};
-      const detalle = [s.var, r.nivel?NIVLAB[r.nivel]:null, (s.pierna&&r.lugar)?(r.lugar==="Casa"?"en casa":"con espacio"):null]
-                        .filter(Boolean).join(", ");
+      const esPartido = r.id==="partido";
+      const s = esPartido ? {grupo:"Partido", var:r.deporte} : (SESIONES.find(x=>x.id===r.id) || {grupo:r.id,var:""});
+      const detalle = esPartido
+        ? [r.deporte, r.dur].filter(Boolean).join(", ")
+        : [s.var, r.nivel?NIVLAB[r.nivel]:null, (s.pierna&&r.lugar)?(r.lugar==="Casa"?"en casa":"con espacio"):null]
+            .filter(Boolean).join(", ");
       html += `<div class="entry">
         <div class="f">${fechaCorta(r.fecha)}</div>
         <div class="g">${esc(s.grupo)}<small>${esc(detalle)}</small></div>
-        <div class="v">${r.series} de ${r.total} series${r.contactos?"<br>"+r.contactos+" contactos":""}</div>
+        <div class="v">${esPartido ? "jugado" : r.series+" de "+r.total+" series"}${r.contactos?"<br>"+r.contactos+" contactos":""}${(esPartido&&r.baja)?"<br>"+r.baja+" baja amplitud":""}</div>
       </div>`;
       if(r.apuntes && r.apuntes.length){
         html += `<div class="entry" style="padding-top:0;border:0"><div class="f"></div>
