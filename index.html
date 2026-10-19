@@ -286,7 +286,7 @@ const CAL = [
 
 const REGLAS = [
   "La pliometría va primero y fresca. Si la haces cansado, entrenas resistencia, no potencia.",
-  "Nunca saltes con chaleco. El chaleco es para fuerza.",
+  "El chaleco en saltos depende del ejercicio: sí en salto a escalón, pogos y contramovimiento; no en drop jumps ni en el salto con aproximación. Nunca en las series de medición.",
   "Si la altura del salto baja o el pie tarda más en despegar, la serie se terminó.",
   "2 a 3 minutos de descanso en saltos y series pesadas. El descanso corto aquí estorba.",
   "Molestia en el tendón rotuliano o de Aquiles significa bajar contactos, no aguantar.",
@@ -297,6 +297,14 @@ const REGLAS = [
 ];
 
 const JUEGO = {
+  dos:[
+    "Las 48 horas entre cargas de pierna, contando los partidos, dejan un solo hueco limpio: lunes tirón · martes PARTIDO · miércoles empuje · jueves PARTIDO · viernes tirón o empuje · sábado piernas fuerza · domingo descanso.",
+    "Sábado es el único día que cumple: lunes y miércoles quedan a 24 horas del martes, viernes a 24 del jueves.",
+    "Si los partidos son de noche, las mañanas del martes y jueves sirven para tren superior. Eso sube la semana de cuatro sesiones a seis.",
+    "Piernas reactivo no entra: dos partidos dan más trabajo reactivo que la sesión.",
+    "Piernas fuerza va sin bloque de potencia, conservando solo las series de medición. Dos partidos son unos 190 contactos y la sesión completa añadiría 33; con solo las mediciones son 9.",
+    "La ventana de riesgo son las primeras dos o tres semanas de este calendario. Pasar de 113 contactos semanales a 199 es duplicar; si no aparece molestia rotuliana ni aquílea, a partir de ahí es tu nuevo nivel habitual."
+  ],
   antes:[
     "Justo antes de jugar no se entrena: ni fuerza ni pliometría. Llegas fatigado, saltas más bajo y subes el riesgo en el momento de mayor exigencia.",
     "Entrenar en la mañana y jugar en la noche sí es viable. Tirón y empuje sin restricción; piernas fuerza en versión mínima y sin llegar al fallo, dejando 2 o 3 repeticiones en reserva.",
@@ -403,7 +411,7 @@ const SESIONES = [ {id:"piernas-r",grupo:"Piernas",var:"Reactivo",pierna:true,
    {t:"Potencia",plyo:true,ej:"PLYO_FUERZA"},
    {t:"Fuerza",ej:[
     {x:"Salto a una pierna (medición)",s:1,r:"3 por lado",t:"X",d:120,c:"Sin carga",k:6,niv:2,loc:"Ambos",
-     n:"No es entrenamiento, es medición, y va primero porque necesita piernas frescas. Tres por lado contra la pared con tiza, la mejor de cada uno. Resuelve la asimetría con la prueba que la literatura valida, y de paso da tendencia de potencia unilateral."},
+     n:"No es entrenamiento, es medición, y va primero porque necesita piernas frescas. Tres por lado contra la pared con tiza, la mejor de cada uno. Resuelve la asimetría con la prueba que la literatura valida, y de paso da tendencia de potencia unilateral. Siempre sin chaleco."},
     {x:"Sentadilla con carga completa",s:4,r:"8-10",t:"4-2-0",d:150,c:"30 kg",niv:2,loc:"Ambos",
      n:"El patrón bilateral que faltaba: el despegue de remate es a dos pies. Chaleco 16, mancuernas 10 y muñequeras 4, que van en las muñecas y por tanto aportan completo: 38 % de sobrecarga. La dificultad la pone el tempo: bajada de 4 s y pausa real de 2 s abajo, sin rebote. Si superas 12 reps limpias, ya no queda margen con este equipo."},
     {x:"Sentadilla búlgara con chaleco",s:4,r:"6-8 por pierna",t:"3-0-X",d:150,c:"16 kg",niv:1,loc:"Ambos",
@@ -471,45 +479,45 @@ const SESIONES = [ {id:"piernas-r",grupo:"Piernas",var:"Reactivo",pierna:true,
 const PLYO = {
  fuerza:{
   1:[{x:"Pogos (rebotes de tobillo)",s:3,r:"10",t:"X",d:90,c:"Sin carga",k:10,niv:1,loc:"Ambos",
-      n:"Rodillas casi rectas. El objetivo no es altura sino mínimo tiempo de contacto."},
+      n:"Rodillas casi rectas. El objetivo no es altura sino mínimo tiempo de contacto. Admite chaleco en las series de entrenamiento. La que cronometras, sin él."},
      {x:"Salto a escalón alto",s:3,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:1,loc:"Ambos",
-      n:"Sube de un salto y baja caminando. Nunca bajes saltando."}],
+      n:"Sube de un salto y baja caminando. Nunca bajes saltando. Puedes usar chaleco en las series de entrenamiento, pero la que anotas va siempre sin él."}],
   2:[{x:"Salto vertical con aproximación",s:4,sm:3,r:"3",t:"X",d:150,c:"Sin carga",k:3,niv:1,loc:"Espacio",
-      n:"Aproximación de 3 pasos. Busca altura máxima: si baja, corta la serie."},
+      n:"Aproximación de 3 pasos. Busca altura máxima: si baja, corta la serie. Sin chaleco: aquí buscas altura máxima y es además una marca."},
      {x:"Salto a escalón alto por velocidad",s:4,sm:3,r:"3",t:"X",d:150,c:"Sin carga",k:3,niv:1,loc:"Casa",
-      n:"Sustituye al salto con aproximación en casa: al subir la cadera sube pero la cabeza casi no, así que el techo bajo no estorba. Altura 40-50 cm, unos tres peldaños, con aterrizaje casi de pie. Con 77 cm se sube sin impulso pero recogiendo mucho las rodillas, y eso mide flexibilidad de cadera. Baja caminando. Cuando se sienta fácil, hazlo a una pierna sobre la misma altura, no más alto."},
+      n:"Sustituye al salto con aproximación en casa: al subir la cadera sube pero la cabeza casi no, así que el techo bajo no estorba. Altura 40-50 cm, unos tres peldaños, con aterrizaje casi de pie. Con 77 cm se sube sin impulso pero recogiendo mucho las rodillas, y eso mide flexibilidad de cadera. Baja caminando. Cuando se sienta fácil, hazlo a una pierna sobre la misma altura, no más alto. Puedes usar chaleco en las series de entrenamiento, pero la que anotas va siempre sin él."},
      {x:"Salto contramovimiento",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:3,loc:"Espacio",
       n:"Sin pasos previos. Un solo descenso rápido y salta."},
      {x:"Salto contramovimiento con manos en la cadera",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:3,loc:"Casa",
-      n:"Versión para techo bajo: sin balanceo de brazos la cabeza sube unos 20 cm sobre tu estatura. Pierdes el 10 % que aportan los brazos, conservas el trabajo de pierna."},
+      n:"Versión para techo bajo: sin balanceo de brazos la cabeza sube unos 20 cm sobre tu estatura. Pierdes el 10 % que aportan los brazos, conservas el trabajo de pierna. La marca se toma siempre sin chaleco: es la condición de referencia."},
      {x:"Pogos (rebotes de tobillo)",s:3,r:"10",t:"X",d:90,c:"Sin carga",k:10,niv:3,loc:"Ambos",
-      n:"Mínimo tiempo de contacto. Fílmate en cámara lenta para verificarlo."}],
+      n:"Mínimo tiempo de contacto. Fílmate en cámara lenta para verificarlo. Admite chaleco en las series de entrenamiento. La que cronometras, sin él."}],
   3:[{x:"Salto vertical con aproximación",s:5,sr:4,sm:3,r:"3",t:"X",d:150,c:"Sin carga",k:3,niv:1,loc:"Espacio",
-      n:"Aproximación de 3 pasos. Marca la pared para ver el progreso dentro de la sesión. Necesita techo por encima de 2,6 m."},
+      n:"Aproximación de 3 pasos. Marca la pared para ver el progreso dentro de la sesión. Necesita techo por encima de 2,6 m. Sin chaleco: aquí buscas altura máxima y es además una marca."},
      {x:"Salto a escalón alto por velocidad",s:5,sr:4,sm:3,r:"3",t:"X",d:150,c:"Sin carga",k:3,niv:1,loc:"Casa",
-      n:"Sustituye al salto con aproximación en casa. Sube de un salto y baja caminando."},
+      n:"Sustituye al salto con aproximación en casa. Sube de un salto y baja caminando. Puedes usar chaleco en las series de entrenamiento, pero la que anotas va siempre sin él."},
      {x:"Salto contramovimiento",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:3,loc:"Espacio",
       n:"Es tu potencia pura, sin la ayuda de la carrera."},
      {x:"Salto contramovimiento con manos en la cadera",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:3,loc:"Casa",
-      n:"Sin balanceo de brazos cabe en cualquier techo estándar. Marca la pared con tiza y anota la mejor del día: para tendencia basta la marca cruda, no hace falta restar tu alcance de pie."}]
+      n:"Sin balanceo de brazos cabe en cualquier techo estándar. Marca la pared con tiza y anota la mejor del día: para tendencia basta la marca cruda, no hace falta restar tu alcance de pie. La marca se toma siempre sin chaleco: es la condición de referencia."}]
  },
  reactivo:{
   1:[{x:"Pogos (rebotes de tobillo)",s:4,r:"10",t:"X",d:90,c:"Sin carga",k:10,niv:1,loc:"Ambos",
-      n:"Cuatro series y nada más. El tendón se adapta más lento que el músculo."}],
+      n:"Cuatro series y nada más. El tendón se adapta más lento que el músculo. Admite chaleco en las series de entrenamiento. La que cronometras, sin él."}],
   2:[{x:"Pogos (rebotes de tobillo)",s:5,sr:4,sm:4,r:"10",t:"X",d:90,c:"Sin carga",k:10,niv:1,loc:"Espacio",
-      n:"Mínimo tiempo de contacto en cada rebote."},
+      n:"Mínimo tiempo de contacto en cada rebote. Admite chaleco en las series de entrenamiento. La que cronometras, sin él."},
      {x:"Pogos (rebotes de tobillo)",s:4,r:"10",t:"X",d:90,c:"Sin carga",k:10,niv:1,loc:"Casa",
-      n:"Una serie menos que con espacio, porque en casa la cuerda añade volumen sobre el mismo tejido."},
+      n:"Una serie menos que con espacio, porque en casa la cuerda añade volumen sobre el mismo tejido. Admite chaleco en las series de entrenamiento. La que cronometras, sin él."},
      {x:"Salto a escalón alto",s:3,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:2,loc:"Ambos",
-      n:"Sube de un salto y baja caminando."}],
+      n:"Sube de un salto y baja caminando. Puedes usar chaleco en las series de entrenamiento, pero la que anotas va siempre sin él."}],
   3:[{x:"Pogos (rebotes de tobillo)",s:5,sr:4,sm:4,r:"10",t:"X",d:90,c:"Sin carga",k:10,niv:1,loc:"Espacio",
-      n:"El objetivo no es altura sino que el pie salga del suelo lo antes posible."},
+      n:"El objetivo no es altura sino que el pie salga del suelo lo antes posible. Admite chaleco en las series de entrenamiento. La que cronometras, sin él."},
      {x:"Pogos (rebotes de tobillo)",s:4,r:"10",t:"X",d:90,c:"Sin carga",k:10,niv:1,loc:"Casa",
-      n:"Una serie menos que con espacio, porque en casa la cuerda añade volumen sobre el mismo tejido."},
+      n:"Una serie menos que con espacio, porque en casa la cuerda añade volumen sobre el mismo tejido. Admite chaleco en las series de entrenamiento. La que cronometras, sin él."},
      {x:"Salto a escalón alto por velocidad",s:5,sr:3,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:2,loc:"Ambos",
-      n:"Altura 40-50 cm, unos tres peldaños, con aterrizaje casi de pie. Con el escalón de 77 cm sí se sube sin impulso, pero recogiendo unos 45 cm de rodillas: eso mide flexibilidad de cadera, no potencia. Si 40-50 cm no es posible, cámbialo por salto largo sin carrera. El escalón de 77 sí sirve para subida explosiva a un paso. Baja caminando siempre."},
+      n:"Altura 40-50 cm, unos tres peldaños, con aterrizaje casi de pie. Con el escalón de 77 cm sí se sube sin impulso, pero recogiendo unos 45 cm de rodillas: eso mide flexibilidad de cadera, no potencia. Si 40-50 cm no es posible, cámbialo por salto largo sin carrera. El escalón de 77 sí sirve para subida explosiva a un paso. Baja caminando siempre. Puedes usar chaleco en las series de entrenamiento, pero la que anotas va siempre sin él."},
      {x:"Drop jump desde 30-40 cm",s:4,r:"3",t:"X",d:150,c:"Sin carga",k:3,niv:1,loc:"Ambos",
-      n:"Altura 30-40 cm: dos peldaños de escalera, no el escalón de 77 cm, que duplicaría el impacto. Déjate caer, no saltes hacia abajo, y rebota de inmediato. Si tardas en salir del suelo, baja la altura."}]
+      n:"Altura 30-40 cm: dos peldaños de escalera, no el escalón de 77 cm, que duplicaría el impacto. Déjate caer, no saltes hacia abajo, y rebota de inmediato. Si tardas en salir del suelo, baja la altura. Sin chaleco: la caída ya impone fuerzas de aterrizaje altas y un 20 % de masa extra las multiplica."}]
  }
 };
 
@@ -1093,6 +1101,7 @@ function pintaSesion(){
   html += `<details class="panel"><summary>Reglas de la sesión</summary><div class="panel-body"><ul>
     ${REGLAS.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div></details>`;
   html += `<details class="panel"><summary>Si hoy juegas</summary><div class="panel-body">
+    <h4>Semana con dos partidos</h4><ul>${JUEGO.dos.map(t=>`<li>${esc(t)}</li>`).join("")}</ul>
     <h4>Entrenar y jugar el mismo día</h4><ul>${JUEGO.antes.map(t=>`<li>${esc(t)}</li>`).join("")}</ul>
     <h4>Calentamiento antes de jugar, 12 a 15 min</h4><ul>${JUEGO.calentar.map(t=>`<li>${esc(t)}</li>`).join("")}</ul>
     <h4>Lo que no va antes, y qué hacer después</h4><ul>${JUEGO.despues.map(t=>`<li>${esc(t)}</li>`).join("")}</ul>
