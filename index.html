@@ -209,6 +209,38 @@ details.panel[open] summary::after{content:"–"}
 .est .n{font-family:var(--cond);font-size:34px;font-weight:700;line-height:1;
   font-variant-numeric:tabular-nums;color:var(--acento)}
 .est .lab{font-size:13px;color:var(--net);margin-top:4px;line-height:1.45}
+.met{margin:11px 0 0 26px;padding:10px 12px;background:var(--court-2);
+  border-left:2px solid var(--acento)}
+.met-row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+.met-row label{display:block;font-size:11.5px;color:var(--net);margin-bottom:4px}
+.met-row input{width:88px;background:var(--court);border:1px solid var(--line);
+  color:var(--chalk);font:inherit;font-size:16px;padding:7px 9px;
+  font-variant-numeric:tabular-nums}
+.met-row input:focus-visible{outline:2px solid var(--acento);outline-offset:-1px}
+.met-hist{font-size:12.5px;color:var(--net);margin-top:8px;font-variant-numeric:tabular-nums;
+  line-height:1.5}
+.met-hist b{color:var(--acento);font-weight:600}
+.met-hist .ok{color:var(--done);font-weight:600}
+
+.rend h3{font-family:var(--cond);font-size:24px;font-weight:600;margin-bottom:3px}
+.ind{padding:14px 0;border-bottom:1px solid var(--line)}
+.ind-top{display:flex;align-items:baseline;gap:10px}
+.ind-nom{font-family:var(--cond);font-size:19px;font-weight:600;flex:1;line-height:1.15}
+.ind-val{font-family:var(--cond);font-size:25px;font-weight:700;color:var(--acento);
+  font-variant-numeric:tabular-nums;line-height:1}
+.ind-d{font-size:13.5px;font-variant-numeric:tabular-nums;min-width:48px;text-align:right}
+.ind-d.sube{color:var(--done)}
+.ind-d.baja{color:var(--alert)}
+.spark{display:flex;align-items:flex-end;gap:3px;height:30px;margin-top:10px}
+.spark i{flex:1;max-width:18px;background:var(--court-3);min-height:2px;display:block}
+.spark i.on{background:var(--acento)}
+.ind-sub{font-size:12.5px;color:var(--net);margin-top:7px;line-height:1.45}
+.ind-vacio{font-size:13.5px;color:var(--net);margin-top:7px;line-height:1.5}
+.dual{display:flex;gap:20px;flex-wrap:wrap;margin-top:12px}
+.dual>div{flex:1;min-width:120px}
+.dual .n{font-family:var(--cond);font-size:27px;font-weight:600;line-height:1;
+  font-variant-numeric:tabular-nums}
+.dual .lab{font-size:12px;color:var(--net);margin-top:3px}
 .apunte{margin:10px 0 0 26px;display:flex;align-items:center;gap:9px}
 .apunte input{flex:1;max-width:320px;background:var(--court-2);border:1px solid var(--line);
   color:var(--chalk);font:inherit;font-size:14.5px;padding:8px 10px}
@@ -370,6 +402,8 @@ const SESIONES = [ {id:"piernas-r",grupo:"Piernas",var:"Reactivo",pierna:true,
   bloques:[
    {t:"Potencia",plyo:true,ej:"PLYO_FUERZA"},
    {t:"Fuerza",ej:[
+    {x:"Salto a una pierna (medición)",s:1,r:"3 por lado",t:"X",d:120,c:"Sin carga",k:6,niv:2,loc:"Ambos",
+     n:"No es entrenamiento, es medición, y va primero porque necesita piernas frescas. Tres por lado contra la pared con tiza, la mejor de cada uno. Resuelve la asimetría con la prueba que la literatura valida, y de paso da tendencia de potencia unilateral."},
     {x:"Sentadilla con carga completa",s:4,r:"8-10",t:"4-2-0",d:150,c:"30 kg",niv:2,loc:"Ambos",
      n:"El patrón bilateral que faltaba: el despegue de remate es a dos pies. Chaleco 16, mancuernas 10 y muñequeras 4, que van en las muñecas y por tanto aportan completo: 38 % de sobrecarga. La dificultad la pone el tempo: bajada de 4 s y pausa real de 2 s abajo, sin rebote. Si superas 12 reps limpias, ya no queda margen con este equipo."},
     {x:"Sentadilla búlgara con chaleco",s:4,r:"6-8 por pierna",t:"3-0-X",d:150,c:"16 kg",niv:1,loc:"Ambos",
@@ -457,7 +491,7 @@ const PLYO = {
      {x:"Salto contramovimiento",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:3,loc:"Espacio",
       n:"Es tu potencia pura, sin la ayuda de la carrera."},
      {x:"Salto contramovimiento con manos en la cadera",s:4,r:"3",t:"X",d:120,c:"Sin carga",k:3,niv:3,loc:"Casa",
-      n:"Sin balanceo de brazos cabe en cualquier techo estándar."}]
+      n:"Sin balanceo de brazos cabe en cualquier techo estándar. Marca la pared con tiza y anota la mejor del día: para tendencia basta la marca cruda, no hace falta restar tu alcance de pie."}]
  },
  reactivo:{
   1:[{x:"Pogos (rebotes de tobillo)",s:4,r:"10",t:"X",d:90,c:"Sin carga",k:10,niv:1,loc:"Ambos",
@@ -511,6 +545,80 @@ const PESOLAB = {1:"0,55", 2:"0,80", 3:"1,00"};
 
 const nivelKi = p => p>=1 ? 11 : Math.max(1, Math.min(10, Math.floor(p*10)+1));
 const NIVLAB = {1:"Mínima",2:"Reducida",3:"Completa"};
+
+/* ============================================================
+   MÉTRICAS DE SESIÓN
+   El programa tiene 15 criterios de progresión y diez son números.
+   Estos campos los capturan mientras entrenas, en vez de depender
+   de un test aparte que hay que salir a hacer.
+   meta  = criterio de progresión del programa
+   menos = mejor cuanto más bajo
+   par   = dos valores, izquierda y derecha
+   esc   = peldaño alcanzado + intentos limpios de 3
+   ============================================================ */
+const MET = {
+  "Sentadilla búlgara con chaleco":                {id:"bulgara",  u:"reps por pierna", meta:12},
+  "Sentadilla con carga completa":                 {id:"sentadilla", u:"reps", meta:12},
+  "Pistol squat excéntrico":                       {id:"pistol",   u:"reps por pierna", meta:5},
+  "Peso muerto rumano a una pierna":               {id:"rumano",   u:"reps por lado", meta:12},
+  "Curl nórdico deslizante, o curl en anillas":    {id:"isquios",  u:"reps", meta:8},
+  "Flexión de talones unilateral":                 {id:"talones",  u:"reps por pierna", meta:15},
+  "Dominada prona con chaleco":                    {id:"domprona", u:"reps", meta:6},
+  "Dominada supina con chaleco":                   {id:"domsupina",u:"reps", meta:6},
+  "Australiana con pies elevados":                 {id:"aus",      u:"reps", meta:12},
+  "Australiana en anillas con chaleco":            {id:"ausan",    u:"reps", meta:12},
+  "Fondos en paralelas con chaleco":               {id:"fondos",   u:"reps", meta:8},
+  "Fondos en anillas":                             {id:"fondosan", u:"reps", meta:8},
+  "Flexión pike con pies elevados":                {id:"pike",     u:"reps", meta:8},
+  "Flexión en paralelas chicas con chaleco":       {id:"paralelas",u:"reps", meta:12},
+  "Cuerda de alta frecuencia":                     {id:"cuerda",   u:"s seguidos", meta:30},
+  "Pogos (rebotes de tobillo)":                    {id:"pogos",    u:"s en 10 rebotes", meta:4, menos:true},
+  "Salto contramovimiento con manos en la cadera": {id:"cmj",      u:"cm en la pared"},
+  "Salto a escalón alto por velocidad":            {id:"escalon",  esc:true, meta:5},
+  "Salto a escalón alto":                          {id:"escalon",  esc:true, meta:5},
+  "Salto a una pierna (medición)":                 {id:"sl",       u:"cm en la pared", par:true}
+};
+
+/* Los indicadores de salto que resumen el rendimiento. Son indirectos:
+   ninguno mide la aproximación de remate, que sigue necesitando el test
+   de referencia con pared y carrera. */
+const INDICADORES = [
+  {id:"cmj",     nom:"Marca de contramovimiento", u:"cm",
+   sub:"Manos en la cadera, misma pared, mismo calzado. Sin brazos el número es más bajo pero más repetible: el balanceo es la principal fuente de ruido en este test."},
+  {id:"escalon", nom:"Salto a escalón",           u:"",  esc:true,
+   sub:"Peldaño alcanzado más intentos limpios de tres. Los intentos dan gradación dentro del mismo peldaño: sin ellos el indicador pasaría meses plano. Mezcla salto con recogida de cadera."},
+  {id:"sl",      nom:"Salto a una pierna",        u:"cm", par:true,
+   sub:"El test que decide la asimetría: el umbral del 10 % está validado sobre saltos unilaterales, no sobre repeticiones al fallo."},
+  {id:"pogos",   nom:"Diez pogos",                u:"s",  menos:true,
+   sub:"Reactividad de tobillo. Menos tiempo es mejor, así que la barra está invertida."},
+  {id:"salto5",  nom:"Salto percibido en partido",u:"/5", soft:true,
+   sub:"Tu propia percepción tras jugar. Es blando, pero es la variable que de verdad te importa y en veinte partidos es una tendencia."}
+];
+
+const metDe = e => MET[e.x] || null;
+
+/* Serie histórica de una métrica, de la más antigua a la más reciente. */
+function serie(id, n){
+  const out = [];
+  for(const r of registro){
+    let v = null;
+    if(id === "salto5"){ if(r.id==="partido" && r.salto5!=null) v = r.salto5; }
+    else if(r.met){
+      if(id === "sl"){ if(r.met.sl_i!=null && r.met.sl_d!=null) v = (r.met.sl_i + r.met.sl_d)/2; }
+      else if(id === "escalon"){ if(r.met.esc_p!=null) v = r.met.esc_p + (r.met.esc_l||0)/3; }
+      else if(r.met[id]!=null) v = r.met[id];
+    }
+    if(v!=null) out.push({v, f:r.fecha, met:r.met});
+    if(n && out.length>=n) break;
+  }
+  return out.reverse();
+}
+
+const fmtMet = (v, ind)=>{
+  if(ind && ind.esc) return Math.floor(v) + "º " + Math.round((v%1)*3) + "/3";
+  return (Math.round(v*10)/10).toString().replace(".",",");
+};
+
 
 /* Jugar cuenta. Un partido aporta al Ki como una sesión completa y entra en el
    conteo de contactos, pero nunca activa el bloqueo Ozaru: el programa existe
@@ -616,7 +724,7 @@ let saltos = [];
 let subida = null;
 let sel = SESIONES[0];
 let vista = "sesion";
-let pDeporte = "Voleibol", pDur = 1;
+let pDeporte = "Voleibol", pDur = 1, pSalto = 3;
 
 const hoyISO = ()=>{ const d=new Date();
   return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); };
@@ -685,6 +793,14 @@ function bloqueado(){
    una completa a medias, 0,50. */
 const puntosDe = r => (PESO[r.nivel||3] || 1) * (r.total ? Math.min(1, r.series/r.total) : 0);
 
+/* La carga incluye partidos; el programa, no. En semanas de competencia
+   el primero sube y el segundo baja, y esa diferencia es el dato. */
+function calcPrograma(){
+  const rs = enVentana().filter(r=>r.id!=="partido");
+  const p = rs.reduce((a,r)=>a + puntosDe(r), 0);
+  return {puntos:p, ki:Math.min(1, Math.round(p/META_SESIONES*1e4)/1e4), sesiones:rs.length};
+}
+
 function calcKi(){
   const rs = enVentana();
   const puntos = rs.reduce((a,r)=>a + puntosDe(r), 0);
@@ -714,6 +830,106 @@ function poder(){
 const app = document.getElementById("app");
 const rail = document.getElementById("rail");
 const esc = s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+
+/* Campo de métrica bajo un ejercicio, con sus últimas marcas y el criterio.
+   El bucle se cierra aquí: el dato que entras vuelve a salir la próxima vez. */
+function campoMet(e){
+  const m = metDe(e);
+  if(!m) return "";
+  const prev = (activa && activa.met) ? activa.met : {};
+  const val = k => prev[k]!=null ? prev[k] : "";
+  let inputs = "";
+  if(m.par){
+    inputs = `<div><label>izquierda, ${esc(m.u)}</label>
+        <input type="number" inputmode="decimal" step="0.5" data-met="${m.id}_i" value="${val(m.id+"_i")}"></div>
+      <div><label>derecha, ${esc(m.u)}</label>
+        <input type="number" inputmode="decimal" step="0.5" data-met="${m.id}_d" value="${val(m.id+"_d")}"></div>`;
+  } else if(m.esc){
+    inputs = `<div><label>peldaño alcanzado</label>
+        <input type="number" inputmode="numeric" step="1" data-met="esc_p" value="${val("esc_p")}"></div>
+      <div><label>limpios de 3</label>
+        <input type="number" inputmode="numeric" step="1" min="0" max="3" data-met="esc_l" value="${val("esc_l")}"></div>`;
+  } else {
+    inputs = `<div><label>${esc(m.u)}</label>
+        <input type="number" inputmode="decimal" step="0.5" data-met="${m.id}" value="${val(m.id)}"></div>`;
+  }
+
+  const ind = INDICADORES.find(i=>i.id===m.id);
+  const s = serie(m.id, 3);
+  let hist = "";
+  if(s.length){
+    hist = "últimas: " + s.map(x=>fmtMet(x.v, ind)).join(" · ");
+  } else {
+    hist = "primera marca";
+  }
+  if(m.meta!=null){
+    const ult = s.length ? s[s.length-1].v : null;
+    const logrado = ult!=null && (m.menos ? ult<=m.meta : ult>=m.meta);
+    hist += logrado
+      ? ` · <span class="ok">criterio alcanzado (${m.menos?"≤":"≥"}${String(m.meta).replace(".",",")}): toca progresar</span>`
+      : ` · <b>criterio: ${m.menos?"bajar de ":""}${String(m.meta).replace(".",",")}${m.esc?"º peldaño":""}</b>`;
+  }
+  return `<div class="met"><div class="met-row">${inputs}</div>
+    <div class="met-hist">${hist}</div></div>`;
+}
+
+/* Barra de tendencia. Siempre "más alta = mejor": en las métricas donde
+   menos es mejor se invierte, y se avisa. */
+function spark(vals, menos){
+  if(vals.length < 2) return "";
+  const v = vals.slice(-10);
+  const lo = Math.min(...v), hi = Math.max(...v), rango = hi - lo || 1;
+  return `<div class="spark">` + v.map((x,i)=>{
+    const norm = menos ? (hi - x)/rango : (x - lo)/rango;
+    const h = 12 + norm*88;
+    return `<i class="${i===v.length-1?"on":""}" style="height:${h}%"></i>`;
+  }).join("") + `</div>`;
+}
+
+function panelRendimiento(){
+  let html = `<div class="rend"><h3>Rendimiento</h3>
+    <p class="reg-sub">Indicadores indirectos de salto. Se llenan solos cada vez que entrenas pierna, sin test aparte. Barra más alta siempre es mejor.</p>`;
+
+  INDICADORES.forEach(ind=>{
+    const s = serie(ind.id);
+    const vals = s.map(x=>x.v);
+    html += `<div class="ind"><div class="ind-top">
+      <span class="ind-nom">${esc(ind.nom)}</span>`;
+    if(vals.length){
+      const ult = vals[vals.length-1];
+      let txt = fmtMet(ult, ind) + (ind.u ? " " + ind.u : "");
+      if(ind.par){
+        const r = s[s.length-1].met;
+        txt = fmtMet(r.sl_i) + " / " + fmtMet(r.sl_d) + " cm";
+      }
+      html += `<span class="ind-val">${esc(txt)}</span>`;
+      if(vals.length > 1){
+        const d = ult - vals[0];
+        const mejor = ind.menos ? d < 0 : d > 0;
+        const signo = d > 0 ? "+" : "";
+        html += `<span class="ind-d ${d===0?"":(mejor?"sube":"baja")}">${signo}${fmtMet(d, ind.esc?null:ind)}</span>`;
+      }
+      html += `</div>` + spark(vals, ind.menos);
+      let sub = ind.sub;
+      if(vals.length > 1) sub = `${vals.length} marcas · primera ${fmtMet(vals[0], ind)} · ` + sub;
+      if(ind.par){
+        const r = s[s.length-1].met;
+        const mx = Math.max(r.sl_i, r.sl_d), mn = Math.min(r.sl_i, r.sl_d);
+        const asim = mx>0 ? (mx-mn)/mx*100 : 0;
+        const debil = r.sl_i < r.sl_d ? "izquierda" : "derecha";
+        sub = `asimetría ${asim.toFixed(1).replace(".",",")} %, ` +
+              (asim>10 ? `por encima del 10 %: mantén la regla de empezar por la ${debil} e igualar repeticiones, y considera devolver la serie extra`
+                       : "por debajo del 10 %: puedes retirar la regla de empezar por la izquierda") + ` · ` + sub;
+      }
+      html += `<p class="ind-sub">${esc(sub)}</p>`;
+    } else {
+      html += `</div><p class="ind-vacio">Sin marcas. ${esc(ind.sub)}</p>`;
+    }
+    html += `</div>`;
+  });
+  return html + `</div>`;
+}
 
 function pintaRail(){
   aplicaAcento();
@@ -903,8 +1119,8 @@ function pintaSesion(){
           ${e.k?`<span class="hint">${e.k} contactos por serie</span>`:""}
           ${e.kb?`<span class="hint">${e.kb} contactos de baja amplitud por serie</span>`:""}
         </div>
-        <div class="apunte"><input type="text" data-ap="${id}" value="${esc(ap[id]||"")}"
-          placeholder="Apunta reps y carga: 8/10 izq, 45 s, banda media" aria-label="Apunte de ${esc(e.x)}"></div>
+        ${metDe(e) ? campoMet(e) : `<div class="apunte"><input type="text" data-ap="${id}" value="${esc(ap[id]||"")}"
+          placeholder="Nota opcional" aria-label="Nota de ${esc(e.x)}"></div>`}
         <p class="note">${esc(e.n)}</p>
       </article>`;
     });
@@ -929,9 +1145,19 @@ function pintaSesion(){
     nivel=+c.dataset.niv; await save("nivel",nivel); pinta(); });
   app.querySelectorAll("[data-lug]").forEach(c=>c.onclick=async()=>{
     lugar=c.dataset.lug; await save("lugar",lugar); pinta(); });
+  app.querySelectorAll("[data-met]").forEach(inp=>{
+    inp.oninput = ()=>{
+      if(!activa || activa.id!==sel.id) activa = {id:sel.id, inicio:hoyISO(), hechas:{}, apuntes:{}, met:{}};
+      if(!activa.met) activa.met = {};
+      const v = parseFloat(inp.value);
+      if(isFinite(v)) activa.met[inp.dataset.met] = v;
+      else delete activa.met[inp.dataset.met];
+    };
+    inp.onchange = ()=>{ if(activa) save("activa", activa); };
+  });
   app.querySelectorAll("[data-ap]").forEach(inp=>{
     inp.oninput = ()=>{
-      if(!activa || activa.id!==sel.id) activa = {id:sel.id, inicio:hoyISO(), hechas:{}, apuntes:{}};
+      if(!activa || activa.id!==sel.id) activa = {id:sel.id, inicio:hoyISO(), hechas:{}, apuntes:{}, met:{}};
       if(!activa.apuntes) activa.apuntes = {};
       activa.apuntes[inp.dataset.ap] = inp.value;
     };
@@ -960,6 +1186,11 @@ function pintaPartido(){
   <div class="opt">${Object.keys(DEPORTES).map(d=>
     `<button class="chip" data-dep="${d}" aria-pressed="${d===pDeporte}">${d}</button>`).join("")}</div>
 
+  <div class="ctrl-lab">¿Cómo saltaste hoy?</div>
+  <div class="opt">${[1,2,3,4,5].map(v=>
+    `<button class="chip" data-s5="${v}" aria-pressed="${v===pSalto}">${v}</button>`).join("")}
+    <span class="ctrl-note" style="align-self:center;margin:0">1 pesado · 5 como nunca</span></div>
+
   <div class="ctrl-lab">Duración</div>
   <div class="opt">${DURS.map((d,i)=>
     `<button class="chip" data-dur="${i}" aria-pressed="${i===pDur}">${esc(d)}</button>`).join("")}</div>
@@ -983,6 +1214,7 @@ function pintaPartido(){
   </div>`;
 
   app.innerHTML = html;
+  app.querySelectorAll("[data-s5]").forEach(b=>b.onclick=()=>{ pSalto=+b.dataset.s5; pinta(); });
   app.querySelectorAll("[data-dep]").forEach(b=>b.onclick=()=>{ pDeporte=b.dataset.dep; pinta(); });
   app.querySelectorAll("[data-dur]").forEach(b=>b.onclick=()=>{ pDur=+b.dataset.dur; pinta(); });
   document.getElementById("regPartido").onclick = registraPartido;
@@ -992,7 +1224,7 @@ async function registraPartido(){
   const D = DEPORTES[pDeporte];
   const antes = calcKi();
   registro.unshift({id:"partido", fecha:hoyISO(), deporte:pDeporte, dur:DURS[pDur],
-                    series:1, total:1, contactos:D.k[pDur], baja:D.kb[pDur],
+                    series:1, total:1, contactos:D.k[pDur], baja:D.kb[pDur], salto5:pSalto,
                     nivel:3, ciclo:ciclo.n});
   if(D.pierna && !ciclo.hechas["piernas-r"]) ciclo.hechas["piernas-r"] = hoyISO();
   if(SESIONES.every(x=>ciclo.hechas[x.id])){
@@ -1028,14 +1260,23 @@ function pintaRegistro(){
   if(ult28.length) html += `<p class="reg-sub">Últimos 28 días por grupo: ` +
     ["Piernas","Tirón","Empuje","Partidos"].map(g=>`${g} ${grupos[g]||0}`).join(", ") + `.</p>`;
 
+  html += panelRendimiento();
+
   // --- Ki del microciclo ---
-  const K = calcKi(), TR = SAIYAN[K.nivel-1];
+  const K = calcKi(), PR = calcPrograma(), TR = SAIYAN[K.nivel-1];
   html += `<div class="ki${K.bloq?" bloq":""}" style="--aura:${K.bloq?SAIYAN[0].a:TR.a}">
     <div class="ki-orb"></div>
     <div class="ki-txt"><b>${esc(K.bloq?"Ozaru":TR.n)}</b>
-      <small>Últimos ${VENTANA} días: ${K.sesiones} sesiones, ${K.puntos.toFixed(1)} de ${META_SESIONES} puntos</small></div>
+      <small>Últimos ${VENTANA} días: ${K.sesiones} registros, ${K.puntos.toFixed(1)} de ${META_SESIONES} puntos</small></div>
     <div class="ki-pct">${Math.round(K.ki*100)}%</div>
   </div>
+  <div class="dual">
+    <div><div class="n">${Math.round(PR.ki*100)}%</div><div class="lab">Programa — solo sesiones, ${PR.sesiones} en ${VENTANA} días</div></div>
+    <div><div class="n">${Math.round(K.ki*100)}%</div><div class="lab">Carga total — con partidos, ${K.sesiones} registros</div></div>
+  </div>
+  <p class="reg-sub" style="margin-top:10px">${PR.ki < K.ki - 0.05
+    ? "La diferencia entre los dos es lo que están aportando los partidos. Si Programa sigue bajando mientras Carga se sostiene, el entrenamiento se está quedando atrás detrás de la competencia."
+    : "Programa y Carga van parejos: lo que ves es entrenamiento, no competencia."}</p>
   <p class="reg-sub" style="margin-top:10px">Ventana rodante de ${VENTANA} días, sin reinicios: el nivel refleja siempre las últimas cuatro semanas y baja si aflojas. Cada sesión aporta según la versión que elegiste, completa ${PESOLAB[3]}, reducida ${PESOLAB[2]} y mínima ${PESOLAB[1]}, multiplicado por cuánto terminaste. La meta son ${META_SESIONES} puntos.${
     K.bloq ? " Ahora mismo estás bloqueado en Ozaru por pasarte de un límite en los últimos "+BLOQUEO_DIAS+" días." : ""}</p>`;
 
@@ -1052,26 +1293,26 @@ function pintaRegistro(){
   <p class="reg-sub" style="margin-top:12px">Una sesión completa terminada aporta ${PESOLAB[3]} puntos, una reducida ${PESOLAB[2]} y una mínima ${PESOLAB[1]}. Recortar por tiempo sigue siendo mejor que no entrenar, pero ya no vale lo mismo.</p>
   <p class="reg-sub">Los colores de la aplicación toman el aura del nivel en el que estés. No es premio ni castigo: es una forma de ver de un vistazo cómo viene el mes sin tener que abrir esta pantalla.</p>`;
 
-  // --- Nivel de poder: el salto medido ---
+  // --- Test de referencia: el salto de remate real ---
   const P = poder();
   html += `<div class="poder">
-    <h3>Nivel de poder</h3>
-    <p class="sub">Tu salto de remate medido en los tests. Es el único número que dice si el programa está funcionando. Se recomiendan de 7 a 12 semanas de trabajo pliométrico para un cambio efectivo, así que la medición a las 8 semanas está en el borde inferior: si el avance es pequeño, vuelve a medir a las 16.</p>`;
+    <h3>Test de referencia</h3>
+    <p class="sub">El salto de remate con carrera, que es el objetivo y lo único que mide la técnica de aproximación. Los indicadores de arriba son ciegos a esa parte: podrías ganar diez centímetros de contramovimiento y cero de remate si el limitante está en los tres pasos. Necesita pared alta, espacio y piernas descansadas, así que va cada 16 semanas como calibración, no como seguimiento.</p>`;
   if(P){
-    html += `<div class="cifra">${P.cifra.toLocaleString("es-CO")}</div>
-      <p class="sub">Salto actual ${P.act.toFixed(1)} cm · línea base ${P.base.toFixed(1)} cm · meta ${P.meta.toFixed(1)} cm</p>
+    html += `<div class="cifra">${P.act.toFixed(1).replace(".",",")} cm</div>
+      <p class="sub">Línea base ${P.base.toFixed(1).replace(".",",")} cm · meta ${P.meta.toFixed(1).replace(".",",")} cm</p>
       <div class="bar" style="margin-top:10px"><i style="width:${Math.round(P.pct*100)}%"></i></div>
       <p class="sub" style="margin-top:8px">${
-        P.act>=P.meta ? "Meta alcanzada. El scouter no da para más." :
-        (P.n<2 ? "Registra una segunda medición dentro de 8 semanas para ver el avance."
-               : "Faltan "+(P.meta-P.act).toFixed(1)+" cm para la meta.")}</p>`;
+        P.act>=P.meta ? "Meta alcanzada."
+        : (P.n<2 ? "Una sola medición: es tu punto cero, todavía no hay tendencia."
+                 : "Faltan "+(P.meta-P.act).toFixed(1).replace(".",",")+" cm para la meta.")}</p>`;
   } else {
-    html += `<p class="sub" style="margin-top:12px">Todavía no hay mediciones. Necesitas una pared y carrera de aproximación: marca con tiza el alcance de pie y el alcance en remate, y anota los dos aquí.</p>`;
+    html += `<p class="sub" style="margin-top:12px">Sin mediciones. Marca con tiza el alcance de pie y el alcance en remate con carrera completa, y anota los dos.</p>`;
   }
   html += `<div class="form">
       <div><label for="pie">Alcance de pie (cm)</label><input id="pie" type="number" inputmode="decimal" step="0.5"></div>
       <div><label for="rem">Marca de remate (cm)</label><input id="rem" type="number" inputmode="decimal" step="0.5"></div>
-      <button class="btn" id="addSalto">Guardar medición</button>
+      <button class="btn" id="addSalto">Guardar</button>
     </div></div>`;
 
   // --- Historial de microciclos ---
@@ -1147,7 +1388,7 @@ function pintaRegistro(){
 
 async function toggle(btn){
   const id = btn.dataset.id, i = +btn.dataset.i;
-  if(!activa || activa.id!==sel.id) activa = {id:sel.id, inicio:hoyISO(), hechas:{}, apuntes:{}};
+  if(!activa || activa.id!==sel.id) activa = {id:sel.id, inicio:hoyISO(), hechas:{}, apuntes:{}, met:{}};
   const actual = activa.hechas[id] || 0;
   const nuevo = (i<=actual) ? i-1 : i;
   activa.hechas[id] = nuevo;
@@ -1169,10 +1410,11 @@ function apuntesDe(s){
 async function terminar(){
   const T = totales(sel);
   const AP = apuntesDe(sel);
+  const MT = (activa && activa.id===sel.id && activa.met) ? activa.met : {};
   const antes = calcKi();
   const up = ultimaPierna();
   registro.unshift({id:sel.id, fecha:hoyISO(), series:T.hec, total:T.ser,
-                    contactos:T.contHec, baja:T.baja, nivel:nivel, apuntes:AP,
+                    contactos:T.contHec, baja:T.baja, nivel:nivel, apuntes:AP, met:MT,
                     lugar:sel.pierna?lugar:null, ciclo:ciclo.n,
                     excedido: T.contHec > FASES[fase].tope || T.baja > TOPE_BAJA,
                     sinDescanso: !!(sel.pierna && up && diasDesde(up) < 2)});
